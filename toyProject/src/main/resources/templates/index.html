@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,27 +12,9 @@
 </head>
 <body>
 <h2>카테고리</h2>
-<button onclick="hyeeunBoard()">혜은</button>
-<button onclick="seoyunBoard()">서윤</button>
-<button onclick="yoonseoBoard()">윤서</button>
-<button onclick="yunaBoard()">윤아</button>
+<a th:href="@{/board/hyeeunBoard}"><button>혜은</button></a>
+<a th:href="@{/board/seoyunBoard}"><button>서윤</button></a>
+<a th:href="@{/board/yoonseoBoard}"><button>윤서</button></a>
+<a th:href="@{/board/yunaBoard}"><button>윤아</button></a>
 </body>
-
-<script>
-    const hyeeunBoard = () => {
-        location.href = "/board/hyeeunBoard";
-    }
-
-    const seoyunBoard = () => {
-        location.href = "/board/seoyunBoard";
-    }
-
-    const yoonseoBoard = () => {
-        location.href = "/board/yoonseoBoard";
-    }
-
-    const yunaBoard = () => {
-        location.href = "/board/yunaBoard";
-    }
-</script>
 </html>
