@@ -1,21 +1,24 @@
 # 서버 포트 설정
+
 server:
   port: 8093
 
 # database 연동 설정
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url:
+    url: jdbc:mysql://concat-1.clc60kwem0qc.ap-northeast-2.rds.amazonaws.com:3306/concat_toyDB?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
-    password:
-  thymeleaf:
-    cache: false
+    password: concat0901^^aw
+thymeleaf:
+  cache: false
 
-  # spring data jpa 설정
-  jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
-    open-in-view: false
-    show-sql: true
-    hibernate:
-      ddl-auto: create
+# spring data jpa 설정
+
+jpa:
+  database-platform: org.hibernate.dialect.MySQLDialect
+  open-in-view: false
+  show-sql: true
+hibernate:
+  ddl-auto: create
