@@ -6,9 +6,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url:
+    url: jdbc:mysql://concat-1.clc60kwem0qc.ap-northeast-2.rds.amazonaws.com:3306/concat_toyDB?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
-    password:
+    password: concat0901^^aw
   thymeleaf:
     cache: false
 
