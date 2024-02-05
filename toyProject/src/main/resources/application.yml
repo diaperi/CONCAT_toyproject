@@ -6,7 +6,14 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+<<<<<<< HEAD
    
+=======
+    url: jdbc:mysql://localhost:3306/toyProjectBoard?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: root
+  thymeleaf:
+    cache: false
 
   # spring data jpa 설정
   jpa:

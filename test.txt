@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 seoyun test
 yuna test
 yuna test
+=======
+yoonseo test!
+>>>>>>> 0fb9faa8c2017a1c85de8cdf654a7fa27a24d8eb
