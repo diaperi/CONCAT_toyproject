@@ -6,11 +6,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url:
-    username: root
-    password:
-  thymeleaf:
-    cache: false
+   
 
   # spring data jpa 설정
   jpa:
