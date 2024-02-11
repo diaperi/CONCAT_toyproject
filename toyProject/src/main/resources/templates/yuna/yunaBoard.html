@@ -5,6 +5,26 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>Board</h2>
+    <h2>게시판</h2>
+    <button onclick="saveReq()">글작성</button>
+    <a href="/board/save">글작성(링크)</a>
+    <button onclick="listReq()">글목록</button>
+    <button onclick="pagingReq()">페이징목록</button> <br><br>
+
+    <a href="/yuna/member/save">회원가입</a>
+    <a href="/yuna/member/login">로그인</a>
+    <a href="/yuna/member/">회원목록</a>
 </body>
+<script>
+    const saveReq = () => {
+        location.href = "/board/save";
+    }
+    const listReq = () => {
+        location.href = "/board/";
+    }
+    const pagingReq = () => {
+        location.href = "/board/paging";
+    }
+
+</script>
 </html>
