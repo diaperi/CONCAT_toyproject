@@ -8,11 +8,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import test.toyProject.board.yuna.dto.BoardDTO;
-import test.toyProject.board.yuna.entity.BoardEntity;
-import test.toyProject.board.yuna.entity.BoardFileEntity;
-import test.toyProject.board.yuna.repository.BoardFileRepository;
-import test.toyProject.board.yuna.repository.BoardRepository;
+import test.toyProject.board.yuna.dto.YunaBoardDTO;
+import test.toyProject.board.yuna.entity.YunaBoardEntity;
+import test.toyProject.board.yuna.entity.YunaBoardFileEntity;
+import test.toyProject.board.yuna.repository.YunaBoardFileRepository;
+import test.toyProject.board.yuna.repository.YunaBoardRepository;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,16 +22,16 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class BoardService {
-    private final BoardRepository boardRepository;
-    private final BoardFileRepository boardFileRepository;
+public class YunaBoardService {
+    private final YunaBoardRepository boardRepository;
+    private final YunaBoardFileRepository boardFileRepository;
 
-    public void save(BoardDTO boardDTO) throws IOException {
+    public void save(YunaBoardDTO boardDTO) throws IOException {
 
         // 파일 첨부 여부에 따라 로직 분리
         if (boardDTO.getBoardFile().isEmpty()) {
             // 첨부 파일 없음.
-            BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
+            YunaBoardEntity boardEntity = YunaBoardEntity.toSaveEntity(boardDTO);
             boardRepository.save(boardEntity);
         } else {
             // 첨부 파일 있음.
@@ -45,9 +45,9 @@ public class BoardService {
                     6. board_table에 해당 데이터 save 처리
                     7. board_file_table에 해당 데이터 save 처리
                  */
-            BoardEntity boardEntity = BoardEntity.toSaveFileEntity(boardDTO);
+            YunaBoardEntity boardEntity = YunaBoardEntity.toSaveFileEntity(boardDTO);
             Long savedId = boardRepository.save(boardEntity).getId();
-            BoardEntity board = boardRepository.findById(savedId).get();
+            YunaBoardEntity board = boardRepository.findById(savedId).get();
 
             for (MultipartFile boardFile : boardDTO.getBoardFile()) {
                 //                  MultipartFile boardFile = boardDTO.getBoardFile(); // 1.
@@ -58,18 +58,18 @@ public class BoardService {
                 boardFile.transferTo(new File(savePath)); // 5.
 
 
-                BoardFileEntity boardFileEntity = BoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
+                YunaBoardFileEntity boardFileEntity = YunaBoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
                 boardFileRepository.save(boardFileEntity);
             }
         }
     }
 
     @Transactional
-    public List<BoardDTO> findAll() {
-        List<BoardEntity> boardEntityList = boardRepository.findAll();
-        List<BoardDTO> boardDTOList = new ArrayList<>();
-        for (BoardEntity boardEntity : boardEntityList) {
-            boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+    public List<YunaBoardDTO> findAll() {
+        List<YunaBoardEntity> boardEntityList = boardRepository.findAll();
+        List<YunaBoardDTO> boardDTOList = new ArrayList<>();
+        for (YunaBoardEntity boardEntity : boardEntityList) {
+            boardDTOList.add(YunaBoardDTO.toBoardDTO(boardEntity));
         }
         return boardDTOList;
     }
@@ -80,11 +80,11 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardDTO findById(Long id) {
-        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
+    public YunaBoardDTO findById(Long id) {
+        Optional<YunaBoardEntity> optionalBoardEntity = boardRepository.findById(id);
         if (optionalBoardEntity.isPresent()) {
-            BoardEntity boardEntity = optionalBoardEntity.get();
-            BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
+            YunaBoardEntity boardEntity = optionalBoardEntity.get();
+            YunaBoardDTO boardDTO = YunaBoardDTO.toBoardDTO(boardEntity);
             return boardDTO;
         } else {
             return null;
@@ -94,8 +94,8 @@ public class BoardService {
     // spring data jpa는 따로 update를 위한 메서드는 없음.
     // save 가지고 업데이트, 인서트도 함.
     // 업데이트, 인서트를 구분하는 기준은 id 값의 유무
-    public BoardDTO update(BoardDTO boardDTO) {
-        BoardEntity boardEntity = BoardEntity.toUpdateEntity(boardDTO);
+    public YunaBoardDTO update(YunaBoardDTO boardDTO) {
+        YunaBoardEntity boardEntity = YunaBoardEntity.toUpdateEntity(boardDTO);
         boardRepository.save(boardEntity);
         return findById(boardDTO.getId());
     }
@@ -104,12 +104,12 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
-    public Page<BoardDTO> paging(Pageable pageable) {
+    public Page<YunaBoardDTO> paging(Pageable pageable) {
         int page = pageable.getPageNumber() - 1;
         int pageLimit = 3; // 한 페이지에 보여줄 글 갯수
         // 한페이지당 3개씩 글을 보여주고 정렬 기준은 id 기준으로 내림차순 정렬
         // page 위치에 있는 값은 0부터 시작
-        Page<BoardEntity> boardEntities =
+        Page<YunaBoardEntity> boardEntities =
                 boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
 
         System.out.println("boardEntities.getContent() = " + boardEntities.getContent()); // 요청 페이지에 해당하는 글
@@ -122,7 +122,7 @@ public class BoardService {
         System.out.println("boardEntities.isLast() = " + boardEntities.isLast()); // 마지막 페이지 여부
 
         // 목록: id, writer, title, hits, createdTime
-        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
+        Page<YunaBoardDTO> boardDTOS = boardEntities.map(board -> new YunaBoardDTO(board.getId(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
         return boardDTOS;
     }
 }

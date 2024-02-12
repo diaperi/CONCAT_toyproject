@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "yuna_board_file_table")
-public class BoardFileEntity extends BaseEntity {
+public class YunaBoardFileEntity extends YunaBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,10 +21,10 @@ public class BoardFileEntity extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
-    private BoardEntity boardEntity;
+    private YunaBoardEntity boardEntity;
 
-    public static BoardFileEntity toBoardFileEntity(BoardEntity boardEntity, String originalFileName, String storedFileName) {
-        BoardFileEntity boardFileEntity = new BoardFileEntity();
+    public static YunaBoardFileEntity toBoardFileEntity(YunaBoardEntity boardEntity, String originalFileName, String storedFileName) {
+        YunaBoardFileEntity boardFileEntity = new YunaBoardFileEntity();
         boardFileEntity.setOriginalFileName(originalFileName);
         boardFileEntity.setStoredFileName(storedFileName);
         boardFileEntity.setBoardEntity(boardEntity);

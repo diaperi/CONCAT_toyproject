@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/board")
+@RequestMapping("/board/hyeeun")
 public class HyeeunBoardController {
     private final HyeeunBoardService boardService; // 생성자 주입 방식으로 의존성을 주입받도록
     private final HyeeunCommentService commentService; // CommentService 주입받음
@@ -28,7 +28,7 @@ public class HyeeunBoardController {
 
     @GetMapping("/save")
     public String saveForm() {
-        return "save";
+        return "/board/hyeeun/save";
     } // 그 이하의 주소를 각각의 메서드 중에서 맵핑 값이 일치하는 메서드 호출(get으로 받음)
 
     @PostMapping("/save")
@@ -38,13 +38,13 @@ public class HyeeunBoardController {
         return "index";
     } // 그 이하의 주소를 각각의 메서드 중에서 맵핑 값이 일치하는 메서드 호출(post로 받음)
 
-    @GetMapping("/")
-    public String findAll(Model model) {
-        // DB에서 전체 게시글 데이터를 가져와서 list.html에 보여준다.
-        List<HyeeunBoardDTO> boardDTOList = boardService.findAll();
-        model.addAttribute("boardList", boardDTOList); // 가져온 데이터를 model 객체에 담기
-        return "list"; // list.html로 리턴
-    } // 전체 목록을 db로부터 가져와야함 -> model 객체 사용, 목록 여러개를 가져온다 -> List<BoardDTO> boardDTOList = boardService.findAll();
+//    @GetMapping("/")
+//    public String findAll(Model model) {
+//        // DB에서 전체 게시글 데이터를 가져와서 list.html에 보여준다.
+//        List<HyeeunBoardDTO> boardDTOList = boardService.findAll();
+//        model.addAttribute("boardList", boardDTOList); // 가져온 데이터를 model 객체에 담기
+//        return "list"; // list.html로 리턴
+//    } // 전체 목록을 db로부터 가져와야함 -> model 객체 사용, 목록 여러개를 가져온다 -> List<BoardDTO> boardDTOList = boardService.findAll();
 
     @GetMapping("/{id}")
     // @PageableDefault(page=1) Pageable pageable : 페이지 요청이 없는 경우에 대한 것
@@ -116,7 +116,7 @@ public class HyeeunBoardController {
         model.addAttribute("boardList", boardList);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-        return "paging"; // paging.html로 넘어감
+        return "/board/hyeeun/paging"; // paging.html로 넘어감
     }
 
     }

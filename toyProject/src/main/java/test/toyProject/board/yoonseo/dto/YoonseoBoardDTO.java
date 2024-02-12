@@ -3,8 +3,8 @@ package test.toyProject.board.yoonseo.dto;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
-import test.toyProject.board.yoonseo.entity.BoardEntity;
-import test.toyProject.board.yoonseo.entity.BoardFileEntity;
+import test.toyProject.board.yoonseo.entity.YoonseoBoardEntity;
+import test.toyProject.board.yoonseo.entity.YoonseoBoardFileEntity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor //기본생성자
 @AllArgsConstructor // 모든 필드를 매개변수로 하는 생성자
-public class BoardDTO {
+public class YoonseoBoardDTO {
     private Long id;
     private String boardWriter;
     private String boardPass;
@@ -31,7 +31,7 @@ public class BoardDTO {
     private List<String> storedFileName;
     private int fileAttached; //파일 첨부여부를 1과 0으로 구분하지만 board/id url이 출력되지 않았을 때 추가하니 정상작동됨.
 
-    public BoardDTO(Long id, String boardWriter, String boardTitle, int boardHits, LocalDateTime createdTime) {
+    public YoonseoBoardDTO(Long id, String boardWriter, String boardTitle, int boardHits, LocalDateTime createdTime) {
         this.id = id;
         this.boardWriter = boardWriter;
         this.boardTitle = boardTitle;
@@ -40,8 +40,8 @@ public class BoardDTO {
 
     }
 
-    public static BoardDTO toBoardDTO(BoardEntity boardEntity) {
-        BoardDTO boardDTO = new BoardDTO();
+    public static YoonseoBoardDTO toBoardDTO(YoonseoBoardEntity boardEntity) {
+        YoonseoBoardDTO boardDTO = new YoonseoBoardDTO();
         boardDTO.setId(boardEntity.getId());
         boardDTO.setBoardWriter(boardEntity.getBoardWriter());
         boardDTO.setBoardPass(boardEntity.getBoardPass());
@@ -58,7 +58,7 @@ public class BoardDTO {
             List<String> originalFileNameList = new ArrayList<>();
             List<String> storedFileNameList = new ArrayList<>();
             boardDTO.setFileAttached(boardEntity.getFileAttached()); // 1
-            for( BoardFileEntity boardFileEntity: boardEntity.getBoardFileEntityList()){
+            for( YoonseoBoardFileEntity boardFileEntity: boardEntity.getBoardFileEntityList()){
                 originalFileNameList.add(boardFileEntity.getOriginalFileName());
                 storedFileNameList.add(boardFileEntity.getStoredFileName());
             }

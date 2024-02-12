@@ -1,4 +1,4 @@
-package test.toyProject.board.yoonseo.entity;
+package test.toyProject.board.yuna.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -9,17 +9,16 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Getter
-
-public class BaseEntity {
-    @CreationTimestamp //생성시간
-    @Column(updatable = false) // 수정시 관여X
+public class YunaBaseEntity {
+    @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdTime;
 
-
-    @UpdateTimestamp// 업데이트 되었을 때
-    @Column(insertable = false) // 입력시 관여X
+    @UpdateTimestamp
+    @Column(insertable = false)
     private LocalDateTime updatedTime;
 }

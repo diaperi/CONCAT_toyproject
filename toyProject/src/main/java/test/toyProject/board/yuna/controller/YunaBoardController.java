@@ -8,8 +8,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import test.toyProject.board.yuna.dto.BoardDTO;
-import test.toyProject.board.yuna.service.BoardService;
+import test.toyProject.board.yuna.dto.YunaBoardDTO;
+import test.toyProject.board.yuna.service.YunaBoardService;
 import test.toyProject.user.dto.UserDTO;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/board/yuna")
 public class YunaBoardController {
-    private final BoardService boardService;
+    private final YunaBoardService boardService;
     @GetMapping("/yunaBoard")
     public String yunaBoard() {
         return "/board/yuna/yunaBoard";
@@ -46,14 +46,14 @@ public class YunaBoardController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
+    public String save(@ModelAttribute YunaBoardDTO boardDTO) throws IOException {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
         return "/board/yuna/yunaBoard";
     }
     @GetMapping("/")
     public String findAll(Model model) {
-        List<BoardDTO> boardDTOList = boardService.findAll();
+        List<YunaBoardDTO> boardDTOList = boardService.findAll();
         model.addAttribute("boardList", boardDTOList);
         return "yuna/list";
     }
@@ -63,7 +63,7 @@ public class YunaBoardController {
                            @PageableDefault(page=1) Pageable pageable) {
 
         boardService.updateHits(id);
-        BoardDTO boardDTO = boardService.findById(id);
+        YunaBoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
         model.addAttribute("page", pageable.getPageNumber());
         return "yuna/detail";
@@ -71,14 +71,14 @@ public class YunaBoardController {
 
     @GetMapping("/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
-        BoardDTO boardDTO = boardService.findById(id);
+        YunaBoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardUpdate", boardDTO);
         return "yuna/update";
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
-        BoardDTO board = boardService.update(boardDTO);
+    public String update(@ModelAttribute YunaBoardDTO boardDTO, Model model) {
+        YunaBoardDTO board = boardService.update(boardDTO);
         model.addAttribute("board", board);
         return "yuna/detail";
     }
@@ -91,7 +91,7 @@ public class YunaBoardController {
     @GetMapping("/paging")
     public String paging(@PageableDefault(page = 1) Pageable pageable, Model model) {
 //        pageable.getPageNumber();
-        Page<BoardDTO> boardList = boardService.paging(pageable);
+        Page<YunaBoardDTO> boardList = boardService.paging(pageable);
         int blockLimit = 3;
         int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
         int endPage = ((startPage + blockLimit - 1) < boardList.getTotalPages()) ? startPage + blockLimit - 1 : boardList.getTotalPages();
@@ -100,7 +100,7 @@ public class YunaBoardController {
         model.addAttribute("boardList", boardList);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-        return "yuna/paging";
+        return "/board/yuna/paging";
 
     }
 }

@@ -16,12 +16,13 @@ import test.toyProject.user.service.UserService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    private final  UserService userService;
+    private final  UserRepository userRepository;
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserRepository userRepository;
-
+    public UserController(UserService userService, UserRepository userRepository) {
+        this.userService = userService;
+        this.userRepository = userRepository;
+    }
     @GetMapping("/signup")
     public String showSignupForm(){
         return "/user/signup";
@@ -46,7 +47,7 @@ public class UserController {
         if(loginResult != null){
             // login 성공
             session.setAttribute("loggedInUser", loginResult);
-            return "/index";
+            return "/main/communityMain";
         }else{
             // login 실패
             return "/user/login";
@@ -56,7 +57,7 @@ public class UserController {
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return "/index";
+        return "/user/login";
     }
 
     @PostMapping("/email-check")

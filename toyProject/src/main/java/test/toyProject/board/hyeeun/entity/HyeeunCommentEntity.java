@@ -8,7 +8,7 @@ import test.toyProject.board.hyeeun.dto.HyeeunCommentDTO;
 @Entity
 @Getter
 @Setter
-@Table(name = "comment_table")
+@Table(name = "hyeeun_comment_table")
 // comment의 자식
 public class HyeeunCommentEntity  extends HyeeunBaseEntity {
     @Id
