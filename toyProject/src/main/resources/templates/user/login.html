@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+</head>
+<body>
+<div class="log_topGroup">
+    <div class="log_langBtn">
+        <select name="" id="">
+            <option value="Eng">English</option>
+            <option value="Korea">Korea</option>
+        </select>
+        <div class="log_signBtn">
+            <a href="">Sign in</a>
+        </div>
+        <div class="log_regisBtn">
+            <a href="">Register</a>
+        </div>
+    </div>
+</div>
+<div class="log_leftGroup">
+    <span>Welcome to</span>
+    <span>[Your Platform Name]</span>
+    <span>Here, we believe that building a strong</span>
+    <div class="log_leftSignBtn">
+        <a href="">Join Now!</a>
+    </div>
+</div>
+<div class="log_rightGroup">
+    <span>로그인</span>
+    <form action="" th:action="@{/user/login}" method="post">
+        <div class="log_emailInput">
+            <input type="email" placeholder="Enter Email or Phone" name="email">
+        </div>
+        <div class="log_pwInput">
+            <input type="password" placeholder="Password" name="password">
+        </div>
+        <div class="log_forgotPw">
+            <a href="">비밀번호를 잊으셨나요?</a>
+        </div>
+        <div class="log_loginBtn">
+            <button type="submit">로그인</button>
+        </div>
+    </form>
+    <div class="log_signBtn2">
+        <a href="/register">회원가입</a>
+    </div>
+</div>
+</body>
+</html>
