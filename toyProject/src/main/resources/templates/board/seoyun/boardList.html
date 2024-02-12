@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시물 목록</title>
+  <style>
+    .list_profileImg{
+      border: 1px solid;
+      width: 40px;
+      height: 40px;
+      border-radius: 50px
+    }
+    .list_like{
+      font-size: 25px;
+    }
+    .list_boardGroup{
+      display: flex;
+      margin-top: 20px;
+    }
+    .list_titleGroup{
+      background-color: aliceblue;
+      width: 400px;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="list_count">
+  <span>전체글</span>
+  <span>10</span>
+  <span>/</span>
+  <span id="totalPosts" th:text="${totalCount}"></span>
+</div>
+<div class="list_boardGroup" th:each="board : ${boardList}">
+  <div class="list_profileImg">
+    <img src="" alt="">
+  </div>
+  <div class="list_titleGroup">
+    <a th:href="@{|/board/seoyun/${board.id}|}" th:text="${board.boardTitle}"></a>
+  </div>
+  <div class="list_like">
+    <span>❤️</span>
+  </div>
+</div>
+
+<!-- 첫번째 페이지로 이동 -->
+<!-- /board/paging?page=1 -->
+<a th:href="@{/board/seoyun/boardList(page=1)}">First</a>
+<!-- 이전 링크 활성화 비활성화 -->
+<!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
+<a th:href="${boardList.first} ? '#' : @{/board/seoyun/boardList(page=${boardList.number})}">prev</a>
+
+<!-- 페이지 번호 링크(현재 페이지는 숫자만)
+        for(int page=startPage; page<=endPage; page++)-->
+<span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+<!-- 현재페이지는 링크 없이 숫자만 -->
+    <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>
+  <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
+    <span th:unless="${page == boardList.number + 1}">
+        <a th:href="@{/board/seoyun/boardList(page=${page})}" th:text="${page}"></a>
+    </span>
+</span>
+
+<!-- 다음 링크 활성화 비활성화
+    사용자: 2페이지, getNumber: 1, 3페이지-->
+<a th:href="${boardList.last} ? '#' : @{/board/seoyun/boardList(page=${boardList.number + 2})}">next</a>
+<!-- 마지막 페이지로 이동 -->
+<a th:href="@{/board/seoyun/boardList(page=${boardList.totalPages})}">Last</a>
+
+
+
+
+
+<script>
+  // AJAX를 사용하여 백엔드 API 호출
+  fetch('/board/seoyun/listCount')
+          .then(response => response.json())
+          .then(data => {
+            // 전체 게시물 개수를 가져와서 표시
+            document.getElementById('totalPosts').textContent = data.totalCount;
+          })
+          .catch(error => console.error('Error:', error));
+</script>
+</body>
+
+</html>
