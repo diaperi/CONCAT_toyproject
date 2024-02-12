@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "board_file_table")
+@Table(name = "seoyun_board_file_table")
 public class SeoyunBoardFileEntity extends SeoyunBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

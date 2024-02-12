@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/comment")
+@RequestMapping("/seoyun/comment")
 public class SeoyunCommentController {
 
     private final SeoyunCommentService commentService;

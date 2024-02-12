@@ -8,7 +8,7 @@ import test.toyProject.board.yuna.dto.CommentDTO;
 @Entity
 @Getter
 @Setter
-@Table(name = "comment_table")
+@Table(name = "yuna_comment_table")
 public class CommentEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -46,7 +46,7 @@ public class UserController {
         if(loginResult != null){
             // login 성공
             session.setAttribute("loggedInUser", loginResult);
-            return "/board/seoyun/seoyunBoard";
+            return "/index";
         }else{
             // login 실패
             return "/user/login";
