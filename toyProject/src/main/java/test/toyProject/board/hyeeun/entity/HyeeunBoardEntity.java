@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "board_table") // 특정 테이블 이름을 따로 주고 싶다면 사용
+@Table(name = "hyeeun_board_table") // 특정 테이블 이름을 따로 주고 싶다면 사용
 public class HyeeunBoardEntity extends HyeeunBaseEntity {
     @Id // pk 컬럼 지정. 필수
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment

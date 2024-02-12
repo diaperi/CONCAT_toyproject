@@ -6,7 +6,7 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "board_file_table")
+@Table(name = "hyeeun_board_file_table")
 public class HyeeunBoardFileEntity extends HyeeunBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

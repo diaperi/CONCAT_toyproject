@@ -1,12 +1,12 @@
-<div class="navBarGroup">
+<div class="navBarGroup" th:fragment="navBar">
     <div>
         <a href="">커뮤니티</a>
     </div>
     <div>
-        <a href="">게시글 목록</a>
+        <a th:href="@{/board/seoyun/boardList}">게시글 목록</a>
     </div>
     <div>
-        <a href="">게시글 등록</a>
+        <a th:href="@{/board/seoyun/seoyunSave}">게시글 등록</a>
     </div>
     <div>
         <a href="">좋아요</a>

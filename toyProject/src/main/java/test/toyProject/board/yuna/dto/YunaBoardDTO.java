@@ -2,8 +2,8 @@ package test.toyProject.board.yuna.dto;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
-import test.toyProject.board.yuna.entity.BoardEntity;
-import test.toyProject.board.yuna.entity.BoardFileEntity;
+import test.toyProject.board.yuna.entity.YunaBoardEntity;
+import test.toyProject.board.yuna.entity.YunaBoardFileEntity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardDTO {
+public class YunaBoardDTO {
     private Long id;
     private String boardWriter;
     private String boardPass;
@@ -29,7 +29,7 @@ public class BoardDTO {
     private List<String> storedFileName;
     private int fileAttached;
 
-    public BoardDTO(Long id, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime) {
+    public YunaBoardDTO(Long id, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime) {
         this.id = id;
         this.boardWriter = boardWriter;
         this.boardTitle = boardTitle;
@@ -37,8 +37,8 @@ public class BoardDTO {
         this.boardCreatedTime = boardCreatedTime;
     }
 
-    public static BoardDTO toBoardDTO(BoardEntity boardEntity) {
-        BoardDTO boardDTO = new BoardDTO();
+    public static YunaBoardDTO toBoardDTO(YunaBoardEntity boardEntity) {
+        YunaBoardDTO boardDTO = new YunaBoardDTO();
         boardDTO.setId(boardEntity.getId());
         boardDTO.setBoardWriter(boardEntity.getBoardWriter());
         boardDTO.setBoardPass(boardEntity.getBoardPass());
@@ -53,7 +53,7 @@ public class BoardDTO {
             List<String> originalFileNameList = new ArrayList<>();
             List<String> storedFileNameList = new ArrayList<>();
             boardDTO.setFileAttached(boardEntity.getFileAttached()); // 1
-            for(BoardFileEntity boardFileEntity: boardEntity.getBoardFileEntityList()) {
+            for(YunaBoardFileEntity boardFileEntity: boardEntity.getBoardFileEntityList()) {
 
                 originalFileNameList.add(boardFileEntity.getOriginalFileName());
                 storedFileNameList.add(boardFileEntity.getStoredFileName());

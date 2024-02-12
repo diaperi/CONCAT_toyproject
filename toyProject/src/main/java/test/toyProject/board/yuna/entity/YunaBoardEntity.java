@@ -3,7 +3,7 @@ package test.toyProject.board.yuna.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import test.toyProject.board.yuna.dto.BoardDTO;
+import test.toyProject.board.yuna.dto.YunaBoardDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "yuna_board_table")
-public class BoardEntity extends BaseEntity {
+public class YunaBoardEntity extends YunaBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,10 +36,10 @@ public class BoardEntity extends BaseEntity {
     private int fileAttached;
 
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
+    private List<YunaBoardFileEntity> boardFileEntityList = new ArrayList<>();
 
-    public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
-        BoardEntity boardEntity = new BoardEntity();
+    public static YunaBoardEntity toSaveEntity(YunaBoardDTO boardDTO) {
+        YunaBoardEntity boardEntity = new YunaBoardEntity();
 
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardPass(boardDTO.getBoardPass());
@@ -50,8 +50,8 @@ public class BoardEntity extends BaseEntity {
         return boardEntity;
     }
 
-    public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
-        BoardEntity boardEntity = new BoardEntity();
+    public static YunaBoardEntity toUpdateEntity(YunaBoardDTO boardDTO) {
+        YunaBoardEntity boardEntity = new YunaBoardEntity();
 
         boardEntity.setId(boardDTO.getId());
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
@@ -62,8 +62,8 @@ public class BoardEntity extends BaseEntity {
         return boardEntity;
     }
 
-    public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
-        BoardEntity boardEntity = new BoardEntity();
+    public static YunaBoardEntity toSaveFileEntity(YunaBoardDTO boardDTO) {
+        YunaBoardEntity boardEntity = new YunaBoardEntity();
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());

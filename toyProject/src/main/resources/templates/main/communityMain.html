@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>community Main</title>
     <script src="https://kit.fontawesome.com/a06d7ad725.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-<div th:include="~/main//header :: header"></div>
-<div th:include="~/main//navBar :: navBar"></div>
+<div th:replace="/main/header.html :: header"></div>
+<div th:replace="/main/navBar.html :: navBar"></div>
+
+
 <div class="main_topGroup">
     <div>
         <p>어서오세요</p>
         <p>이곳은 커뮤니티 공간입니다.</p>
         <p>게시물을 등록하시고 자유롭게 이용해 주시기 바랍니다</p>
     </div>
-    <button>게시물 작성</button>
+    <a th:href="@{/board/seoyun/seoyunSave}">게시물 작성</a>
 </div>
 <div class="main_middleGroup">
     <div class="main_commentGroup">
@@ -87,6 +90,16 @@
         });
     })
     /*]]>*/
+
+    // 모달 열기/닫기 함수
+    function toggleModal() {
+        var modal = document.getElementById('logoutPopup');
+        if (modal.style.display === 'block') {
+            modal.style.display = 'none'; // 모달이 열려있으면 닫기
+        } else {
+            modal.style.display = 'block'; // 모달이 닫혀있으면 열기
+        }
+    }
 </script>
 </body>
 </html>

@@ -3,7 +3,7 @@ package test.toyProject.board.yoonseo.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import test.toyProject.board.yoonseo.dto.BoardDTO;
+import test.toyProject.board.yoonseo.dto.YoonseoBoardDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name="board_table")
-public class BoardEntity extends BaseEntity {
+@Table(name="yoonseo_board_table")
+public class YoonseoBoardEntity extends YoonseoBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,13 +36,13 @@ public class BoardEntity extends BaseEntity {
     private int fileAttached;
 
     @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<BoardFileEntity> boardFileEntityList = new ArrayList<>();
+    private List<YoonseoBoardFileEntity> boardFileEntityList = new ArrayList<>();
 
 
 
 
-    public static BoardEntity toSaveEntity(BoardDTO boardDTO){
-        BoardEntity boardEntity = new BoardEntity();
+    public static YoonseoBoardEntity toSaveEntity(YoonseoBoardDTO boardDTO){
+        YoonseoBoardEntity boardEntity = new YoonseoBoardEntity();
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
@@ -53,8 +53,8 @@ public class BoardEntity extends BaseEntity {
         return boardEntity;
     }
 
-    public static BoardEntity toUpdateEntity(BoardDTO boardDTO) {
-        BoardEntity boardEntity = new BoardEntity();
+    public static YoonseoBoardEntity toUpdateEntity(YoonseoBoardDTO boardDTO) {
+        YoonseoBoardEntity boardEntity = new YoonseoBoardEntity();
         boardEntity.setId(boardDTO.getId());
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardPass(boardDTO.getBoardPass());
@@ -64,8 +64,8 @@ public class BoardEntity extends BaseEntity {
         return boardEntity;
     }
 
-    public static BoardEntity toSaveFileEntity(BoardDTO boardDTO) {
-        BoardEntity boardEntity = new BoardEntity();
+    public static YoonseoBoardEntity toSaveFileEntity(YoonseoBoardDTO boardDTO) {
+        YoonseoBoardEntity boardEntity = new YoonseoBoardEntity();
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardPass(boardDTO.getBoardPass());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
