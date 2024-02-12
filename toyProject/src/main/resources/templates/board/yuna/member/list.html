@@ -23,10 +23,10 @@
         <td>
             <!-- query string /member?id=1
                 rest api /member/1 -->
-            <a th:href="@{|/yuna/member/${member.id}|}">조회</a>
+            <a th:href="@{|/templates/board/yuna/member/${member.id}|}">조회</a>
         </td>
         <td>
-            <a th:href="@{|/yuna/member/delete/${member.id}|}">삭제</a>
+            <a th:href="@{|/templates/board/yuna/member/delete/${member.id}|}">삭제</a>
         </td>
     </tr>
 </table>

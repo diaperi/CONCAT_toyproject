@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/comment")
+@RequestMapping("/yuna/comment")
 public class CommentController {
     private final CommentService commentService;
     @PostMapping("/save")

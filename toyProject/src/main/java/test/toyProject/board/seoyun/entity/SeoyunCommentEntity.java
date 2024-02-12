@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "comment_table")
+@Table(name = "seoyun_comment_table")
 public class SeoyunCommentEntity extends SeoyunBaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

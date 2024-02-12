@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "board_table")
+@Table(name = "seoyun_board_table")
 public class SeoyunBoardEntity extends SeoyunBaseEntity{
     @Id // pk 컬럼 지정. 필수
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment

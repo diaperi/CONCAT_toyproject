@@ -10,36 +10,46 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import test.toyProject.board.yuna.dto.BoardDTO;
 import test.toyProject.board.yuna.service.BoardService;
+import test.toyProject.user.dto.UserDTO;
 
 import java.io.IOException;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/board")
-public class yunaBoardController {
+@RequestMapping("/board/yuna")
+public class YunaBoardController {
     private final BoardService boardService;
     @GetMapping("/yunaBoard")
-    public String yunaBoard() { return "yuna/yunaBoard"; }
+    public String yunaBoard() {
+        return "/board/yuna/yunaBoard";
+    }
+
 
     @GetMapping("/save")
     public String saveForm(HttpSession session, Model model){
 
         // 세션에서 로그인한 사용자의 이메일 가져오기
-        String loginEmail = (String) session.getAttribute("loginEmail");
-
+//        String loginEmail = (String) session.getAttribute("loginEmail");
+// 세션에 로그인 정보 있는지 확인
         // 세션에 로그인 정보가 없으면 로그인 페이지로 리다이렉트
-        if (loginEmail == null) {
-            return "redirect:/yuna/member/login";
+//        if (loginEmail == null) {
+//            return "redirect:/user/login";
+//        }
+
+        // ***서윤 씀*** user 폴더 만든거로 합치느라 변경했습니다!
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        if(loggedInUser == null) {
+            return "redirect:/user/login";
         }
-        return "yuna/board/save";
+        return "/board/yuna/save";
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
         System.out.println("boardDTO = " + boardDTO);
         boardService.save(boardDTO);
-        return "yuna/yunaBoard";
+        return "/board/yuna/yunaBoard";
     }
     @GetMapping("/")
     public String findAll(Model model) {
