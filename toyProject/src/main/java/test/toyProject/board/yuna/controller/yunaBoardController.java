@@ -32,7 +32,7 @@ public class yunaBoardController {
         if (loginEmail == null) {
             return "redirect:/yuna/member/login";
         }
-        return "yuna/board/save";
+        return "yuna/save";
     }
 
     @PostMapping("/save")
