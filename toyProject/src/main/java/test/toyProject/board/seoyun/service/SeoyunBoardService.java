@@ -56,10 +56,9 @@ public class SeoyunBoardService {
 //                  MultipartFile boardFile = boardDTO.getBoardFile(); // 1.
                 String originalFilename = boardFile.getOriginalFilename(); // 2.
                 String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 3.
-                String savePath = "C:/SpringBootStudy/SpringBootBoard/boardImg/" + storedFileName; // 4. C:/SpringBootStudy/SpringBootBoard/boardImg/9802398403948_내사진.jpg
+                String savePath = "C:/SpringBootStudy/CONCAT_toyproject/boardImg/" + storedFileName; // 4. C:/SpringBootStudy/SpringBootBoard/boardImg/9802398403948_내사진.jpg
 //                  Mac : String savePath = "/Users/사용자이름/springboot_img/" + storedFileName; // C:/springboot_img/9802398403948_내사진.jpg
                 boardFile.transferTo(new File(savePath)); // 5.
-
 
                 SeoyunBoardFileEntity boardFileEntity = SeoyunBoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
                 boardFileRepository.save(boardFileEntity);

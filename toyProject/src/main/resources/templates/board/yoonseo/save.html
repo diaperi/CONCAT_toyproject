@@ -8,6 +8,13 @@
     <title>Document</title>
 </head>
 <body>
+<select id="nameSelect" onchange="redirectToSelectedPage()">
+    <option value="">선택하세요</option>
+    <option value="/board/hyeeun/save">혜은</option>
+    <option value="/board/seoyun/seoyunSave">서윤</option>
+    <option value="/board/yoonseo/save">윤서</option>
+    <option value="/board/yuna/save">윤아</option>
+</select>
     <form action="/board/save" method="post" enctype="multipart/form-data" >
         writer: <input type="text" name="boardWriter"> <br>
         pass: <input type="text" name="boardPass"> <br>
@@ -16,5 +23,16 @@
         file: <input type="file" name="boardFile" multiple> <br>
         <input type="submit" value="글작성">
     </form>
+
+<script>
+    // 선택된 옵션에 대한 페이지로 이동
+    function redirectToSelectedPage() {
+        var selectBox = document.getElementById("nameSelect");
+        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        if (selectedValue !== "") {
+            window.location.href = selectedValue; // 선택된 페이지로 이동
+        }
+    }
+</script>
 </body>
 </html>

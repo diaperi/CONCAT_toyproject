@@ -16,21 +16,18 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/comment")
+@RequestMapping("/seoyun/comment")
 public class SeoyunCommentController {
 
     private final SeoyunCommentService commentService;
     private final UserService userService;
 
     @PostMapping("/save")
-    public ResponseEntity save(@ModelAttribute SeoyunCommentDTO commentDTO, HttpServletRequest request
-                                , HttpSession session) {
-
+    public ResponseEntity save(@ModelAttribute SeoyunCommentDTO commentDTO, HttpServletRequest request, HttpSession session) {
         UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
         if (loggedInUser != null) {
             // 로그인한 사용자의 이름을 가져와서 DTO에 설정합니다.
             commentDTO.setCommentWriter(loggedInUser.getFullName());
-
             System.out.println("commentDTO = " + commentDTO);
             Long saveResult = commentService.save(commentDTO);
             if (saveResult != null) {
@@ -43,7 +40,6 @@ public class SeoyunCommentController {
             // 로그인한 사용자 정보가 세션에 없는 경우
             return new ResponseEntity<>("로그인이 필요합니다.", HttpStatus.UNAUTHORIZED);
         }
-
     }
 
     @GetMapping("/getByBoardId/{boardId}")
