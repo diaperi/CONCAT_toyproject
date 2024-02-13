@@ -1,4 +1,3 @@
-# 서버 포트 설정
 server:
   port: 8093
 
@@ -6,6 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+#<<<<<<< HEAD
 #<<<<<<< HEAD
 
     url: jdbc:mysql://localhost:3306/toy?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
@@ -17,6 +17,19 @@ spring:
 #    username: root
 #    password: concat0901^^aw
 #>>>>>>> ddc9f35f27f02f097a08243c660a4652b60a4e7e
+#=======
+#윤서꺼?
+#     url: jdbc:mysql://localhost:3306/toy?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+#     username: root
+#     password: ys123456
+#    url: jdbc:mysql://localhost:3306/toyProjectBoard?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+#    username: root
+#    password: root
+# 혜은이꺼?
+#     url: "jdbc:mysql://localhost:3306/db_coding?serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+#     username: user_coding
+#     password: coding!^^!
+#>>>>>>> e27e9abd666384681a5d696ff66d66531c6f6bc3
   thymeleaf:
     cache: false
 
