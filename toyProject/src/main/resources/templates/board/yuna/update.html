@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>update</title>
+</head>
+<body>
+
+<form th:action="@{/board/yuna/update}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" th:value="${boardUpdate.id}">
+    <input type="hidden" name="boardWriter" th:value="${loggedInUser.fullName}">
+    <input type="text" name="boardTitle" placeholder="title" th:value="${boardUpdate.boardTitle}"> <br>
+    <textarea name="boardContents" cols="30" rows="10" th:text="${boardUpdate.boardContents}"></textarea> <br>
+    <input type="file" name="boardFile" multiple> <br>
+    <input type="submit" value="게시물 수정">
+</form>
+
+<button onclick="goToBoardList()">게시물 목록</button>
+
+<script th:inline="javascript">
+    const boardUpdate = () => {
+        const pass = [[${boardUpdate.boardPass}]];
+        const inputPass = document.getElementById("boardPass").value;
+        if (pass == inputPass) {
+            document.updateForm.submit();
+        } else {
+            alert("비밀번호가 일치하지 않습니다!");
+        }
+    }
+
+    const goToBoardList = () => {
+        // 게시물 목록 페이지로 이동
+        location.href = "/board/yuna/paging";
+    }
+</script>
+</body>

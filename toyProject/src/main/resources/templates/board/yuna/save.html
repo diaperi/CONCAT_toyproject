@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<select id="nameSelect" onchange="redirectToSelectedPage()">
+    <option value="">선택하세요</option>
+    <option value="/board/hyeeun/save">혜은</option>
+    <option value="/board/seoyun/seoyunSave">서윤</option>
+    <option value="/board/yoonseo/save">윤서</option>
+    <option value="/board/yuna/save">윤아</option>
+</select>
+<form action="/board/yuna/save" method="post" enctype="multipart/form-data">
+    <input type="text" name="boardTitle" placeholder="제목입력"> <br>
+    <textarea name="boardContents" cols="30" rows="10" placeholder="내용입력"></textarea> <br><br>
+    <input type="file" name="boardFile" multiple> <br>
+    <input type="submit" value="게시물 등록">
+</form>
+
+<script>
+    // 선택된 옵션에 대한 페이지로 이동
+    function redirectToSelectedPage() {
+        var selectBox = document.getElementById("nameSelect");
+        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        if (selectedValue !== "") {
+            window.location.href = selectedValue; // 선택된 페이지로 이동
+        }
+    }
+</script>
+</body>
+</html>
