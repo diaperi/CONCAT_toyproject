@@ -6,109 +6,132 @@
     <!-- jquery cdn -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
+<style>
+    .detail_topGroup{
+        display: flex;
+        margin-bottom: 20px;
+    }
+    .detail_writerGroup{
+        margin-right: 30px;
+    }
+    .detail_profileImg{
+        width: 30px;
+        height: 30px;
+        border: 1px solid;
+        border-radius: 50px;
+    }
+    .detail_box{
+        margin-bottom: 30px;
+    }
+</style>
 <body>
-<!-- board에 담겨 있는 각각의 필드를 꺼내서 th:text로  -->
-<table>
-    <tr>
-        <th>id</th>
-        <td th:text="${board.id}"></td>
-    </tr>
-    <tr>
-        <th>title</th>
-        <td th:text="${board.boardTitle}"></td>
-    </tr>
-    <tr>
-        <th>writer</th>
-        <td th:text="${board.boardWriter}"></td>
-    </tr>
-    <tr>
-        <th>date</th>
-        <td th:text="${board.boardCreatedTime}"></td>
-    </tr>
-    <tr>
-        <th>hits</th>
-        <td th:text="${board.boardHits}"></td>
-    </tr>
-    <tr>
-        <th>contents</th>
-        <td th:text="${board.boardContents}"></td>
-    </tr>
-    <tr th:if="${board.fileAttached == 1}">
-        <th>image</th>
-        <!-- storedFileName : 저장된 file의 이름 -->
-        <td th:each="fileName : ${board.storedFileName}">
-            <img th:src="@{|/upload/${fileName}|}" alt="">
-        </td>
-    </tr>
-</table>
-<!-- 상세 화면에서 목록으로 가는 버튼, 수정하는 버튼, 삭제하는 버튼 -->
-<button onclick="listReq()">목록</button>
-<button onclick="updateReq()">수정</button>
-<button onclick="deleteReq()">삭제</button>
-
-<!-- 댓글 작성 부분 -->
-<div id="comment-write">
-    <input type="text" id="commentWriter" placeholder="작성자">
-    <input type="text" id="commentContents" placeholder="내용">
-    <button id="comment-write-btn" onclick="commentWrite()">댓글작성</button>
+<div class="detail_box">
+    <div class="detail_topGroup">
+        <div class="detail_writerGroup">
+            <span><img th:src="${profileImgUrl}" alt="" class="detail_profileImg"></span>
+            <span>작성자 : </span>
+            <span th:text="${board.boardWriter}"></span>
+        </div>
+        <div class="detail_createDate">
+            <span th:text="${board.boardCreatedTime}"></span>
+        </div>
+    </div>
+    <div class="detail_contentGroup">
+        <div class="detail_title">
+            <span>제목 : </span>
+            <span th:text="${board.boardTitle}"></span>
+        </div>
+        <hr>
+        <div class="detail_content">
+            <span th:text="${board.boardContents}"></span>
+        </div>
+    </div>
+</div>
+<div class="detail_footGroup">
+    <span>❤️</span>
+    <span><button onclick="listReq()">게시물 목록</button></span>
+    <span><button onclick="deleteReq()">게시물 삭제</button></span>
+    <span><button onclick="updateReq()">게시물 수정</button></span>
 </div>
 
-<!-- 댓글 출력 부분 -->
-<div id="comment-list">
-    <table>
-        <tr>
-            <th>댓글번호</th>
-            <th>작성자</th>
-            <th>내용</th>
-            <th>작성시간</th>
-        </tr>
-        <tr th:each="comment: ${commentList}">
-            <!-- model에 담아온 값으로 적용 -->
-            <td th:text="${comment.id}"></td>
-            <td th:text="${comment.commentWriter}"></td>
-            <td th:text="${comment.commentContents}"></td>
-            <td th:text="${comment.commentCreatedTime}"></td>
-        </tr>
-    </table>
+
+<!-- 댓글 -->
+<div class="detail_commentGroup">
+    <div class="detail_commentInputGroup">
+        <div>
+            <span>랭업</span>
+            <span>님 게시글 댓글</span>
+        </div>
+        <hr>
+        <div class="detail_commentInput">
+            <img src="" alt="" class="detail_profileImg">
+            <textarea name="" id="commentContents" cols="50" rows="4"></textarea>
+            <div>
+                <button id="detail_commentBtn" onclick="commentWrite()">댓글 등록</button>
+            </div>
+        </div>
+    </div>
+    <div class="detail_commentContentGroup">
+        <div class="detail_commentContentGroup2" th:each="comment: ${commentList}"  id="comment-list">
+            <div class="detail_commentProfile">
+                <img src="" alt="" class="detail_profileImg">
+                <span th:text="${comment.commentWriter}"></span>
+            </div>
+            <div class="detail_commentContent">
+                <span th:text="${comment.commentContents}"></span>
+                <div>
+                    <a href="">대댓글</a>
+                    <a href="">메시지</a>
+                    <a href="">신고</a>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
+
+
+
+
 <script th:inline="javascript">
+    const loggedInUser = /*[[${loggedInUserFullName}]]*/ '';
+
     const commentWrite = () => {
-        // 자바스크립트 dom api
-        const writer = document.getElementById("commentWriter").value;
         const contents = document.getElementById("commentContents").value;
-        console.log("작성자: ", writer);
+
+        console.log("작성자: ", loggedInUser);
         console.log("내용: ", contents);
-        const id = [[${board.id}]]; // 게시글 번호
+        const id = [[${board.id}]];
         $.ajax({
             // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
             type: "post",
-            url: "/comment/save",
-            // 서버로 요청
+            url: "/hyeeun/comment/save",
             data: {
-                "commentWriter": writer,
+                "commentWriter": loggedInUser,
                 "commentContents": contents,
                 "boardId": id
             },
-            // 댓글을 추가해서 보이는 목록은 여기서
             success: function (res) {
                 console.log("요청성공", res);
-                let output = "<table>"; // 반드시 let 이어야함
-                output += "<tr><th>댓글번호</th>";
-                output += "<th>작성자</th>";
-                output += "<th>내용</th>";
-                output += "<th>작성시간</th></tr>";
+                let output = "<div class='detail_commentContentGroup2'>";
                 for (let i in res) {
-                    output += "<tr>";
-                    output += "<td>" + res[i].id + "</td>";
-                    output += "<td>" + res[i].commentWriter + "</td>";
-                    output += "<td>" + res[i].commentContents + "</td>";
-                    output += "<td>" + res[i].commentCreatedTime + "</td>";
-                    output += "</tr>";
+                    output += "<div class='detail_commentProfile'>";
+                    output += "<img src='' alt='' class='detail_profileImg'>";
+                    output += "<span>" + res[i].commentWriter + "</span>";
+                    output += "</div>";
+                    output += "<div class='detail_commentContent'>";
+                    output += "<span>" + res[i].commentContents + "</span>";
+                    output += "<div>";
+                    output += "<a href=''>대댓글</a>";
+                    output += "<a href=''>메시지</a>";
+                    output += "<a href=''>신고</a>";
+                    output += "</div>";
+                    output += "<hr>";
+                    output += "</div>";
                 }
-                output += "</table>";
+                output += "</div>";
                 document.getElementById('comment-list').innerHTML = output;
-                // 작성이 끝나면 내용을 비우겠다
                 document.getElementById('commentWriter').value = '';
                 document.getElementById('commentContents').value = '';
             },
@@ -116,24 +139,21 @@
                 console.log("요청실패", err);
             }
         });
-
     }
-
-    // 버튼각각에 대한 자바스크립트 함수 호출
     const listReq = () => {
         console.log("목록 요청");
         const page = [[${page}]];
-        location.href = "/board/paging?page="+page; // paging 목록으로 가도록 함
+        location.href = "/board/hyeeun/paging?page="+page;
     }
     const updateReq = () => {
         console.log("수정 요청");
         const id = [[${board.id}]];
-        location.href = "/board/update/" + id;
+        location.href = "/board/hyeeun/update/" + id;
     }
     const deleteReq = () => {
         console.log("삭제 요청");
         const id = [[${board.id}]];
-        location.href = "/board/delete/" + id;
+        location.href = "/board/hyeeun/delete/" + id;
     }
 </script>
 </html>

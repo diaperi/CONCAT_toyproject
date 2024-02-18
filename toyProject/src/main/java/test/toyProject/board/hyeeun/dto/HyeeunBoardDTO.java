@@ -1,6 +1,7 @@
 package test.toyProject.board.hyeeun.dto;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 import org.springframework.web.multipart.MultipartFile;
 import test.toyProject.board.hyeeun.entity.HyeeunBoardEntity;
 import test.toyProject.board.hyeeun.entity.HyeeunBoardFileEntity;
@@ -49,22 +50,22 @@ public class HyeeunBoardDTO {
         boardDTO.setBoardHits(boardEntity.getBoardHits());
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardUpdatedTime(boardEntity.getUpdatedTime());
-        if(boardEntity.getFileAttached() == 0) {
+        if(boardEntity.getFileAttached()==0){
             boardDTO.setFileAttached(boardEntity.getFileAttached()); // 0
-        } else {
+        }else{
+            // 세션을 열어서 boardFileEntityList를 로드
+            Hibernate.initialize(boardEntity.getBoardFileEntityList());
             List<String> originalFileNameList = new ArrayList<>();
             List<String> storedFileNameList = new ArrayList<>();
             boardDTO.setFileAttached(boardEntity.getFileAttached()); // 1
-            // 파일 이름을 가져가야 함.
-            for (HyeeunBoardFileEntity boardFileEntity : boardEntity.getBoardFileEntityList()) {
+            for(HyeeunBoardFileEntity boardFileEntity: boardEntity.getBoardFileEntityList()){
                 originalFileNameList.add(boardFileEntity.getOriginalFileName());
-                storedFileNameList.add(boardFileEntity.getOriginalFileName());
+                storedFileNameList.add(boardFileEntity.getStoredFileName());
             }
             boardDTO.setOriginalFileName(originalFileNameList);
             boardDTO.setStoredFileName(storedFileNameList);
         }
-
         return boardDTO;
-    } // entity 객체를 dto 객체로 옮겨담는다.
+    }
 }
 
