@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import test.toyProject.board.yoonseo.dto.YoonseoBoardDTO;
+import test.toyProject.board.yoonseo.dto.YoonseoCommentDTO;
 import test.toyProject.board.yoonseo.service.YoonseoBoardService;
+import test.toyProject.board.yoonseo.service.YoonseoCommentService;
 
 
 import java.io.IOException;
@@ -19,6 +21,8 @@ import java.util.List;
 @RequestMapping("/board/yoonseo") // 작성 시 헷갈렸던 부분. return부분을 작성할 때 html위치.
 public class YoonseoBoardController {
     private final YoonseoBoardService boardService;
+    private final YoonseoCommentService commentService;
+
 
     // 각자 게시판 페이지로 이동
     @GetMapping("/yoonseoBoard")
@@ -42,30 +46,34 @@ public class YoonseoBoardController {
     public String findAll(Model model) {
         List<YoonseoBoardDTO> boardDTOList = boardService.findAll();
         model.addAttribute("boardList", boardDTOList);
-        return "/yoonseo/list"; //list에서 -> yoonseo추가 했더니 list.html로 연결됨.
+        return "/board/yoonseo/list"; //list에서 -> yoonseo추가 했더니 list.html로 연결됨.
     }
     @GetMapping("/{id}")
     public String findById(@PathVariable Long id, Model model,@PageableDefault(page=1) Pageable pageable) {
         boardService.updateHits(id); //조회 수는 올라감, 근데 detail페이지가 안뜨는게 문제, board/1 -> 해결완료!
         YoonseoBoardDTO boardDTO = boardService.findById(id);
+        List<YoonseoCommentDTO> commentDTOList = commentService.findAll(id);
+        //여기 commentServic오류
+        model.addAttribute("commentList", commentDTOList); // model에 담아서 detail로 넘어감
+
         model.addAttribute("board", boardDTO);
         model.addAttribute("page", pageable.getPageNumber());
 
-        return "yoonseo/detail";
+        return "/boardyoonseo/detail";
     }
     //글 수정
     @GetMapping("/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         YoonseoBoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardUpdate", boardDTO);
-        return "/yoonseo/update"; //경로 설정했더니 수정됨!
+        return "/board/yoonseo/update"; //경로 설정했더니 수정됨!
     }
 
     @PostMapping("/update")
     public String update(@ModelAttribute YoonseoBoardDTO boardDTO, Model model) {
         YoonseoBoardDTO board = boardService.update(boardDTO);
         model.addAttribute("board", board);
-        return "/yoonseo/detail"; //수정후 목록 조회시 페이지가 null값이라고 나오는 문제발생.
+        return "/board/yoonseo/detail"; //수정후 목록 조회시 페이지가 null값이라고 나오는 문제발생.
 
 
     }
