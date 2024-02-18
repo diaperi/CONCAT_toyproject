@@ -1,0 +1,40 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div>
+            <img src="" alt="logo">
+        </div>
+        <div class="header_boardBtn">
+            <a href=""><i class="fa-solid fa-circle-plus"></i></a>
+        </div>
+        <div class="">
+            <a href=""><i class="fa-regular fa-bell"></i></a>
+        </div>
+        <div class="header_myPage" onclick="toggleModal()">
+            <i class="fa-solid fa-user-tie"></i>
+        </div>
+    
+    
+        <div id="logoutPopup" style="display: none;">
+            <a href="">로그아웃</a>
+        </div>
+    </body>
+
+    <script>
+    // 모달 열기/닫기 함수
+    function toggleModal() {
+        var modal = document.getElementById('logoutPopup');
+        if (modal.style.display === 'block') {
+            modal.style.display = 'none'; // 모달이 열려있으면 닫기
+        } else {
+            modal.style.display = 'block'; // 모달이 닫혀있으면 열기
+        }
+    }
+    </script>
+</html>
+    

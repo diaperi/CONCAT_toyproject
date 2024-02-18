@@ -5,15 +5,18 @@
     <title>update</title>
 </head>
 <body>
-<form action="/board/update" method="post" name="updateForm">
+
+<form th:action="@{/board/yuna/update}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" th:value="${boardUpdate.id}">
-    writer: <input type="text" name="boardWriter" th:value="${boardUpdate.boardWriter}" readonly> <br>
-    pass: <input type="text" name="boardPass" id="boardPass"> <br>
-    title: <input type="text" name="boardTitle" th:value="${boardUpdate.boardTitle}"> <br>
-    contents: <textarea name="boardContents" cols="30" rows="10" th:text="${boardUpdate.boardContents}"></textarea> <br>
-    <input type="hidden" name="boardHits" th:value="${boardUpdate.boardHits}">
-    <input type="button" value="글수정" onclick="boardUpdate()">
+    <input type="hidden" name="boardWriter" th:value="${loggedInUser.fullName}">
+    <input type="text" name="boardTitle" placeholder="title" th:value="${boardUpdate.boardTitle}"> <br>
+    <textarea name="boardContents" cols="30" rows="10" th:text="${boardUpdate.boardContents}"></textarea> <br>
+    <input type="file" name="boardFile" multiple> <br>
+    <input type="submit" value="게시물 수정">
 </form>
+
+<button onclick="goToBoardList()">게시물 목록</button>
+
 <script th:inline="javascript">
     const boardUpdate = () => {
         const pass = [[${boardUpdate.boardPass}]];
@@ -23,6 +26,11 @@
         } else {
             alert("비밀번호가 일치하지 않습니다!");
         }
+    }
+
+    const goToBoardList = () => {
+        // 게시물 목록 페이지로 이동
+        location.href = "/board/yuna/paging";
     }
 </script>
 </body>

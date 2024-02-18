@@ -6,7 +6,7 @@ import test.toyProject.board.yuna.dto.YunaCommentDTO;
 import test.toyProject.board.yuna.entity.YunaBoardEntity;
 import test.toyProject.board.yuna.entity.YunaCommentEntity;
 import test.toyProject.board.yuna.repository.YunaBoardRepository;
-import test.toyProject.board.yuna.repository.CommentRepository;
+import test.toyProject.board.yuna.repository.YunaCommentRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class YunaCommentService {
-    private final CommentRepository commentRepository;
+    private final YunaCommentRepository commentRepository;
     private final YunaBoardRepository boardRepository;
 
     public Long save(YunaCommentDTO commentDTO) {

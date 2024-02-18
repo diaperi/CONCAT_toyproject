@@ -106,7 +106,7 @@ public class YunaBoardService {
 
     public Page<YunaBoardDTO> paging(Pageable pageable) {
         int page = pageable.getPageNumber() - 1;
-        int pageLimit = 3; // 한 페이지에 보여줄 글 갯수
+        int pageLimit = 10; // 한 페이지에 보여줄 글 개수
         // 한페이지당 3개씩 글을 보여주고 정렬 기준은 id 기준으로 내림차순 정렬
         // page 위치에 있는 값은 0부터 시작
         Page<YunaBoardEntity> boardEntities =
@@ -125,4 +125,10 @@ public class YunaBoardService {
         Page<YunaBoardDTO> boardDTOS = boardEntities.map(board -> new YunaBoardDTO(board.getId(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
         return boardDTOS;
     }
+
+    // 게시글 목록에서 전체 게시글 카운트
+    public int getTotalPostCount() {
+        return boardRepository.getTotalPostCount();
+    }
+
 }

@@ -41,7 +41,7 @@ public class YoonseoBoardService {
                 // DTO에 있는 파일을 꺼내고
             String originalFilename = boardFile.getOriginalFilename(); // 파일 이름
             String storedFileName = System.currentTimeMillis() + "_" + originalFilename; // 서버에 저장할 이름 _
-            String savePath = "C:/yoonseo_img/" + storedFileName; // 실제 C:/yoonseo_img/ 경로의 파일이 존재해야함.
+            String savePath = "C:/SpringBootStudy/CONCAT_toyproject/boardImg/" + storedFileName; // 실제 C:/yoonseo_img/ 경로의 파일이 존재해야함.
             boardFile.transferTo(new File(savePath)); //저장
             YoonseoBoardFileEntity boardFileEntity = YoonseoBoardFileEntity.toBoardFileEntity(board, originalFilename, storedFileName);
             boardFileRepository.save(boardFileEntity); }

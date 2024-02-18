@@ -8,6 +8,10 @@ import test.toyProject.board.yuna.entity.YunaBoardEntity;
 
 public interface YunaBoardRepository extends JpaRepository<YunaBoardEntity, Long> {
     @Modifying
-    @Query(value = "update YoonseoBoardEntity b set b.boardHits=b.boardHits+1 where b.id=:id")
+    @Query(value = "update YunaBoardEntity b set b.boardHits=b.boardHits+1 where b.id=:id")
     void updateHits(@Param("id") Long id);
+
+    // 게시물 엔터티의 수를 세는 메서드
+    @Query("SELECT COUNT(b.id) FROM YunaBoardEntity b")
+    int getTotalPostCount();
 }

@@ -6,6 +6,8 @@
 </head>
 <body>
 <h2>안뇽~ 여기는 윤서의 게시판</h2>
+<a th:href="@{/user/signup}"><button>회원가입</button></a>
+<a th:href="@{/user/login}"><button>로그인</button></a>
 <button onclick="saveReq()">글 작성</button>
 <button onclick="listReq()">글 목록</button>
 <button onclick="pagingReq()">페이징 목록</button>
@@ -13,22 +15,18 @@
 </body>
 <script>
     const saveReq = () => {
-        location.href = "/board/save"; //여기로는 연결됨!
-
+        location.href = "/board/yoonseo/save"; //여기로는 연결됨! 일단 yoonseo경로추가함!
 
     }
     const listReq = () => {
-        location.href = "/board/";
+        location.href = "/board/";  //글 목록은 연결이 안됨.
     }
 
 
     const pagingReq = () => {
-        location.href = "/board/paging";
+        location.href = "/board/yoonseo/paging"; //여기두.
     }
 
 </script>
-
-<h2>나으 게시dfdafdfa판이다.</h2>
 </body>
-
 </html>

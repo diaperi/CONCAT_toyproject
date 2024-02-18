@@ -6,25 +6,9 @@
 </head>
 <body>
     <h2>게시판</h2>
-    <button onclick="saveReq()">글작성</button>
-    <a href="/board/yuna/save">글작성(링크)</a>
-    <button onclick="listReq()">글목록</button>
-    <button onclick="pagingReq()">페이징목록</button> <br><br>
-
-    <a href="/yuna/member/save">회원가입</a>
-    <a href="/yuna/member/login">로그인</a>
-    <a href="/yuna/member/">회원목록</a>
+    <a th:href="@{/board/yuna/save}"><button>글작성</button></a>
+    <a th:href="@{/board/yuna/paging}"><button>페이징목록</button></a>
+    <a th:href="@{/user/signup}"><button>회원가입</button></a>
+    <a th:href="@{/user/login}"><button>로그인</button></a>
 </body>
-<script>
-    const saveReq = () => {
-        location.href = "/board/yuna/save";
-    }
-    const listReq = () => {
-        location.href = "/board/";
-    }
-    const pagingReq = () => {
-        location.href = "/board/paging";
-    }
-
-</script>
 </html>
