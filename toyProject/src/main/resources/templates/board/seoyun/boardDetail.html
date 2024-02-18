@@ -49,7 +49,9 @@
     </div>
 </div>
 <div class="detail_footGroup">
-    <span>❤️</span>
+    <div class="list_like">
+        <span class="likeButton" th:data-postid="${board.id}" onclick="likePost(this)">♡</span>
+    </div>
     <span><button onclick="listReq()">게시물 목록</button></span>
     <span><button onclick="deleteReq()">게시물 삭제</button></span>
     <span><button onclick="updateReq()">게시물 수정</button></span>
@@ -156,5 +158,73 @@
         const id = [[${board.id}]];
         location.href = "/board/seoyun/delete/" + id;
     }
+
+    // 좋아요를 처리하는 함수
+    function likePost(element) {
+        let postId = element.getAttribute("data-postid");
+        postId = parseInt(postId);
+
+        // 좋아요 버튼의 현재 텍스트 가져오기
+        const currentText = element.textContent.trim();
+        // ❤️ 버튼일 경우
+        if (currentText === '❤️') {
+            // 좋아요 취소 요청
+            $.ajax({
+                type: "POST",
+                url: `/like/seoyun/${postId}/cancel`, // postId 변수 사용
+                // data: { loggedInUser: loggedInUser },
+                success: function (res) {
+                    console.log("좋아요 취소 성공:", res);
+                    // 버튼 텍스트를 ♡로 변경
+                    element.textContent = '♡';
+                },
+                error: function (err) {
+                    console.error("좋아요 취소 실패:", err);
+                }
+            });
+        } else { // ♡ 버튼일 경우
+            // 좋아요 요청
+            $.ajax({
+                type: "POST",
+                url: `/like/seoyun/${postId}`, // postId 변수 사용
+                // data: { loggedInUser: loggedInUser },
+                success: function (res) {
+                    console.log("좋아요 성공:", res);
+                    // 버튼 텍스트를 ❤️로 변경
+                    element.textContent = '❤️';
+                },
+                error: function (err) {
+                    console.error("좋아요 실패:", err);
+                }
+            });
+        }
+    }
+
+
+    // 게시물 목록에서 좋아요 버튼 초기 상태 설정
+    $(document).ready(function() {
+        // 모든 게시물에 대해 순회
+        $('.likeButton').each(function() {
+            var postId = $(this).attr('data-postid'); // 게시물 ID 가져오기
+            var likeButton = $(this); // 좋아요 버튼 가져오기
+
+            // 좋아요 정보를 가져오는 AJAX 요청
+            $.ajax({
+                type: "GET",
+                url: `/like/seoyun/${postId}/isLiked`, // 게시물에 대한 좋아요 여부 확인 API 엔드포인트
+                success: function (isLiked) {
+                    // 가져온 좋아요 정보를 기반으로 버튼 텍스트 설정
+                    if (isLiked) {
+                        likeButton.text('❤️'); // 이미 좋아요한 경우
+                    } else {
+                        likeButton.text('♡'); // 좋아요하지 않은 경우
+                    }
+                },
+                error: function (err) {
+                    console.error("좋아요 정보 가져오기 실패:", err);
+                }
+            });
+        });
+    });
 </script>
 </html>
