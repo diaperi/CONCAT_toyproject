@@ -22,7 +22,7 @@ public class HyeeunBoardController {
     private final HyeeunBoardService boardService; // 생성자 주입 방식으로 의존성을 주입받도록
     private final HyeeunCommentService commentService; // CommentService 주입받음
     @GetMapping("/hyeeunBoard")
-    public String seoyunBoard(){
+    public String hyeeunBoard(){
         return "hyeeun/hyeeunBoard";
     }
 
@@ -62,27 +62,27 @@ public class HyeeunBoardController {
 
         model.addAttribute("board", boardDTO); // model 객체를 board라는 파라미터에 담아서 출력
         model.addAttribute("page", pageable.getPageNumber()); // pageable.getPageNumber() : 여기서 담아서 detail.html로 가져가기 위한 용도
-        return "detail"; // detail.html로 넘어감
+        return "board/hyeeun/detail"; // detail.html로 넘어감
     } // pathvariable : 경로상에 있는 값을 가져올 때 사용
 
     @GetMapping("/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         HyeeunBoardDTO boardDTO = boardService.findById(id); // 해당 게시글의 정보 가져오기
         model.addAttribute("boardUpdate", boardDTO);
-        return "update"; // update.html로 넘어감
+        return "board/hyeeun/update"; // update.html로 넘어감
     } // pathvariable : 경로상에 있는 값을 가져올 때 사용 /  model : 데이터를 담아가기 위해서 필요
 
     @PostMapping("/update")
     public String update(@ModelAttribute HyeeunBoardDTO boardDTO, Model model) {
         HyeeunBoardDTO board = boardService.update(boardDTO); // update 메서드 호출
         model.addAttribute("board", board);
-        return "detail";
+        return "board/hyeeun/detail";
     } // 수정 후 수정이 반영된 상세페이지 보여주기
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         boardService.delete(id); // 서비스의 delete 메서드 호출
-        return "redirect:/board/"; // 끝나면 redirect로 목록을 호출
+        return "redirect:/board/hyeeun"; // 끝나면 redirect로 목록을 호출
     }
 
     // /board/paging?page=1

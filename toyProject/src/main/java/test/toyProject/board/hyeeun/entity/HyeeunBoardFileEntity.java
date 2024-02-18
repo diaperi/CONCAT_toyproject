@@ -12,10 +12,10 @@ public class HyeeunBoardFileEntity extends HyeeunBaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name = "original_file_name")
     private String originalFileName;
 
-    @Column
+    @Column(name = "stored_file_name")
     private String storedFileName;
 
     @ManyToOne(fetch = FetchType.LAZY) // eager : DB에서 쓰던 안쓰던 다가져옴 / lazy : 필요한 옵션만 호출해서, 보통 많이 씀

@@ -5,17 +5,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#윤서꺼?
-#     url: jdbc:mysql://localhost:3306/toy?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-#     username: root
-#     password: ys123456
-    url: jdbc:mysql://localhost:3306/toyProjectBoard?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
-    password: root
-# 혜은이꺼?
-#     url: "jdbc:mysql://localhost:3306/db_coding?serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
-#     username: user_coding
-#     password: coding!^^!
+    url: "jdbc:mysql://localhost:3306/db_coding?serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+    username: user_coding
+    password: coding!^^!
   thymeleaf:
     cache: false
 
