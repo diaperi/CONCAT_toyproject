@@ -3,7 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .profileImg{
+            border: 1px solid;
+            width: 40px;
+            height: 40px;
+            border-radius: 50px
+        }
+        .like{
+            font-size: 25px;
+        }
+        .boardGroup{
+            display: flex;
+            margin-top: 20px;
+        }
+        .title{
+            background-color: aliceblue;
+            width: 400px;
+            margin-left: 20px;
+            margin-right: 20px;
+            border-radius: 10px;
+            padding: 10px;
+        }
+    </style>
 </head>
+
 <body>
 <select id="nameSelect" onchange="redirectToSelectedPage()">
     <option value="">선택하세요</option>
@@ -12,30 +36,34 @@
     <option value="/board/yoonseo/paging">윤서</option>
     <option value="/board/yuna/paging">윤아</option>
 </select>
-<button onclick="saveReq()">글작성</button>
+<!--<button onclick="saveReq()">글작성</button>-->
 
-<table>
-    <tr>
-        <th>id</th>
-        <th>title</th>
-        <th>writer</th>
-        <th>date</th>
-        <th>hits</th>
-    </tr>
-    <tr th:each="board: ${boardList}">
-        <td th:text="${board.id}"></td>
-        <td><a th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}" th:text="${board.boardTitle}"></a></td>
-        <td th:text="${board.boardWriter}"></td>
-        <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-        <td th:text="${board.boardHits}"></td>
-    </tr>
-</table>
+<div>
+    <span>전체글</span>
+    <span>10</span>
+    <span>/</span>
+    <span id="totalPosts" th:text="${totalCount}"></span>
+</div>
+
+<div class="boardGroup" th:each="board : ${boardList}">
+    <div class="profileImg">
+        <img src="" alt="">
+    </div>
+    <div class="title">
+        <a th:href="@{|/board/yuna/${board.id}|}" th:text="${board.boardTitle}"></a>
+    </div>
+    <div class="like">
+        <span>❤️</span>
+    </div>
+</div>
+
+
 <!-- 첫번째 페이지로 이동 -->
 <!-- /board/paging?page=1 -->
-<a th:href="@{/board/paging(page=1)}">First</a>
+<a th:href="@{/board/yuna/paging(page=1)}">First</a>
 <!-- 이전 링크 활성화 비활성화 -->
 <!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
-<a th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}">prev</a>
+<a th:href="${boardList.first} ? '#' : @{/board/yuna/paging(page=${boardList.number})}">prev</a>
 
 <!-- 페이지 번호 링크(현재 페이지는 숫자만)
         for(int page=startPage; page<=endPage; page++)-->
@@ -44,22 +72,22 @@
     <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>
     <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
     <span th:unless="${page == boardList.number + 1}">
-        <a th:href="@{/board/paging(page=${page})}" th:text="${page}"></a>
+        <a th:href="@{/board/yuna/paging(page=${page})}" th:text="${page}"></a>
     </span>
 </span>
 
 <!-- 다음 링크 활성화 비활성화
     사용자: 2페이지, getNumber: 1, 3페이지-->
-<a th:href="${boardList.last} ? '#' : @{/board/paging(page=${boardList.number + 2})}">next</a>
+<a th:href="${boardList.last} ? '#' : @{/board/yuna/paging(page=${boardList.number + 2})}">next</a>
 
 <!-- 마지막 페이지로 이동 -->
-<a th:href="@{/board/paging(page=${boardList.totalPages})}">Last</a>
+<a th:href="@{/board/yuna/paging(page=${boardList.totalPages})}">Last</a>
 
 </body>
 <script>
-    const saveReq = () => {
-        location.href = "/board/save";
-    }
+    // const saveReq = () => {
+    //     location.href = "/board/yuna/save";
+    // }
 
     // 선택된 옵션에 대한 페이지로 이동
     function redirectToSelectedPage() {
@@ -69,5 +97,17 @@
             window.location.href = selectedValue; // 선택된 페이지로 이동
         }
     }
+
+    // 추가
+    // AJAX를 사용하여 백엔드 API 호출
+    fetch('/board/yuna/listCount')
+        .then(response => response.json())
+        .then(data => {
+            // 전체 게시물 개수를 가져와서 표시
+            document.getElementById('totalPosts').textContent = data.totalCount;
+        })
+        .catch(error => console.error('Error:', error));
+
+
 </script>
 </html>

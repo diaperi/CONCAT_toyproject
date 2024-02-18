@@ -6,6 +6,6 @@ import test.toyProject.board.yuna.entity.YunaCommentEntity;
 
 import java.util.List;
 
-public interface CommentRepository extends JpaRepository<YunaCommentEntity, Long> {
+public interface YunaCommentRepository extends JpaRepository<YunaCommentEntity, Long> {
     List<YunaCommentEntity> findAllByBoardEntityOrderByIdDesc(YunaBoardEntity boardEntity);
 }
