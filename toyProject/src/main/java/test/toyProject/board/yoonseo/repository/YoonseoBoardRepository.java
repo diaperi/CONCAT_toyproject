@@ -8,7 +8,10 @@ import test.toyProject.board.yoonseo.entity.YoonseoBoardEntity;
 
 public interface YoonseoBoardRepository extends JpaRepository<YoonseoBoardEntity,Long> {
     @Modifying
+
     @Query(value = "update YoonseoBoardEntity b set b.boardHits=b.boardHits+1 where b.id=:id")
     void updateHits(@Param("id") Long id);
 
+    @Query("SELECT COUNT(b.id) FROM YoonseoBoardEntity b")
+    int getTotalPostCount();
 }

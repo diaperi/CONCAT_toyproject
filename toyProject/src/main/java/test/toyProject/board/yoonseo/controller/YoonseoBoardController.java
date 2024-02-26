@@ -1,9 +1,11 @@
 package test.toyProject.board.yoonseo.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +13,14 @@ import test.toyProject.board.yoonseo.dto.YoonseoBoardDTO;
 import test.toyProject.board.yoonseo.dto.YoonseoCommentDTO;
 import test.toyProject.board.yoonseo.service.YoonseoBoardService;
 import test.toyProject.board.yoonseo.service.YoonseoCommentService;
+import test.toyProject.user.dto.UserDTO;
 
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,23 +37,53 @@ public class YoonseoBoardController {
     }
 
     @GetMapping("/save")
-    public String saveFrom(){
+    public String saveFrom(HttpSession session, Model model){
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        if(loggedInUser == null) {
+            return "redirect:/user/login";
+        }
         return "/board/yoonseo/save";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute YoonseoBoardDTO boardDTO) throws IOException { //추가
-        System.out.println("boardDTO=" + boardDTO);
-        boardService.save(boardDTO);
-        return "/board/yoonseo/yoonseoBoard"; // 전에 만들었던거에서는 index였지만 지금은 index를 yoonseoBoard로 했기에 이걸로 대체
+    public String save(@ModelAttribute YoonseoBoardDTO boardDTO, HttpSession session) throws IOException { //추가
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        if(loggedInUser != null) {
+            // 로그인한 사용자의 정보를 게시물 작성자로 설정
+            String boardWriter = loggedInUser.getFullName();
+
+            boardDTO.setBoardCreatedTime(LocalDateTime.now());
+
+            boardDTO.setBoardWriter(boardWriter);
+            System.out.println("boardDTO=" + boardDTO);
+            boardService.save(boardDTO);
+            return "/board/yoonseo/yoonseoBoard";
+        }else {
+            return "redirect:/user/login";
+        }
+
     }
     //글 목록부분
     @GetMapping("/")
     public String findAll(Model model) {
         List<YoonseoBoardDTO> boardDTOList = boardService.findAll();
         model.addAttribute("boardList", boardDTOList);
-        return "/board/yoonseo/list"; //list에서 -> yoonseo추가 했더니 list.html로 연결됨.
+        return "yoonseo/list"; //list에서 -> yoonseo추가 했더니 list.html로 연결됨.
+
     }
+
+    //게시글 목록에서 전체 게시물 카운트
+    @GetMapping("/listCount")
+    @ResponseBody // JSON 형식으로 응답하기 위해 추가
+    public ResponseEntity<Map<String, Integer>> getTotalPostCount() {
+        int totalCount = boardService.getTotalPostCount();
+
+        Map<String, Integer> response = new HashMap<>();
+        response.put("totalCount", totalCount);
+
+        return ResponseEntity.ok().body(response);
+    }
+
     @GetMapping("/{id}")
     public String findById(@PathVariable Long id, Model model,@PageableDefault(page=1) Pageable pageable) {
         boardService.updateHits(id); //조회 수는 올라감, 근데 detail페이지가 안뜨는게 문제, board/1 -> 해결완료!
@@ -59,29 +95,64 @@ public class YoonseoBoardController {
         model.addAttribute("board", boardDTO);
         model.addAttribute("page", pageable.getPageNumber());
 
-        return "/boardyoonseo/detail";
+        return "/board/yoonseo/detail";
     }
     //글 수정
     @GetMapping("/update/{id}")
-    public String updateForm(@PathVariable Long id, Model model) {
-        YoonseoBoardDTO boardDTO = boardService.findById(id);
-        model.addAttribute("boardUpdate", boardDTO);
-        return "/board/yoonseo/update"; //경로 설정했더니 수정됨!
+    public String updateForm(@PathVariable Long id, Model model,HttpSession session) {
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        if (loggedInUser != null) {
+            YoonseoBoardDTO boardDTO = boardService.findById(id);
+            if (boardDTO != null && boardDTO.getBoardWriter().equals(loggedInUser.getFullName())) {
+                model.addAttribute("boardUpdate", boardDTO);
+                model.addAttribute("loggedInUser", loggedInUser);
+                return "/board/yoonseo/update";
+            } else {
+                return "redirect:/error";
+            }
+        } else {
+            return "redirect:/user/login";
+        }
+
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute YoonseoBoardDTO boardDTO, Model model) {
-        YoonseoBoardDTO board = boardService.update(boardDTO);
-        model.addAttribute("board", board);
-        return "/board/yoonseo/detail"; //수정후 목록 조회시 페이지가 null값이라고 나오는 문제발생.
+    public String update(@ModelAttribute YoonseoBoardDTO boardDTO, Model model,HttpSession session) {
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        if (loggedInUser != null) {
+            YoonseoBoardDTO originalBoard = boardService.findById(boardDTO.getId());
+            //수정
+            if (originalBoard != null && originalBoard.getBoardWriter().equals(loggedInUser.getFullName())) {
+                YoonseoBoardDTO board = boardService.update(boardDTO);
+                model.addAttribute("board", board);
+                return "redirect:/board/yoonseo/" + board.getId();
+            } else {
+                return "redirect:/error";
+            }
+        } else {
+            return "redirect:/user/login";
+        }
 
+        //return "/board/yoonseo/detail"; //수정후 목록 조회시 페이지가 null값이라고 나오는 문제발생.
 
     }
     //삭제
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        boardService.delete(id);
-        return "redirect:/board/";
+    public String delete(@PathVariable Long id, HttpSession session) { ///역;
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        if (loggedInUser != null) {
+            YoonseoBoardDTO boardDTO = boardService.findById(id);
+            if (boardDTO != null && boardDTO.getBoardWriter().equals(loggedInUser.getFullName())) {
+                boardService.delete(id);
+                return "redirect:/board/yoonseo/list";
+            } else {
+
+                return "redirect:/error";
+            }
+        } else {
+            return "redirect:/user/login";
+        }
+
     }
 
     //페이징부분

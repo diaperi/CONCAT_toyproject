@@ -31,7 +31,7 @@ public class YoonseoBoardDTO {
     private List<String> storedFileName;
     private int fileAttached; //파일 첨부여부를 1과 0으로 구분하지만 board/id url이 출력되지 않았을 때 추가하니 정상작동됨.
 
-    public YoonseoBoardDTO(Long id, String boardWriter, String boardTitle, int boardHits, LocalDateTime createdTime) {
+    public YoonseoBoardDTO(Long id, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime) {
         this.id = id;
         this.boardWriter = boardWriter;
         this.boardTitle = boardTitle;
