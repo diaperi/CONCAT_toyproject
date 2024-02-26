@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,9 @@ import test.toyProject.board.hyeeun.service.HyeeunBoardService;
 import test.toyProject.board.hyeeun.service.HyeeunCommentService;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -85,6 +88,16 @@ public class HyeeunBoardController {
         return "redirect:/board/hyeeun"; // 끝나면 redirect로 목록을 호출
     }
 
+    @GetMapping("/listCount")
+    @ResponseBody // JSON 형식으로 응답하기 위해 추가
+    public ResponseEntity<Map<String, Integer>> getTotalPostCount() {
+        int totalCount = boardService.getTotalPostCount();
+
+        Map<String, Integer> response = new HashMap<>();
+        response.put("totalCount", totalCount);
+
+        return ResponseEntity.ok().body(response);
+    }
     // /board/paging?page=1
     @GetMapping("/paging")
     public String paging(@PageableDefault(page = 1)Pageable pageable, Model model) {

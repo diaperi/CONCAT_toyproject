@@ -122,5 +122,9 @@ public class HyeeunBoardService {
         Page<HyeeunBoardDTO> boardDTOS = boardEntities.map(board -> new HyeeunBoardDTO(board.getId(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime())); // map 안에서 하나씩 뽑아서 dto 객체로 옮겨담음
         return boardDTOS;
     }
+
+    public int getTotalPostCount() {
+        return boardRepository.getTotalPostCount();
+    }
 }
 

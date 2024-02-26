@@ -7,7 +7,6 @@ import test.toyProject.board.yoonseo.entity.YoonseoBoardEntity;
 import test.toyProject.board.yoonseo.entity.YoonseoCommentEntity;
 import test.toyProject.board.yoonseo.repository.YoonseoBoardRepository;
 import test.toyProject.board.yoonseo.repository.YoonseoCommentRepository;
-import test.toyProject.board.yuna.repository.CommentRepository;
 
 import java.util.ArrayList;
 import java.util.List;
