@@ -59,7 +59,7 @@ public class SeoyunBoardEntity extends SeoyunBaseEntity{
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(0);
-        boardEntity.setFileAttached(1); // 파일 있음.
+        boardEntity.setFileAttached(0); // 파일 있음.
         return boardEntity;
     }
 
