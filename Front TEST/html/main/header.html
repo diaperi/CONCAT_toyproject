@@ -1,40 +1,76 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <div>
-            <img src="" alt="logo">
-        </div>
-        <div class="header_boardBtn">
-            <a href=""><i class="fa-solid fa-circle-plus"></i></a>
-        </div>
-        <div class="">
-            <a href=""><i class="fa-regular fa-bell"></i></a>
-        </div>
-        <div class="header_myPage" onclick="toggleModal()">
-            <i class="fa-solid fa-user-tie"></i>
-        </div>
-    
-    
-        <div id="logoutPopup" style="display: none;">
-            <a href="">로그아웃</a>
-        </div>
-    </body>
-
-    <script>
-    // 모달 열기/닫기 함수
-    function toggleModal() {
-        var modal = document.getElementById('logoutPopup');
-        if (modal.style.display === 'block') {
-            modal.style.display = 'none'; // 모달이 열려있으면 닫기
-        } else {
-            modal.style.display = 'block'; // 모달이 닫혀있으면 열기
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>헤더</title>
+    <style>
+        h1.text {
+            text-align: center; /* 텍스트를 가운데 정렬 */
+            position: absolute; /* 절대 위치 지정 */
+            left: 50%; /* 왼쪽 위치를 부모 요소의 50%로 설정 */
+            transform: translateX(-50%); /* 수평으로 -50% 이동하여 정확히 가운데로 위치 */
+            margin: 0; /* 기본 마진 제거 */
         }
-    }
-    </script>
+        /* 헤더 스타일 */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #f0f0f0;
+            position: relative; /* h1의 절대 위치를 상대적으로 설정하기 위해 필요 */
+        }
+        .header_boardBtn img {
+            width: 90px; /* 이미지와 아이콘 크기 조정 */
+            height: auto; /* 비율 유지 */
+            margin-right: 10px; /* 간격 조정 */
+        }
+        .header_myPage img,
+        .header_notification img,
+        .option img {
+            width: 60px; /* 이미지와 아이콘 크기 조정 */
+            height: auto; /* 비율 유지 */
+        }
+        .contain {
+            margin-left: auto; /* 이미지를 오른쪽으로 정렬 */
+            display: flex;
+            align-items: center; /* 수직 정렬 */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <!-- 헤더의 가운데에 텍스트 추가 -->
+        <h1 class = "text">커뮤니티</h1>
+        <!-- 이미지 클릭시 이동되는 html 이름은 임의로 지정 -->
+        <div class="header_boardBtn">
+            <img src="img/랭업-배경없음로고.png" alt="로고">
+            <a href=""><i class="fas fa-plus-circle"></i></a>
+        </div>
+        <div class="contain">
+            <div class="header_myPage">
+                <a href="내페이지.html"><img src="img/image 1.png" alt=""></a>
+            </div>
+            <div class="header_notification">
+                <a href="공지사항.html"><img src="img/image 2.png" alt=""></a>
+            </div>
+            <div class="option">
+                <a href="설정.html"><img src="img/image 3.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
