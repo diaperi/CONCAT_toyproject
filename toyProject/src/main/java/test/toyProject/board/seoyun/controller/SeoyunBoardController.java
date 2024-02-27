@@ -62,7 +62,7 @@ public class SeoyunBoardController {
 
             System.out.println("boardDTO = " + boardDTO);
             boardService.save(boardDTO);
-            return "/board/seoyun/seoyunBoard";
+            return "redirect:/board/seoyun/boardList";
         }else {
             return "redirect:/user/login";
         }
@@ -115,13 +115,16 @@ public class SeoyunBoardController {
     // 게시물 상세
     @GetMapping("/{id}")
     public String findById(@PathVariable Long id, Model model,
-                           @PageableDefault(page = 1) Pageable pageable){
+                           @PageableDefault(page = 1) Pageable pageable,
+                           HttpSession session){
         SeoyunBoardDTO boardDTO = boardService.findById(id);
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
 
         // 댓글
         List<SeoyunCommentDTO> commentDTOList = commentService.findAll(id);
         model.addAttribute("commentList", commentDTOList);
 
+        model.addAttribute("loggedInUser", loggedInUser.getFullName());
         model.addAttribute("board", boardDTO);
         model.addAttribute("page", pageable.getPageNumber());
         return "/board/seoyun/boardDetail";

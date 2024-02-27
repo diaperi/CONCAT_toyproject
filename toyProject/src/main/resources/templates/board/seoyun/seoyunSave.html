@@ -4,21 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>save</title>
+    <link rel="stylesheet" href="/css/community/save.css">
 </head>
 <body>
-<select id="nameSelect" onchange="redirectToSelectedPage()">
-    <option value="">선택하세요</option>
-    <option value="/board/hyeeun/save">혜은</option>
-    <option value="/board/seoyun/seoyunSave">서윤</option>
-    <option value="/board/yoonseo/save">윤서</option>
-    <option value="/board/yuna/save">윤아</option>
-</select>
-<form action="/board/seoyun/seoyunSave" method="post" enctype="multipart/form-data" id="saveForm">
-    <input type="text" name="boardTitle" placeholder="제목입력"> <br>
-    <textarea name="boardContents" id="" cols="30" rows="10" placeholder="본문입력"></textarea> <br>
-    첨부파일: <input type="file" name="boardFile" multiple> <br>
-    <input type="submit" value="게시물 등록">
-</form>
+    <div class="saveGroup">
+        <div>
+            <select id="nameSelect" onchange="redirectToSelectedPage()">
+                <option value="">선택하세요</option>
+                <option value="/board/hyeeun/save">혜은</option>
+                <option value="/board/seoyun/seoyunSave">서윤</option>
+                <option value="/board/yoonseo/save">윤서</option>
+                <option value="/board/yuna/save">윤아</option>
+            </select>
+        </div>
+        <form action="/board/seoyun/seoyunSave" method="post" enctype="multipart/form-data" id="saveForm" class="saveForm">
+            <div class="saveWrite">
+                <input type="text" name="boardTitle" placeholder="제목 입력" class="boardTitle"> <br>
+                <textarea name="boardContents" id="" cols="30" rows="10" placeholder="본문 입력" class="boardContents"></textarea> <br>
+                <input type="file" name="boardFile" multiple class="boardFile">
+            </div>
+            <input type="submit" value="게시물 등록" class="saveBtn">
+        </form>
+    </div>
 
 
 

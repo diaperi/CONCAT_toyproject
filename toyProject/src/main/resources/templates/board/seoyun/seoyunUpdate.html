@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>update</title>
+    <link rel="stylesheet" href="/css/community/update.css">
 </head>
 <body>
-
-<form th:action="@{/board/seoyun/update}" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="id" th:value="${boardUpdate.id}">
-    <input type="hidden" name="boardWriter" th:value="${loggedInUser.fullName}">
-    <input type="text" name="boardTitle" placeholder="제목입력" th:value="${boardUpdate.boardTitle}"> <br>
-    <textarea name="boardContents" id="" cols="30" rows="10" placeholder="본문입력" th:text="${boardUpdate.boardContents}"></textarea> <br>
-    첨부파일: <input type="file" name="boardFile" multiple> <br>
-    <input type="submit" value="게시물 수정">
-</form>
+<div class="saveGroup">
+    <form th:action="@{/board/seoyun/update}" method="post" enctype="multipart/form-data" class="saveForm">
+        <div class="saveWrite">
+            <input type="hidden" name="id" th:value="${boardUpdate.id}">
+            <input type="hidden" name="boardWriter" th:value="${loggedInUser.fullName}">
+            <input type="text" name="boardTitle" placeholder="제목입력" th:value="${boardUpdate.boardTitle}" class="boardTitle"> <br>
+            <textarea name="boardContents" id="" cols="30" rows="10" placeholder="본문입력" th:text="${boardUpdate.boardContents}" class="boardContents"></textarea> <br>
+        </div>
+        <div class="updateBtnGroup">
+            <input type="submit" value="게시물 목록" class="updateGoList">
+            <input type="submit" value="게시물 수정" class="saveBtn">
+        </div>
+    </form>
+</div>
 
 </body>
 </html>

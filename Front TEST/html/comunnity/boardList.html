@@ -4,44 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시물 목록</title>
-    <style>
-        .list_profileImg{
-            border: 1px solid; 
-            width: 40px; 
-            height: 40px; 
-            border-radius: 50px
-        }
-        .list_like{
-            font-size: 25px;
-        }
-        .list_boardGroup{
-            display: flex;
-            margin-top: 20px;
-        }
-        .list_titleGroup{
-            background-color: aliceblue;
-            width: 400px;
-            margin-left: 20px;
-            margin-right: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/boardList.css">
 </head>
 <body>
-    <div class="list_count">
-        <span>전체글</span>
-        <span>10</span>
-        <span>/</span>
-        <span>2000</span>
-    </div>
-    <div class="list_boardGroup">
-        <div class="list_profileImg">
-            <img src="" alt="">
+    <div class="list_group">
+        <div>
+            <select id="nameSelect" onchange="redirectToSelectedPage()">
+                <option value="">선택하세요</option>
+                <option value="/board/hyeeun/paging">혜은</option>
+                <option value="/board/seoyun/boardList">서윤</option>
+                <option value="/board/yoonseo/paging">윤서</option>
+                <option value="/board/yuna/paging">윤아</option>
+            </select>
         </div>
-        <div class="list_titleGroup">
-            <span>제목 10</span>
+        <div class="list_count">
+            <span>전체글</span>
+            <span>10</span>
+            <span>/</span>
+            <span>2000</span>
         </div>
-        <div class="list_like">
-            <span>❤️</span>
+        <div class="list_boardGroup">
+            <div class="list_profileImg">
+                <img src="/img/profile2.jpg" alt="">
+            </div>
+            <div class="list_titleGroup">
+                <span>제목 10</span>
+            </div>
+            <div class="list_like">
+                <span>❤️</span>
+            </div>
+        </div>
+        <div class="list_boardGroup">
+            <div class="list_profileImg">
+                <img src="/img/profile2.jpg" alt="">
+            </div>
+            <div class="list_titleGroup">
+                <span>제목 10</span>
+            </div>
+            <div class="list_like">
+                <span>❤️</span>
+            </div>
+        </div>
+        <div class="list_boardGroup">
+            <div class="list_profileImg">
+                <img src="/img/profile2.jpg" alt="">
+            </div>
+            <div class="list_titleGroup">
+                <span>제목 10</span>
+            </div>
+            <div class="list_like">
+                <span>❤️</span>
+            </div>
+        </div>
+        <div class="list_boardGroup">
+            <div class="list_profileImg">
+                <img src="" alt="">
+            </div>
+            <div class="list_titleGroup">
+                <span>제목 10</span>
+            </div>
+            <div class="list_like">
+                <span>❤️</span>
+            </div>
         </div>
     </div>
 </body>
