@@ -5,9 +5,11 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/toy?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
-    password: ys123456
+    # 각자꺼 부분 드레그해서 주석 처리하는거랑 똑같이 ctrl+/ 해서 주석 풀고 사용하면 돼요
+    # 윤서꺼?
+    # url: jdbc:mysql://localhost:3306/toy?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    # username: root
+    # password: ys123456
 #=======
 #    url: jdbc:mysql://concat-1.clc60kwem0qc.ap-northeast-2.rds.amazonaws.com:3306/concat_toyDB?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
 #    username: root
@@ -27,11 +29,11 @@ spring:
 #     password: coding!^^!
 #
     # 서윤꺼
-    # url: jdbc:mysql://localhost:3306/toyProjectBoard?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    # username: root
-    # password: root
-  thymeleaf:
-    cache: false
+  #   url: jdbc:mysql://localhost:3306/toyProjectBoard?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+  #   username: root
+  #   password: root
+  # thymeleaf:
+  #   cache: false
 
   # spring data jpa 설정
   jpa:
