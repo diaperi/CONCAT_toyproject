@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>vocabularyBook</title>
+    <style>
+        body {
+            display: flex;
+            margin: 10px 16px;
+            flex-direction: column;
+            background-color: #f8f8f8;
+        }
+
+        /* 검색 */
+        .menu {
+            width: calc(100% - 20px);
+            height: 30px;
+            margin: 0 10px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .menu .search {
+            position: relative;
+        }
+
+        .menu .search input {
+            width: 100%;
+            height: 34px;
+            padding: 4px 10px;
+            border: none;
+            border-bottom: 1px solid #aaa;
+            box-sizing: border-box;
+            outline: none;
+            background-color: transparent;
+            color: #777;
+            font-size: 12px;
+        }
+
+        .menu .search .material-icons {
+            height: 24px;
+            position: absolute;
+            right: 5px;
+            margin: auto;
+            padding: 5px;
+            cursor: pointer;
+            opacity: 0.5;
+        }
+
+        /* 단어 */
+        .word-cards-container {
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px 20px;
+        }
+
+        .word-card {
+            width: 220px;
+            background-color: #fff;
+            border: 1px solid #dfdfdf;
+            border-radius: 8px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .word-card .content {
+            display: flex;
+        }
+
+        .word-card .eng {
+            font-size: 20px;
+        }
+
+        .word-card .kor {
+            font-size: 12px;
+            color: #777;
+            margin-top: 8px;
+        }
+
+        .word-card .content .material-symbols-outlined {
+            margin-left: auto;
+            display: flex;
+            margin-top: 10px;
+            margin-bottom: -5px;
+        }
+
+        #volume {
+            margin-right: 8px;
+        }
+
+        #volume img,
+        #remove img {
+            width: 18px; 
+            height: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .word-card {
+               width: calc(50% - 10px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .word-card {
+                width: calc(100% - 10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 검색 부분 -->
+    <div class="menu">
+        <div class="search">
+            <input type="text" placeholder="단어장" id="searchInput" onkeypress="handleKeyPress(event)" />
+            <div class="material-icons" onclick="performSearch()">search</div>
+        </div>
+    </div>
+
+    <!-- 단어 부분 -->
+    <div class="word-cards-container">
+        <div class="word-card">
+            <div class="eng">abandon</div>
+            <div class="content">
+                <div class="kor">버리다; 포기하다</div>
+                <div class="material-symbols-outlined">
+                    <span id="volume"><img src="volume.png"></span>
+                    <span id="remove"><img src="remove.png"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="word-card">
+            <div class="eng">abhor</div>
+            <div class="content">
+                <div class="kor">혐오하다</div>
+                <div class="material-symbols-outlined">
+                    <span id="volume"><img src="volume.png"></span>
+                    <span id="remove"><img src="remove.png"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="word-card">
+            <div class="eng">abide by</div>
+            <div class="content">
+                <div class="kor">지키다, 준수하다, 따르다</div>
+                <div class="material-symbols-outlined">
+                    <span id="volume"><img src="volume.png"></span>
+                    <span id="remove"><img src="remove.png"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="word-card">
+            <div class="eng">abolish</div>
+            <div class="content">
+                <div class="kor">폐지하다; 무효로 하다</div>
+                <div class="material-symbols-outlined">
+                    <span id="volume"><img src="volume.png"></span>
+                    <span id="remove"><img src="remove.png"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="word-card">
+            <div class="eng">abridge</div>
+            <div class="content">
+                <div class="kor">단축하다; 줄이다, 축소하다</div>
+                <div class="material-symbols-outlined">
+                    <span id="volume"><img src="volume.png"></span>
+                    <span id="remove"><img src="remove.png"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="word-card">
+            <div class="eng">abstract</div>
+            <div class="content">
+                <div class="kor">추상적인; 요약(하다)</div>
+                <div class="material-symbols-outlined">
+                    <span id="volume"><img src="volume.png"></span>
+                    <span id="remove"><img src="remove.png"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="word-card">
+            <div class="eng">abuse</div>
+            <div class="content">
+                <div class="kor">남용(하다), 학대(하다)</div>
+                <div class="material-symbols-outlined">
+                    <span id="volume"><img src="volume.png"></span>
+                    <span id="remove"><img src="remove.png"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="word-card">
+            <div class="eng">accidental</div>
+            <div class="content">
+                <div class="kor">우연한; 부수적인</div>
+                <div class="material-symbols-outlined">
+                    <span id="volume"><img src="volume.png"></span>
+                    <span id="remove"><img src="remove.png"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="word-card">
+            <div class="eng">acclaim</div>
+            <div class="content">
+                <div class="kor">갈채를 보내다, 환호하다</div>
+                <div class="material-symbols-outlined">
+                    <span id="volume"><img src="volume.png"></span>
+                    <span id="remove"><img src="remove.png"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 단어 검색 기능
+        function filterCards(searchTerm) {
+            const cards = document.querySelectorAll('.word-card');
+
+            cards.forEach(card => {
+                const engText = card.querySelector('.eng').innerText.toLowerCase();
+                const korText = card.querySelector('.kor').innerText.toLowerCase();
+
+                if (engText.includes(searchTerm.toLowerCase()) || korText.includes(searchTerm.toLowerCase())) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            filterCards(searchTerm);
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        }
+    </script>
+</body>
+</html>
