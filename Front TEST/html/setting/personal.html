@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+	<style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            height: 100vh;
+        
+        }
+        header {
+            background-color:white;
+            height: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            
+        }
+        header h1{
+            margin-left: 15%;
+          
+        }
+       
+    
+        .img1 img{
+            width: 70px; /* 로고 이미지의 너비 설정 */
+            height: 10%; /* 로고 이미지의 높이 자동으로 설정 */
+            position: absolute; /* 추가 */
+            left: 40px; /* 추가 */
+            margin-top: -40px;
+            
+        }
+        .img2 img{
+            width: 70px; /* 로고 이미지의 너비 설정 */
+            height: 10%; /* 로고 이미지의 높이 자동으로 설정 */
+            position: absolute; /* 추가 */
+            right: 40px;
+            margin-top: -40px;
+            
+        }
+		nav {
+			width: 15%;
+			height: 90%;
+			background-color: black;
+			padding: 20px;
+            overflow: auto;
+            float: left; /*작성시 main 부분과 높이가 나란해짐*/
+		}
+
+		nav ul {
+			list-style-type: none;
+			margin: 0;
+			padding:0;
+		}
+
+		nav ul li {
+			margin-bottom: 10px;
+		}
+
+		nav ul li a {
+			display: block;
+			padding: 13px;
+			color: #333;
+            color: #ddd;
+			text-decoration: none;
+            font-weight: normal;
+            font-size: 20px;
+		}
+
+		nav ul li a:hover {
+			background-color: #505050;
+		}
+
+		/* Add this CSS rule */
+		nav ul li a.active {
+			color: white;
+		}
+
+        main {
+            width: 85%;
+            float: right;
+            display: flex; /* Flexbox 사용 */
+            justify-content: center; /* 가로 중앙 정렬 */
+            align-items: center; /* 세로 중앙 정렬 */
+            /* margin-top: -40%; main 내용 위로 올리기 */
+            background-color: rgb(248, 248, 248);
+            height: 90%; /*네비바에서는 줘야함*/
+           
+        }
+
+        .settingHome-content {
+            width: 100%;
+            text-align: center;
+    
+           
+            
+        }
+        .highlight {
+            color: blue;
+        }
+        
+        .personal-content{
+            border-radius: 1px solid;
+            padding-top: 30px;
+            width: 85%;
+
+        }
+       
+       
+        .box1{
+            border: 2px solid lightgray; 
+            padding: 20px;
+            border-radius: 15px; 
+
+        }
+        .box2{
+            border: 2px solid lightgray; 
+            padding: 20px;
+            border-radius: 15px; 
+
+        }
+       
+	</style>
+	
+</head>
+<body>
+    <header class="hearder">
+        <div class="img1"><img src="logo.jpg"/> </div>
+            <h1>LANGUP 계정 관리</h1>
+        <div class="img2"><img src="header.JPG"/> </div>
+        
+        
+    </header>
+	<nav>
+		<ul>
+			<li><a href="settingHome.html">&nbsp; 설정 홈</a></li>
+			<li><a href="personal.html"> &nbsp; 개인 정보</a></li>
+			<li><a href="vocabularyBook.html">&nbsp; 단어 저장함</a></li>
+			<li><a href="#"> &nbsp; 회원 탈퇴</a></li>
+			<li><a href="leave.html"> &nbsp; 로그아웃</a></li>
+		</ul>
+	</nav>
+	<main>
+		<div class="personal-content">
+            <br>
+            개인정보 설정
+            <hr>
+            <br><br>
+           
+            <div class="box1">
+                <br><p>프로필 사진 &nbsp;&nbsp;&nbsp; 프로필 사진을 사용하면 계정을 맞춤설정할 수 있습니다. </p><br><br>
+                <hr>
+                <br><p>이름/닉네임 &nbsp;&nbsp;&nbsp; 사람3</p><br>
+                <hr>
+                <br><p>생년월일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  2000년 10월 12일</p><br>
+                <hr>
+                <br><p>성별 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 남성</p>
+            </div> <br><br>
+            <div class="box2">
+                
+                <p> 이메일 &nbsp;&nbsp;&nbsp;  human@gmail.com<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; human@naver.com</p><br>
+                <hr>
+                <br><p> 휴대전화 &nbsp;&nbsp;&nbsp; +82 10-3***-7***</p><br>
+                <hr><br><br><br><br>
+                
+            </div> 
+             
+        </div>
+    
+		
+	</main>
+</body>
+</html>
