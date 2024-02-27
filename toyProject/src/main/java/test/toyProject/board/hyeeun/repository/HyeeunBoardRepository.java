@@ -11,4 +11,7 @@ public interface HyeeunBoardRepository extends JpaRepository<HyeeunBoardEntity, 
     @Modifying // update나 delete 쿼리를 실행해야 할때 필수로 작성해야
     @Query(value = "update HyeeunBoardEntity b set b.boardHits=b.boardHits+1 where b.id=:id")
     void updateHits(@Param("id") Long id); // entity 기준 쿼리, b와 같은 약어로 쓰는게 원칙
+
+    @Query("SELECT COUNT(b.id) FROM YunaBoardEntity b")
+    int getTotalPostCount();
 }

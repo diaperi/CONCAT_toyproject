@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>update</title>
+    <link rel="stylesheet" href="/css/update.css">
 </head>
 <body>
-
-    <form action="">
-        <input type="text" name="boardTitle" placeholder="제목입력"> <br>
-        <textarea name="boardContents" id="" cols="30" rows="10" placeholder="본문입력"></textarea> <br>
-        <input type="submit" value="게시물 수정">
-    </form>
-    
+    <div class="saveGroup">
+        <form action="" class="saveForm">
+            <div class="saveWrite">
+                <input type="text" name="boardTitle" placeholder="제목 입력" class="boardTitle"> <br>
+                <textarea name="boardContents" id="" cols="30" rows="10" placeholder="본문 입력" class="boardContents"></textarea> <br>
+            </div>
+            <div class="updateBtnGroup">
+                <input type="submit" value="게시물 목록" class="updateGoList">
+                <input type="submit" value="게시물 수정" class="saveBtn">
+            </div>
+        </form>
+    </div>
 </body>
 </html>

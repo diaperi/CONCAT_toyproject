@@ -5,89 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시물 상세페이지</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <link rel="stylesheet" href="/css/community/boardDetail.css">
 </head>
-<style>
-    .detail_topGroup{
-        display: flex;
-        margin-bottom: 20px;
-    }
-    .detail_writerGroup{
-        margin-right: 30px;
-    }
-    .detail_profileImg{
-        width: 30px;
-        height: 30px;
-        border: 1px solid;
-        border-radius: 50px;
-    }
-    .detail_box{
-        margin-bottom: 30px;
-    }
-</style>
 <body>
 <div class="detail_box">
-    <div class="detail_topGroup">
-        <div class="detail_writerGroup">
-            <span><img th:src="${profileImgUrl}" alt="" class="detail_profileImg"></span>
-            <span>작성자 : </span>
-            <span th:text="${board.boardWriter}"></span>
-        </div>
-        <div class="detail_createDate">
-            <span th:text="${board.boardCreatedTime}"></span>
-        </div>
-    </div>
-    <div class="detail_contentGroup">
-        <div class="detail_title">
-            <span>제목 : </span>
-            <span th:text="${board.boardTitle}"></span>
-        </div>
-        <hr>
-        <div class="detail_content">
-            <span th:text="${board.boardContents}"></span>
-        </div>
-    </div>
-</div>
-<div class="detail_footGroup">
-    <div class="list_like">
-        <span class="likeButton" th:data-postid="${board.id}" onclick="likePost(this)">♡</span>
-    </div>
-    <span><button onclick="listReq()">게시물 목록</button></span>
-    <span><button onclick="deleteReq()">게시물 삭제</button></span>
-    <span><button onclick="updateReq()">게시물 수정</button></span>
-</div>
-
-
-<!-- 댓글 -->
-<div class="detail_commentGroup">
-    <div class="detail_commentInputGroup">
-        <div>
-            <span>랭업</span>
-            <span>님 게시글 댓글</span>
-        </div>
-        <hr>
-        <div class="detail_commentInput">
-            <img src="" alt="" class="detail_profileImg">
-            <textarea name="" id="commentContents" cols="50" rows="4"></textarea>
-            <div>
-                <button id="detail_commentBtn" onclick="commentWrite()">댓글 등록</button>
+    <div class="detail_box2">
+        <div class="detail_box3">
+            <div class="detail_topGroup">
+                <div class="detail_writerGroup">
+                    <span><img th:src="${profileImgUrl}" alt="" class="detail_profileImg"></span>
+                    <span>작성자 : &nbsp;</span>
+                    <span th:text="${board.boardWriter}"></span>
+                </div>
+                <div class="detail_createDate">
+                    <span th:text="${board.boardCreatedTime}"></span>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="detail_commentContentGroup">
-        <div class="detail_commentContentGroup2" th:each="comment: ${commentList}"  id="comment-list">
-            <div class="detail_commentProfile">
-                <img src="" alt="" class="detail_profileImg">
-                <span th:text="${comment.commentWriter}"></span>
-            </div>
-            <div class="detail_commentContent">
-                <span th:text="${comment.commentContents}"></span>
-                <div>
-                    <a href="">대댓글</a>
-                    <a href="">메시지</a>
-                    <a href="">신고</a>
+            <div class="detail_contentGroup">
+                <div class="detail_title">
+                    <span>제목 : </span>
+                    <span th:text="${board.boardTitle}"></span>
                 </div>
                 <hr>
+                <div class="detail_content">
+                    <span th:text="${board.boardContents}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="detail_footGroup">
+        <!--    <div class="list_like">-->
+        <span class="likeButton" th:data-postid="${board.id}" onclick="likePost(this)">♡</span>
+        <!--    </div>-->
+        <button onclick="listReq()">게시물 목록</button>
+        <button onclick="deleteReq()">게시물 삭제</button>
+        <button onclick="updateReq()">게시물 수정</button>
+    </div>
+
+
+    <!-- 댓글 -->
+    <div class="detail_commentGroup">
+        <div class="detail_commentInputGroup">
+            <div>
+                <span th:text="${loggedInUser}" class="loggedInUser"></span>
+                <span>님 게시글 댓글</span>
+            </div>
+            <hr>
+            <div class="detail_commentInput">
+                <div>
+                    <img src="" alt="" class="detail_profileImg2">
+                    <textarea name="" id="commentContents" cols="50" rows="4" placeholder="댓글 입력"></textarea>
+                </div>
+                <div>
+                    <button id="detail_commentBtn" onclick="commentWrite()">댓글 등록</button>
+                </div>
+            </div>
+        </div>
+        <div class="detail_commentContentGroup">
+            <div class="detail_commentContentGroup2" th:each="comment: ${commentList}" id="comment-list">
+                <div class="detail_commentProfile">
+                    <img src="" alt="" class="detail_profileImg3">
+                    <span th:text="${comment.commentWriter}"></span>
+                </div>
+                <div class="detail_commentContent">
+                    <span th:text="${comment.commentContents}"></span>
+                    <div>
+                        <a href="">대댓글</a>
+                        <a href="">메시지</a>
+                        <a href="">신고</a>
+                    </div>
+                    <hr>
+                </div>
             </div>
         </div>
     </div>
@@ -95,50 +83,56 @@
 </body>
 
 
-
-
 <script th:inline="javascript">
-    const loggedInUser = /*[[${loggedInUserFullName}]]*/ '';
 
     const commentWrite = () => {
         const contents = document.getElementById("commentContents").value;
+        // const loggedInUser = /*[[${loggedInUserFullName}]]*/ '';
+        const loggedInUser = document.getElementsByClassName("loggedInUser")[0].textContent;
 
         console.log("작성자: ", loggedInUser);
         console.log("내용: ", contents);
         const id = [[${board.id}]];
         $.ajax({
             // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
-            type: "post",
-            url: "/seoyun/comment/save",
-            data: {
-                "commentWriter": loggedInUser,
+            type   : "post",
+            url    : "/seoyun/comment/save",
+            data   : {
+                "commentWriter"  : loggedInUser,
                 "commentContents": contents,
-                "boardId": id
+                "boardId"        : id
             },
             success: function (res) {
                 console.log("요청성공", res);
-                let output = "<div class='detail_commentContentGroup2'>";
-                for (let i in res) {
-                    output += "<div class='detail_commentProfile'>";
-                    output += "<img src='' alt='' class='detail_profileImg'>";
-                    output += "<span>" + res[i].commentWriter + "</span>";
-                    output += "</div>";
-                    output += "<div class='detail_commentContent'>";
-                    output += "<span>" + res[i].commentContents + "</span>";
-                    output += "<div>";
-                    output += "<a href=''>대댓글</a>";
-                    output += "<a href=''>메시지</a>";
-                    output += "<a href=''>신고</a>";
-                    output += "</div>";
-                    output += "<hr>";
-                    output += "</div>";
-                }
-                output += "</div>";
-                document.getElementById('comment-list').innerHTML = output;
-                document.getElementById('commentWriter').value = '';
+
+                // 새로운 댓글을 추가할 HTML 문자열 초기화
+                let newCommentHTML = "";
+
+                // 새로운 댓글에 대한 HTML 문자열 생성
+                newCommentHTML += "<div class='detail_commentContentGroup2' id='comment-list'>";
+                newCommentHTML += "<div class='detail_commentProfile'>";
+                newCommentHTML += "<img src='' alt='' class='detail_profileImg3'>";
+                newCommentHTML += "<span>" + res.commentDTOList[0].commentWriter + "</span>";
+                newCommentHTML += "</div>";
+                newCommentHTML += "<div class='detail_commentContent'>";
+                newCommentHTML += "<span>" + res.commentDTOList[0].commentContents + "</span>";
+                newCommentHTML += "<div>";
+                newCommentHTML += "<a href=''>대댓글</a>";
+                newCommentHTML += "<a href=''>메시지</a>";
+                newCommentHTML += "<a href=''>신고</a>";
+                newCommentHTML += "</div>";
+                newCommentHTML += "<hr>";
+                newCommentHTML += "</div>";
+                newCommentHTML += "</div>";
+
+                // 새로운 댓글을 차례대로 추가
+                $(".detail_commentContentGroup").prepend(newCommentHTML);
+
+                // 입력 폼 초기화
                 document.getElementById('commentContents').value = '';
             },
-            error: function (err) {
+
+            error  : function (err) {
                 console.log("요청실패", err);
             }
         });
@@ -146,7 +140,7 @@
     const listReq = () => {
         console.log("목록 요청");
         const page = [[${page}]];
-        location.href = "/board/seoyun/boardList?page="+page;
+        location.href = "/board/seoyun/boardList?page=" + page;
     }
     const updateReq = () => {
         console.log("수정 요청");
@@ -171,14 +165,14 @@
             // 좋아요 취소 요청
             $.ajax({
                 type: "POST",
-                url: `/like/seoyun/${postId}/cancel`, // postId 변수 사용
+                url : `/like/seoyun/${postId}/cancel`, // postId 변수 사용
                 // data: { loggedInUser: loggedInUser },
                 success: function (res) {
                     console.log("좋아요 취소 성공:", res);
                     // 버튼 텍스트를 ♡로 변경
                     element.textContent = '♡';
                 },
-                error: function (err) {
+                error  : function (err) {
                     console.error("좋아요 취소 실패:", err);
                 }
             });
@@ -186,14 +180,14 @@
             // 좋아요 요청
             $.ajax({
                 type: "POST",
-                url: `/like/seoyun/${postId}`, // postId 변수 사용
+                url : `/like/seoyun/${postId}`, // postId 변수 사용
                 // data: { loggedInUser: loggedInUser },
                 success: function (res) {
                     console.log("좋아요 성공:", res);
                     // 버튼 텍스트를 ❤️로 변경
                     element.textContent = '❤️';
                 },
-                error: function (err) {
+                error  : function (err) {
                     console.error("좋아요 실패:", err);
                 }
             });
@@ -202,16 +196,16 @@
 
 
     // 게시물 목록에서 좋아요 버튼 초기 상태 설정
-    $(document).ready(function() {
+    $(document).ready(function () {
         // 모든 게시물에 대해 순회
-        $('.likeButton').each(function() {
+        $('.likeButton').each(function () {
             var postId = $(this).attr('data-postid'); // 게시물 ID 가져오기
             var likeButton = $(this); // 좋아요 버튼 가져오기
 
             // 좋아요 정보를 가져오는 AJAX 요청
             $.ajax({
-                type: "GET",
-                url: `/like/seoyun/${postId}/isLiked`, // 게시물에 대한 좋아요 여부 확인 API 엔드포인트
+                type   : "GET",
+                url    : `/like/seoyun/${postId}/isLiked`, // 게시물에 대한 좋아요 여부 확인 API 엔드포인트
                 success: function (isLiked) {
                     // 가져온 좋아요 정보를 기반으로 버튼 텍스트 설정
                     if (isLiked) {
@@ -220,7 +214,7 @@
                         likeButton.text('♡'); // 좋아요하지 않은 경우
                     }
                 },
-                error: function (err) {
+                error  : function (err) {
                     console.error("좋아요 정보 가져오기 실패:", err);
                 }
             });
