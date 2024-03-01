@@ -103,7 +103,7 @@ public class YunaBoardController {
         model.addAttribute("loggedInUser", loggedInUser.getFullName());
         model.addAttribute("board", boardDTO);
         model.addAttribute("page", pageable.getPageNumber());
-        return "/board/seoyun/boardDetail";
+        return "/board/yuna/detail";
     }
 
     // 수정
@@ -136,7 +136,7 @@ public class YunaBoardController {
             if (originalBoard != null && originalBoard.getBoardWriter().equals(loggedInUser.getFullName())) {
                 YunaBoardDTO board = boardService.update(boardDTO);
                 model.addAttribute("board", board);
-                return "redirect:/board/seoyun/" + board.getId();
+                return "redirect:/board/yuna/" + board.getId();
             } else {
                 // 원래 게시물의 작성자와 로그인한 사용자가 다를 경우 처리
                 // 예를 들어 에러 페이지로 리다이렉트하거나 에러 메시지를 보여줄 수 있음
