@@ -7,6 +7,7 @@ import test.toyProject.board.yoonseo.entity.YoonseoCommentEntity;
 import java.util.List;
 
 public interface YoonseoCommentRepository extends JpaRepository <YoonseoCommentEntity,Long> {
-    List<YoonseoCommentEntity> findAllByBoardEntityOrderById(YoonseoBoardEntity boardEntity);
+    List<YoonseoCommentEntity> findAllByBoardEntityOrderByIdDesc(YoonseoBoardEntity boardEntity);
 
+    void deleteByBoardEntity_Id(Long id);
 }

@@ -1,95 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시물 상세페이지</title>
     <link rel="stylesheet" href="/css/boardDetail.css">
 </head>
+
 <body>
-    <div class="detail_box">
-        <div class="detail_box2">
-            <div class="detail_box3">
-                <div class="detail_topGroup">
-                    <div class="detail_writerGroup">
-                        <span><img src="/img/profile2.jpg" alt="" class="detail_profileImg"></span>
-                        <span>작성자 : &nbsp;</span>
-                        <span>랭업</span>
+    <div id="header"></div>
+    <div class="navBarBody">
+        <div id="navBar"></div>
+        <div class="detail_box">
+            <div class="detail_box2">
+                <div class="detail_box3">
+                    <div class="detail_topGroup">
+                        <div class="detail_writerGroup">
+                            <span><img src="/img/profile2.jpg" alt="" class="detail_profileImg"></span>
+                            <span>작성자 : &nbsp;</span>
+                            <span>랭업</span>
+                        </div>
+                        <div class="detail_createDate">
+                            <span>2024.02.10 13:56</span>
+                        </div>
                     </div>
-                    <div class="detail_createDate">
-                        <span>2024.02.10 13:56</span>
+                    <div class="detail_contentGroup">
+                        <div class="detail_title">
+                            <span>제목 : </span>
+                            <span>모두들 반갑</span>
+                        </div>
+                        <hr>
+                        <div class="detail_content">
+                            <span>저는 영어공부함~</span>
+                        </div>
                     </div>
                 </div>
-                <div class="detail_contentGroup">
-                    <div class="detail_title">
-                        <span>제목 : </span>
-                        <span>모두들 반갑</span>
+            </div>
+            <div class="detail_footGroup">
+                <span>❤️</span>
+                <button>게시물 목록</button>
+                <button>게시물 삭제</button>
+                <button>게시물 수정</button>
+            </div>
+
+            <!-- 댓글 -->
+            <div class="detail_commentGroup">
+                <div class="detail_commentInputGroup">
+                    <div>
+                        <span>랭업</span>
+                        <span>님 게시글 댓글</span>
                     </div>
                     <hr>
-                    <div class="detail_content">
-                        <span>저는 영어공부함~</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="detail_footGroup">
-            <span>❤️</span>
-            <button>게시물 목록</button>
-            <button>게시물 삭제</button>
-            <button>게시물 수정</button>
-        </div>
-
-        <!-- 댓글 -->
-        <div class="detail_commentGroup">
-            <div class="detail_commentInputGroup">
-                <div>
-                    <span>랭업</span>
-                    <span>님 게시글 댓글</span>
-                </div>
-                <hr>
-                <div class="detail_commentInput">
-                    <div>
-                        <img src="/img/profile2.jpg" alt="" class="detail_profileImg2">
-                        <textarea name="" id="" cols="50" rows="4" placeholder="댓글 입력"></textarea>
-                    </div>
-                    <div>
-                        <button id="detail_commentBtn">댓글 등록</button>
-                    </div>
-                </div>
-            </div>
-            <div class="detail_commentContentGroup">
-                <div class="detail_commentContentGroup2">
-                    <div class="detail_commentProfile">
-                        <img src="/img/profile2.jpg" alt="" class="detail_profileImg3">
-                        <span>사람3사람3사람3사람3</span>
-                    </div>
-                    <div class="detail_commentContent">
-                        <span>안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용</span>
+                    <div class="detail_commentInput">
                         <div>
-                            <a href="">대댓글</a>
-                            <a href="">메시지</a>
-                            <a href="">신고</a>
+                            <img src="/img/profile2.jpg" alt="" class="detail_profileImg2">
+                            <textarea name="" id="" cols="50" rows="4" placeholder="댓글 입력"></textarea>
                         </div>
-                        <hr>
+                        <div>
+                            <button id="detail_commentBtn">댓글 등록</button>
+                        </div>
                     </div>
                 </div>
-                <div class="detail_commentContentGroup2">
-                    <div class="detail_commentProfile">
-                        <img src="/img/profile2.jpg" alt="" class="detail_profileImg3">
-                        <span>사람3</span>
-                    </div>
-                    <div class="detail_commentContent">
-                        <span>안녕하세용</span>
-                        <div>
-                            <a href="">대댓글</a>
-                            <a href="">메시지</a>
-                            <a href="">신고</a>
+                <div class="detail_commentContentGroup">
+                    <div class="detail_commentContentGroup2">
+                        <div class="detail_commentProfile">
+                            <img src="/img/profile2.jpg" alt="" class="detail_profileImg3">
+                            <span>사람3사dfdsf</span>
                         </div>
-                        <hr>
+                        <div class="detail_commentContent">
+                            <span>안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용안녕하세용</span>
+                            <div>
+                                <a href="">대댓글</a>
+                                <a href="">메시지</a>
+                                <a href="">신고</a>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="detail_commentContentGroup2">
+                        <div class="detail_commentProfile">
+                            <img src="/img/profile2.jpg" alt="" class="detail_profileImg3">
+                            <span>사람3</span>
+                        </div>
+                        <div class="detail_commentContent">
+                            <span>안녕하세용</span>
+                            <div>
+                                <a href="">대댓글</a>
+                                <a href="">메시지</a>
+                                <a href="">신고</a>
+                            </div>
+                            <hr>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#header").load("/../html/main/header.html", function () {
+            });
+            $("#navBar").load("/../html/main/navBar.html", function () {
+            });
+        })
+    </script>
 </body>
+
 </html>

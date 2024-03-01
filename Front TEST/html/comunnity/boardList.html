@@ -1,72 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시물 목록</title>
     <link rel="stylesheet" href="/css/boardList.css">
 </head>
+
 <body>
-    <div class="list_group">
-        <div>
-            <select id="nameSelect" onchange="redirectToSelectedPage()">
-                <option value="">선택하세요</option>
-                <option value="/board/hyeeun/paging">혜은</option>
-                <option value="/board/seoyun/boardList">서윤</option>
-                <option value="/board/yoonseo/paging">윤서</option>
-                <option value="/board/yuna/paging">윤아</option>
-            </select>
-        </div>
-        <div class="list_count">
-            <span>전체글</span>
-            <span>10</span>
-            <span>/</span>
-            <span>2000</span>
-        </div>
-        <div class="list_boardGroup">
-            <div class="list_profileImg">
-                <img src="/img/profile2.jpg" alt="">
+    <div id="header"></div>
+    <div class="navBarBody">
+        <div id="navBar"></div>
+        <div class="list_group">
+            <div>
+                <div>
+                    <select id="nameSelect" onchange="redirectToSelectedPage()">
+                        <option value="">선택하세요</option>
+                        <option value="/board/hyeeun/paging">혜은</option>
+                        <option value="/board/seoyun/boardList">서윤</option>
+                        <option value="/board/yoonseo/paging">윤서</option>
+                        <option value="/board/yuna/paging">윤아</option>
+                    </select>
+                </div>
+                <div class="list_count">
+                    <span>전체글</span>
+                    <span>10</span>
+                    <span>/</span>
+                    <span>2000</span>
+                </div>
+                <div class="list_boardGroup">
+                    <div class="list_profileImg">
+                        <img src="/img/profile2.jpg" alt="">
+                    </div>
+                    <div class="list_titleGroup">
+                        <span>제목 10</span>
+                    </div>
+                    <div class="list_like">
+                        <span>🤍</span>
+                    </div>
+                </div>
+                <div class="list_boardGroup">
+                    <div class="list_profileImg">
+                        <img src="/img/profile2.jpg" alt="">
+                    </div>
+                    <div class="list_titleGroup">
+                        <span>제목 10</span>
+                    </div>
+                    <div class="list_like">
+                        <span>🤍</span>
+                    </div>
+                </div>
+                <div class="list_boardGroup">
+                    <div class="list_profileImg">
+                        <img src="/img/profile2.jpg" alt="">
+                    </div>
+                    <div class="list_titleGroup">
+                        <span>제목 10</span>
+                    </div>
+                    <div class="list_like">
+                        <span>🤍</span>
+                    </div>
+                </div>
+                <div class="list_boardGroup">
+                    <div class="list_profileImg">
+                        <img src="" alt="">
+                    </div>
+                    <div class="list_titleGroup">
+                        <span>제목 10</span>
+                    </div>
+                    <div class="list_like">
+                        <span>🤍</span>
+                    </div>
+                </div>
             </div>
-            <div class="list_titleGroup">
-                <span>제목 10</span>
-            </div>
-            <div class="list_like">
-                <span>❤️</span>
-            </div>
-        </div>
-        <div class="list_boardGroup">
-            <div class="list_profileImg">
-                <img src="/img/profile2.jpg" alt="">
-            </div>
-            <div class="list_titleGroup">
-                <span>제목 10</span>
-            </div>
-            <div class="list_like">
-                <span>❤️</span>
-            </div>
-        </div>
-        <div class="list_boardGroup">
-            <div class="list_profileImg">
-                <img src="/img/profile2.jpg" alt="">
-            </div>
-            <div class="list_titleGroup">
-                <span>제목 10</span>
-            </div>
-            <div class="list_like">
-                <span>❤️</span>
-            </div>
-        </div>
-        <div class="list_boardGroup">
-            <div class="list_profileImg">
-                <img src="" alt="">
-            </div>
-            <div class="list_titleGroup">
-                <span>제목 10</span>
-            </div>
-            <div class="list_like">
-                <span>❤️</span>
+            
+            <div class="pagingGroup">
+                <!-- 첫번째 페이지로 이동 -->
+                <!-- /board/paging?page=1 -->
+                <a th:href="@{/board/seoyun/boardList(page=1)}"><<</a>
+                <!-- 이전 링크 활성화 비활성화 -->
+                <!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
+                <a th:href="${boardList.first} ? '#' : @{/board/seoyun/boardList(page=${boardList.number})}"><</a>
+
+                <!-- 페이지 번호 링크(현재 페이지는 숫자만)
+                    for(int page=startPage; page<=endPage; page++)-->
+                <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+                    <!-- 현재페이지는 링크 없이 숫자만 -->
+                    <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>
+                    <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
+                    <span th:unless="${page == boardList.number + 1}">
+                        <a th:href="@{/board/seoyun/boardList(page=${page})}" th:text="${page}"></a>
+                    </span>
+                </span>
+                <!-- 다음 링크 활성화 비활성화
+                    사용자: 2페이지, getNumber: 1, 3페이지-->
+                <a th:href="${boardList.last} ? '#' : @{/board/seoyun/boardList(page=${boardList.number + 2})}">></a>
+                <!-- 마지막 페이지로 이동 -->
+                <a th:href="@{/board/seoyun/boardList(page=${boardList.totalPages})}">>></a>
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#header").load("/../html/main/header.html", function () {
+            });
+            $("#navBar").load("/../html/main/navBar.html", function () {
+            });
+        })
+    </script>
 </body>
+
 </html>

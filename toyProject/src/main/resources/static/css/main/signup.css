@@ -1,0 +1,106 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+.sign_group{
+    background-color: rgba(236, 235, 255, 0.774);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+}
+
+.sign_box{
+    background-color: rgba(255, 255, 255, 0.801);
+    width: 50%;
+    height: 70%;
+    border: 1px solid rgb(141, 141, 141);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign_box2{
+    /* background-color: violet; */
+    width: 85%;
+    height: 75%;
+}
+
+.sign_box2>p{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 90px;
+    white-space: nowrap;
+}
+
+.sign_box2>form{
+    /* background-color: tomato; */
+}
+
+.sign_nameGroup{
+    /* background-color: aqua; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.sign_nameGroup>input{
+    width: 48%;
+}
+
+.sign_emailGroup>input{
+    width: 98%;
+}
+
+.sign_pwGroup>input{
+    width: 98%;
+}
+
+.sign_box2>form>div>input{
+    height: 50px;
+    border-radius: 7px;
+    border: 1px solid rgb(190, 190, 190);
+    box-shadow: 2px 9px 15px rgba(193, 203, 236, 0.644);
+    margin-bottom: 40px;
+    padding-left: 10px;
+    background-color: rgba(238, 238, 238, 0.404);
+}
+
+.sign_box2>form>div>input::placeholder{
+    font-size: 14px;
+    color: rgb(110, 110, 110);
+}
+
+.sign_box2>form>div>input:focus{
+    outline: none;
+}
+
+.sign_btnGroup{
+    /* background-color: yellow; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.sign_btn {
+    background-color: rgb(74, 33, 255);
+    color: white;
+    border-radius: 10px; /* 버튼 모서리를 둥글게 하는 정도 */
+    /* box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1); 그림자 추가 */
+    height: 50px;
+    border: 2px solid rgba(0, 0, 0, 0.1); /* 테두리를 불투명도 10%로 설정 */
+    cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능한 것으로 표시 */
+    /* transition: all 0.3s ease; 부드러운 애니메이션 효과를 위한 transition 속성 */
+    width: 40%;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+

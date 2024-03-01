@@ -143,9 +143,9 @@ public class SeoyunBoardController {
                 model.addAttribute("loggedInUser", loggedInUser);
                 return "/board/seoyun/seoyunUpdate";
             } else {
-                // 보드 작성자와 로그인한 사용자가 다를 경우 처리
-                // 예를 들어 에러 페이지로 리다이렉트하거나 에러 메시지를 보여줄 수 있음
-                return "redirect:/error";
+                // 보드 작성자와 로그인한 사용자가 다를 경우 JavaScript를 사용하여 알림창을 띄움
+                model.addAttribute("loggedInUser", loggedInUser.getFullName());
+                return "/board/seoyun/boardDetail";
             }
         } else {
             return "redirect:/user/login";

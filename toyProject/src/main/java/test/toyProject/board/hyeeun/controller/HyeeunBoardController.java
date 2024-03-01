@@ -1,5 +1,6 @@
 package test.toyProject.board.hyeeun.controller;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,12 +9,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import test.toyProject.board.hyeeun.dto.HyeeunBoardDTO;
 import test.toyProject.board.hyeeun.dto.HyeeunCommentDTO;
 import test.toyProject.board.hyeeun.service.HyeeunBoardService;
 import test.toyProject.board.hyeeun.service.HyeeunCommentService;
+import test.toyProject.board.seoyun.dto.SeoyunBoardDTO;
+import test.toyProject.board.seoyun.dto.SeoyunCommentDTO;
+import test.toyProject.user.dto.UserDTO;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,17 +35,42 @@ public class HyeeunBoardController {
         return "hyeeun/hyeeunBoard";
     }
 
+//    @GetMapping("/save")
+//    public String saveForm() {
+//        return "/board/hyeeun/save";
+//    } // 그 이하의 주소를 각각의 메서드 중에서 맵핑 값이 일치하는 메서드 호출(get으로 받음)
+
     @GetMapping("/save")
-    public String saveForm() {
+    public String save(HttpSession session, RedirectAttributes redirectAttributes){
+        // 세션에 로그인 정보 있는지 확인
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            // 로그인 되지 않은 경우 로그인 페이지로 리다이렉트
+            redirectAttributes.addFlashAttribute("error", "로그인 필요");
+            return "redirect:/user/login";
+        }
         return "/board/hyeeun/save";
-    } // 그 이하의 주소를 각각의 메서드 중에서 맵핑 값이 일치하는 메서드 호출(get으로 받음)
+    }
+
 
     @PostMapping("/save")
-    public String save(@ModelAttribute HyeeunBoardDTO boardDTO) throws IOException {
-        System.out.println("boardDTO = " + boardDTO);
-        boardService.save(boardDTO); // boardService.save 메서드 호출
-        return "index";
-    } // 그 이하의 주소를 각각의 메서드 중에서 맵핑 값이 일치하는 메서드 호출(post로 받음)
+    public String save(@ModelAttribute HyeeunBoardDTO boardDTO, HttpSession session) throws IOException {
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        if(loggedInUser != null){
+            // 로그인한 사용자의 정보를 게시물 작성자로 설정
+            String boardWriter = loggedInUser.getFullName();
+
+            boardDTO.setBoardCreatedTime(LocalDateTime.now());
+
+            boardDTO.setBoardWriter(boardWriter);
+
+            System.out.println("boardDTO = " + boardDTO);
+            boardService.save(boardDTO);
+            return "redirect:/board/hyeeun/paging";
+        }else {
+            return "redirect:/user/login";
+        }
+    }
 
 //    @GetMapping("/")
 //    public String findAll(Model model) {
@@ -49,43 +80,81 @@ public class HyeeunBoardController {
 //        return "list"; // list.html로 리턴
 //    } // 전체 목록을 db로부터 가져와야함 -> model 객체 사용, 목록 여러개를 가져온다 -> List<BoardDTO> boardDTOList = boardService.findAll();
 
+    // 게시물 상세
     @GetMapping("/{id}")
-    // @PageableDefault(page=1) Pageable pageable : 페이지 요청이 없는 경우에 대한 것
     public String findById(@PathVariable Long id, Model model,
-                           @PageableDefault(page=1) Pageable pageable) {
-    /*
-        해당 게시글의 조회수를 하나 올리고
-        게시글 데이터를 가져와서 detail.html에 출력
-    */
-        boardService.updateHits(id); // 조회수 처리
-        HyeeunBoardDTO boardDTO = boardService. findById(id); // 해당 게시글을 가져와서 dto로 받아오고
-        /* 댓글 목록 가져오기 */
+                           @PageableDefault(page = 1) Pageable pageable,
+                           HttpSession session){
+        HyeeunBoardDTO boardDTO = boardService.findById(id);
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+
+        // 댓글
         List<HyeeunCommentDTO> commentDTOList = commentService.findAll(id);
-        model.addAttribute("commentList", commentDTOList); // model에 담아서 detail로 넘어감
+        model.addAttribute("commentList", commentDTOList);
 
-        model.addAttribute("board", boardDTO); // model 객체를 board라는 파라미터에 담아서 출력
-        model.addAttribute("page", pageable.getPageNumber()); // pageable.getPageNumber() : 여기서 담아서 detail.html로 가져가기 위한 용도
-        return "board/hyeeun/detail"; // detail.html로 넘어감
-    } // pathvariable : 경로상에 있는 값을 가져올 때 사용
+        model.addAttribute("loggedInUser", loggedInUser.getFullName());
+        model.addAttribute("board", boardDTO);
+        model.addAttribute("page", pageable.getPageNumber());
+        return "/board/hyeeun/detail";
+    }
 
+    // 수정
     @GetMapping("/update/{id}")
-    public String updateForm(@PathVariable Long id, Model model) {
-        HyeeunBoardDTO boardDTO = boardService.findById(id); // 해당 게시글의 정보 가져오기
-        model.addAttribute("boardUpdate", boardDTO);
-        return "board/hyeeun/update"; // update.html로 넘어감
-    } // pathvariable : 경로상에 있는 값을 가져올 때 사용 /  model : 데이터를 담아가기 위해서 필요
+    public String updateForm(@PathVariable Long id, Model model,HttpSession session){
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        if (loggedInUser != null) {
+            HyeeunBoardDTO boardDTO = boardService.findById(id);
+            // 보드 작성자가 로그인한 사용자와 일치하는 경우에만 수정 폼을 제공
+            if (boardDTO != null && boardDTO.getBoardWriter().equals(loggedInUser.getFullName())) {
+                model.addAttribute("boardUpdate", boardDTO);
+                model.addAttribute("loggedInUser", loggedInUser);
+                return "/board/hyeeun/update";
+            } else {
+                // 보드 작성자와 로그인한 사용자가 다를 경우 처리
+                // 예를 들어 에러 페이지로 리다이렉트하거나 에러 메시지를 보여줄 수 있음
+                return "redirect:/error";
+            }
+        } else {
+            return "redirect:/user/login";
+        }
+    }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute HyeeunBoardDTO boardDTO, Model model) {
-        HyeeunBoardDTO board = boardService.update(boardDTO); // update 메서드 호출
-        model.addAttribute("board", board);
-        return "board/hyeeun/detail";
-    } // 수정 후 수정이 반영된 상세페이지 보여주기
+    public String update(@ModelAttribute HyeeunBoardDTO boardDTO, Model model,HttpSession session) {
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        if (loggedInUser != null) {
+            HyeeunBoardDTO originalBoard = boardService.findById(boardDTO.getId());
+            // 보드 작성자가 로그인한 사용자와 일치하는 경우에만 업데이트
+            if (originalBoard != null && originalBoard.getBoardWriter().equals(loggedInUser.getFullName())) {
+                HyeeunBoardDTO board = boardService.update(boardDTO);
+                model.addAttribute("board", board);
+                return "redirect:/board/hyeeun/" + board.getId();
+            } else {
+                // 원래 게시물의 작성자와 로그인한 사용자가 다를 경우 처리
+                // 예를 들어 에러 페이지로 리다이렉트하거나 에러 메시지를 보여줄 수 있음
+                return "redirect:/error";
+            }
+        } else {
+            return "redirect:/user/login";
+        }
+    }
 
+    // 삭제
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        boardService.delete(id); // 서비스의 delete 메서드 호출
-        return "redirect:/board/hyeeun"; // 끝나면 redirect로 목록을 호출
+    public String delete(@PathVariable Long id, HttpSession session) {
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        if (loggedInUser != null) {
+            HyeeunBoardDTO boardDTO = boardService.findById(id);
+            if (boardDTO != null && boardDTO.getBoardWriter().equals(loggedInUser.getFullName())) {
+                boardService.delete(id);
+                return "redirect:/board/hyeeun/paging";
+            } else {
+                // 에러 처리 또는 다른 페이지로 리다이렉트
+                return "redirect:/error";
+            }
+        } else {
+            return "redirect:/user/login";
+        }
     }
 
     @GetMapping("/listCount")
@@ -100,36 +169,25 @@ public class HyeeunBoardController {
     }
     // /board/paging?page=1
     @GetMapping("/paging")
-    public String paging(@PageableDefault(page = 1)Pageable pageable, Model model) {
-        //       pageable.getPageNumber();
-        // 게시글을 페이징 처리해서 갖고옴 -> <BoardDTO>
-        // 서비스에서 페이징이라는 메서드 호출을 해서 가져오겠다 -> boardService.paging(pageable)
+    public String findAll(@PageableDefault(page = 1, size = 10) Pageable pageable, Model model) {
         Page<HyeeunBoardDTO> boardList = boardService.paging(pageable);
-        int blockLimit = 3; // 1 2 3
-
-        // startPage : 현재 사용자가 1 또는 2 또는 3페이지에 있으면 1을 줌,
-        // 현재 사용자가 7 또는 8 또는 9페이지에 있으면 7이라는 값을 만들어줌
-        // (double)pageable.getPageNumber() / blockLimit))) - 1 : 현재 사용자가 요청한 페이지를 블럭 리밋으로 나눠서 소수점을 올리는 처리후 1을 뺌
-        // blockLimit + 1 : 그 페이지 값을 곱해서 더하기 1
-        int startPage = (((int) (Math.ceil((double) pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
-
-        // endPage : 3, 6, 9,...
-        // (startPage + blockLimit - 1) < boardList.getTotalPages()) ? startPage + blockLimit - 1 : 만약에 9보다 실제 페이지 개수가 작은 경우, 9라는 값을 보여주지 말고 전체 페이지 값을 endPage 값으로 해라
+        int blockLimit = 3;
+        int startPage = (((int)(Math.ceil((double)pageable.getPageNumber() / blockLimit))) - 1) * blockLimit + 1; // 1 4 7 10 ~~
         int endPage = ((startPage + blockLimit - 1) < boardList.getTotalPages()) ? startPage + blockLimit - 1 : boardList.getTotalPages();
 
-
-        // page 개수 20개
+        // page 갯수 20개
         // 현재 사용자가 3페이지
         // 1 2 3
         // 현재 사용자가 7페이지
         // 7 8 9
-        // 보여지는 페이지 개수 3개
-        // 총 페이지 개수 8개
+        // 보여지는 페이지 갯수 3개
+        // 총 페이지 갯수 8개
 
         model.addAttribute("boardList", boardList);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-        return "/board/hyeeun/paging"; // paging.html로 넘어감
+
+        return "/board/hyeeun/paging";
     }
 
     }

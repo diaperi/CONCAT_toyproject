@@ -2,6 +2,9 @@ package test.toyProject.board.yuna.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import test.toyProject.board.seoyun.dto.SeoyunCommentDTO;
+import test.toyProject.board.seoyun.entity.SeoyunBoardEntity;
+import test.toyProject.board.seoyun.entity.SeoyunCommentEntity;
 import test.toyProject.board.yuna.dto.YunaCommentDTO;
 import test.toyProject.board.yuna.entity.YunaBoardEntity;
 import test.toyProject.board.yuna.entity.YunaCommentEntity;
@@ -33,9 +36,9 @@ public class YunaCommentService {
     public List<YunaCommentDTO> findAll(Long boardId) {
         YunaBoardEntity boardEntity = boardRepository.findById(boardId).get();
         List<YunaCommentEntity> commentEntityList = commentRepository.findAllByBoardEntityOrderByIdDesc(boardEntity);
-        /* EntityList -> DTOList */
+
         List<YunaCommentDTO> commentDTOList = new ArrayList<>();
-        for (YunaCommentEntity commentEntity: commentEntityList) {
+        for (YunaCommentEntity commentEntity : commentEntityList) {
             YunaCommentDTO commentDTO = YunaCommentDTO.toCommentDTO(commentEntity, boardId);
             commentDTOList.add(commentDTO);
         }

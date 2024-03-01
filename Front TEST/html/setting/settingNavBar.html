@@ -1,146 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
-	<style>
-         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            height: 100vh;
-        
-        }
-        header {
-            background-color: white;
-            height: 10%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            
-        }
-        header h1{
-            margin-left: 15%;
-        }
-        .img1 img{
-            width: 70px; /* 로고 이미지의 너비 설정 */
-            height: 10%; /* 로고 이미지의 높이 자동으로 설정 */
-            position: absolute; /* 추가 */
-            left: 40px; /* 추가 */
-            margin-top: -40px;
-            
-        }
-        .img2 img{
-            width: 70px; /* 로고 이미지의 너비 설정 */
-            height: 10%; /* 로고 이미지의 높이 자동으로 설정 */
-            position: absolute; /* 추가 */
-            right: 40px;
-            margin-top: -40px;
-            
-        }
-       
-		nav {
-			width: 15%;
-			height: 90%;
-			/* position: fixed; */
-			background-color: black;
-			padding: 20px;
-            overflow: auto;
-            float: left; /*작성시 main 부분과 높이가 나란해짐*/
-		}
-
-		nav ul {
-			list-style-type: none;
-			margin: 0;
-			padding:0;
-		}
-
-		nav ul li {
-			margin-bottom: 10px;
-		}
-
-		nav ul li a {
-			display: block;
-			padding: 13px;
-			color: #333;
-            color: #ddd;
-			text-decoration: none;
-            font-weight: normal;
-            font-size: 20px;
-		}
-
-		nav ul li a:hover {
-			background-color: #505050;
-		}
-
-		/* Add this CSS rule */
-		nav ul li a.active {
-			background-color: green;
-		}
-
-        main {
-            width: 85%;
-            float: right;
-            display: flex; /* Flexbox 사용 */
-            justify-content: center; /* 가로 중앙 정렬 */
-            align-items: center; /* 세로 중앙 정렬 */
-            /* margin-top: -40%; main 내용 위로 올리기 */
-            background-color: rgb(248, 248, 248);
-            height: 90%; /*네비바에서는 줘야함*/
-           
-    
-           
-        }
-
-        
-        
-    
-	</style>
-	<!-- <script>
-		// Add this JavaScript code
-		document.addEventListener('DOMContentLoaded', function() {
-			var navItems = document.querySelectorAll('nav ul li a');
-			for (var i = 0; i < navItems.length; i++) {
-				navItems[i].addEventListener('click', function(e) {
-					// Remove the 'active' class from all nav items
-					var activeItems = document.querySelectorAll('nav ul li a.active');
-					for (var j = 0; j < activeItems.length; j++) {
-						activeItems[j].classList.remove('active');
-					}
-					// Add the 'active' class to the clicked nav item
-					this.classList.add('active');
-				});
-			}
-			var currentLocation = window.location.href;
-			var navLinks = document.querySelectorAll('nav ul li a');
-			for (var i = 0; i < navLinks.length; i++) {
-				if (navLinks[i].href === currentLocation) {
-					navLinks[i].classList.add('active');
-				}
-			}
-		});
-	</script> -->
+<link rel="stylesheet" href="/css/navbar.css">
+<link rel="stylesheet" href="/css/leave.css">
 </head>
 <body>
-    <header class="hearder">
-        <div class="img1"><img src="logo.jpg"/> </div>
-            <h1>LANGUP 계정 관리</h1>
-        <div class="img2"><img src="header.JPG"/> </div>
-        
-        
-    </header>
-	<nav>
-		<ul>
-			<li><a href="settingHome.html">&nbsp; 설정 홈</a></li>
-			<li><a href="personal.html"> &nbsp; 개인 정보</a></li>
-			<li><a href="vocabularyBook.html">&nbsp; 단어 저장함</a></li>
-			<li><a href="#"> &nbsp; 회원 탈퇴</a></li>
-			<li><a href="leave.html"> &nbsp; 로그아웃</a></li>
-		</ul>
-	</nav>
-	<main>	
-	</main>
+	<div class="navBarGroup">
+        <div class="community">
+            <a href="#">
+                <img src="/html/img/설정-홈--아이콘.png" alt="">
+                <span>설정 홈</span>
+            </a>
+        </div>
+        <div class="list">
+            <a href="#">
+                <img src="/html/img/개인정보-아이콘.png" alt="">
+                <span>개인정보</span>
+            </a>
+        </div>
+        <div class="regist">
+            <a href="#">
+                <img src="/html/img/단어저장-아이콘.png" alt="">
+                <span>단어 저장함</span>
+            </a>
+        </div>
+        <div class="message">
+            <a href="#" onclick="openModal()">
+                <img src="/html/img/회원탈퇴-아이콘.png" alt="">
+                <span>회원탈퇴</span>
+            </a>
+        </div>
+        <div class="logout">
+            <a href="#">
+                <img src="/html/img/로그아웃-아이콘.png" alt="">
+                <span>로그아웃</span>
+            </a>
+        </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+	<!-- 회원 탈퇴 모달 -->
+<div id="overlay"></div>
+<div id="myModal" class="modal">
+    <div class="txt-container">
+        <span><h2>회원 탈퇴</h2></span>
+    </div>
+    <div class="txt-content">
+        <span>
+            가입된 회원 정보 모두 삭제됩니다. 작성하신 게시물은 삭제되지 않습니다.<br>
+            탈퇴 후 같은 게정으로 재가입 시 기존에 가지고 있던 학습 내용은 복원되지 않으며,<br>
+            사용 및 다운로드 했던 파일도 사용 불가능합니다.<br>
+            회원 탈퇴를 진행하시겠습니까?
+        </span>
+    </div>
+    <div class="btn-container">
+        <button class="cancel" onclick="closeModal()">취소</button>
+        <button class="leave" onclick="leave()">탈퇴</button>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('myModal').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('myModal').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    function leave() {
+        alert('회원 탈퇴가 완료되었습니다.');
+        closeModal();
+    }
+</script>
+
 </body>
 </html>

@@ -1,6 +1,7 @@
 package test.toyProject.board.hyeeun.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,12 +14,15 @@ import test.toyProject.board.hyeeun.entity.HyeeunBoardEntity;
 import test.toyProject.board.hyeeun.entity.HyeeunBoardFileEntity;
 import test.toyProject.board.hyeeun.repository.HyeeunBoardFileRepository;
 import test.toyProject.board.hyeeun.repository.HyeeunBoardRepository;
+import test.toyProject.board.seoyun.dto.SeoyunBoardDTO;
+import test.toyProject.board.seoyun.entity.SeoyunBoardEntity;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,7 +57,7 @@ public class HyeeunBoardService {
                 String originalFileName = boardFile.getOriginalFilename(); // 2.
                 // System.currentTimeMillis() : 1970년 1월 1일을 기준으로 해서 현재가 몇 ms나 지났느냐 /
                 String storedFileName = System.currentTimeMillis() + "_" + originalFileName; // 3.
-                String savePath = "C:/springboot_img/" + storedFileName; // 4. C:/springboot_img/840345924_내사진.jpg
+                String savePath = "C:/SpringBootStudy/CONCAT_toyproject/boardImg/" + storedFileName; // 4. C:/springboot_img/840345924_내사진.jpg
                 boardFile.transferTo(new File(savePath)); // 5. file을 transferTo로 넘긴다
 
                 HyeeunBoardFileEntity boardFileEntity = HyeeunBoardFileEntity.toHyeeunBoardFileEntity(board, originalFileName, storedFileName);
@@ -65,13 +69,15 @@ public class HyeeunBoardService {
 
     @Transactional
     public List<HyeeunBoardDTO> findAll() {
-        List<HyeeunBoardEntity> boardEntityList = boardRepository.findAll();  // repository는 기본적으로 entity 타입으로
-        List<HyeeunBoardDTO> boardDTOList = new ArrayList<>(); // boardEntityList에 담긴 것을 boardDTOList로 옮겨담아줌
+        List<HyeeunBoardEntity> boardEntityList = boardRepository.findAll();
+        // 모든 boardEntity를 가져온 후에 boardFileEntityList를 로드
         for (HyeeunBoardEntity boardEntity : boardEntityList) {
-            boardDTOList.add(HyeeunBoardDTO.toBoardDTO(boardEntity));
+            Hibernate.initialize(boardEntity.getBoardFileEntityList());
         }// 반복문을 돌린다음 dto 객체에 하나씩 담음. entity 객체를 dto로 변환하고 변환된 객체를 boardDTOList 에 담는다.
-        return  boardDTOList; // for 문이 끝나면 리스트를 리턴해준다.
-
+        // 모든 boardDTO를 생성하여 반환
+        return boardEntityList.stream()
+                .map(HyeeunBoardDTO::toBoardDTO)
+                .collect(Collectors.toList());
     }
     @Transactional // 별도로 추가된 메서드를 쓰는 경우 필수
     public void updateHits(Long id) {
@@ -92,7 +98,7 @@ public class HyeeunBoardService {
     public HyeeunBoardDTO update(HyeeunBoardDTO boardDTO) {
         HyeeunBoardEntity boardEntity = HyeeunBoardEntity.toUpdateEntity(boardDTO); // entity 객체로 변환
         boardRepository.save(boardEntity);
-        return findById(boardDTO.getId()); // findById가 옵션으로 까서 가져오는 작업을 다 해줌, findById 메서드를 호출해 곧바로 결과를 컨트롤러 쪽으로 넘겨줌
+        return findById(boardDTO.getId());
     }
 
     public void delete(Long id) {
@@ -102,7 +108,7 @@ public class HyeeunBoardService {
     public Page<HyeeunBoardDTO> paging(Pageable pageable) {
         // repository에서 가져옴
         int page = pageable.getPageNumber()-1;
-        int pageLimit = 3; // 한 페이지에 보여줄 글 개수
+        int pageLimit = 10; // 한 페이지에 보여줄 글 개수
         // page : 몇 페이지를 보고 싶은지, page 위치에 있는 값은 0부터 시작
         // pageLimit : 한 페이지에 몇개
         // Sort.by(Sort.Direction.DESC, "id") : sorting 기준, 어떻게 정렬을 해서 가져 올거냐, "id" -> entity에 작성한 이름 기준

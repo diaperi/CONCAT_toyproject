@@ -1,20 +1,38 @@
 <div class="navBarGroup" th:fragment="navBar">
-    <div>
-        <a href="">커뮤니티</a>
+    <div class="community">
+        <a th:href="@{/main/communityMain}">
+            <img th:src="@{/img/메뉴-아이콘.png}" alt="">
+            <span>커뮤니티</span>
+        </a>
     </div>
-    <div>
-        <a th:href="@{/board/seoyun/boardList}">게시글 목록</a>
+    <div class="list">
+        <a th:href="@{/board/seoyun/boardList}">
+            <img th:src="@{/img/게시물목록-아이콘.png}" alt="">
+            <span>게시글 목록</span>
+        </a>
     </div>
-    <div>
-        <a th:href="@{/board/seoyun/seoyunSave}">게시글 등록</a>
+    <div class="regist">
+        <a th:href="@{/board/seoyun/seoyunSave}">
+            <img th:src="@{/img/게시물등록-아이콘.png}" alt="">
+            <span>게시글 등록</span>
+        </a>
     </div>
-    <div>
-        <a href="">좋아요</a>
+    <div class="message">
+        <a href="#">
+            <img th:src="@{/img/메시지-아이콘.png}" alt="">
+            <span>메시지</span>
+        </a>
     </div>
-    <div>
-        <a href="">메시지</a>
+    <div class="logout">
+        <a th:href="@{/user/logout}">
+            <img th:src="@{/img/로그아웃-아이콘.png}" alt="">
+            <span>로그아웃</span>
+        </a>
     </div>
-    <div>
-        <a href="">설정</a>
+    <div class="option">
+        <a th:href="@{/setting/settingHome}">
+            <img th:src="@{/img/설정-아이콘.png}" alt="">
+            <span>설정</span>
+        </a>
     </div>
 </div>
