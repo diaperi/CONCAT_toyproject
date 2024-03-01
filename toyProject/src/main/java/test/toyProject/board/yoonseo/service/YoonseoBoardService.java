@@ -3,12 +3,15 @@ package test.toyProject.board.yoonseo.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import test.toyProject.board.hyeeun.dto.HyeeunBoardDTO;
+import test.toyProject.board.hyeeun.entity.HyeeunBoardEntity;
 import test.toyProject.board.yoonseo.dto.YoonseoBoardDTO;
 import test.toyProject.board.yoonseo.entity.YoonseoBoardEntity;
 import test.toyProject.board.yoonseo.entity.YoonseoBoardFileEntity;
@@ -21,6 +24,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -57,12 +61,12 @@ public class YoonseoBoardService {
     @Transactional
     public List<YoonseoBoardDTO> findAll() {
         List<YoonseoBoardEntity> boardEntityList = boardRepository.findAll();
-        List<YoonseoBoardDTO> boardDTOList = new ArrayList<>();
         for (YoonseoBoardEntity boardEntity : boardEntityList) {
-            boardDTOList.add(YoonseoBoardDTO.toBoardDTO(boardEntity));
+            Hibernate.initialize(boardEntity.getBoardFileEntityList());
         }
-        return boardDTOList;
-        //....
+        return boardEntityList.stream()
+                .map(YoonseoBoardDTO::toBoardDTO)
+                .collect(Collectors.toList());
     }
 
     @Transactional
