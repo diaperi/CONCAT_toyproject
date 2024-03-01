@@ -2,6 +2,7 @@ package test.toyProject.board.yoonseo.dto;
 
 
 import lombok.*;
+import org.hibernate.Hibernate;
 import org.springframework.web.multipart.MultipartFile;
 import test.toyProject.board.yoonseo.entity.YoonseoBoardEntity;
 import test.toyProject.board.yoonseo.entity.YoonseoBoardFileEntity;
@@ -55,6 +56,7 @@ public class YoonseoBoardDTO {
         if (boardEntity.getFileAttached() == 0) { //파일을 첨부하지 않은 경우
             boardDTO.setFileAttached(boardEntity.getFileAttached()); // 0
         } else { //파일을 첨부한 경우
+            Hibernate.initialize(boardEntity.getBoardFileEntityList());
             List<String> originalFileNameList = new ArrayList<>();
             List<String> storedFileNameList = new ArrayList<>();
             boardDTO.setFileAttached(boardEntity.getFileAttached()); // 1
@@ -62,15 +64,10 @@ public class YoonseoBoardDTO {
                 originalFileNameList.add(boardFileEntity.getOriginalFileName());
                 storedFileNameList.add(boardFileEntity.getStoredFileName());
             }
-
             boardDTO.setOriginalFileName(originalFileNameList);
             boardDTO.setStoredFileName(storedFileNameList);
         }
-
-
         return boardDTO;
-
-
     }
 }
 

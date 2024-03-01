@@ -74,13 +74,13 @@ public class YoonseoBoardController {
 
 
     //글 목록부분
-    @GetMapping("/")
-    public String findAll(Model model) {
-        List<YoonseoBoardDTO> boardDTOList = boardService.findAll();
-        model.addAttribute("boardList", boardDTOList);
-        return "yoonseo/list"; //list에서 -> yoonseo추가 했더니 list.html로 연결됨.
-
-    }
+//    @GetMapping("/")
+//    public String findAll(Model model) {
+//        List<YoonseoBoardDTO> boardDTOList = boardService.findAll();
+//        model.addAttribute("boardList", boardDTOList);
+//        return "yoonseo/list"; //list에서 -> yoonseo추가 했더니 list.html로 연결됨.
+//
+//    }
 
     //게시글 목록에서 전체 게시물 카운트
     @GetMapping("/listCount")
