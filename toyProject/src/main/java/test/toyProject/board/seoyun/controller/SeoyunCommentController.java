@@ -23,7 +23,6 @@ import java.util.Map;
 public class SeoyunCommentController {
 
     private final SeoyunCommentService commentService;
-    private final UserService userService;
 
     @PostMapping("/save")
     public ResponseEntity save(@ModelAttribute SeoyunCommentDTO commentDTO, HttpSession session) {

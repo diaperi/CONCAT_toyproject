@@ -14,37 +14,62 @@
 
 .main_top{
     /* background-color: yellowgreen; */
-    width: 90%;
+    width: 95%;
     height: 300px;
     border: 1px solid rgb(209, 209, 209);
     border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
-.main_top > p:nth-child(1){
+.main_top>div>img{
+    width: 290px;
+    /* background-color: violet; */
+}
+
+.main_top>div>img:nth-child(2){
+    width: 120px;
+    height: 120px;
+    /* background-color: violet; */
+}
+
+.main_imgGroup{
+    /* background-color: yellow; */
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    /* margin-top: 10px; */
+    align-items: center;
+}
+
+.main_top > div>p:nth-child(1){
     color: rgb(136, 136, 136);
     font-size: 20px;
     margin-bottom: 20px;
     margin-top: 30px;
     margin-left: 30px;
+    white-space: nowrap;
 }
 
-.main_top > p:nth-child(2){
+.main_top > div>p:nth-child(2){
     color: black;
     font-size: 30px;
     font-weight: bold;
     margin-left: 30px;
     margin-bottom: 50px;
+    white-space: nowrap;
 }
 
-.main_top > p:nth-child(3){
+.main_top > div>p:nth-child(3){
     color: rgb(136, 136, 136);
     font-size: 16px;
     margin-left: 30px;
     font-weight: bold;
     margin-bottom: 50px;
+    white-space: nowrap;
 }
 
-.main_top > a{
+.main_top > div>a{
     width: 120px;
     height: 40px;
     border-radius: 10px;
@@ -65,7 +90,7 @@
 
 .main_middle{
     display: flex;
-    width: 90%;
+    width: 95%;
     /* background-color: violet; */
     justify-content: space-between;
 }
@@ -80,6 +105,7 @@
     border-radius: 20px;
     height: 250px;
     width: 31%;
+    min-width: 250px;
     color: rgb(168, 168, 168);
     font-weight: bold;
     display: flex;
@@ -142,7 +168,8 @@
     display: flex;
     /* background-color: #31ce2c; */
     width: 80%;
-    justify-content: space-between;
+    justify-content: space-between;  white-space: nowrap;
+
 }
 
 .main_date2{
@@ -163,6 +190,7 @@
     flex-direction: column;
     justify-content: center;
     cursor: pointer;
+    min-width: 250px;
 }
 .main_likeGroup > span:nth-child(1){
     margin-left: 25px;
@@ -239,6 +267,7 @@
     flex-direction: column;
     justify-content: center;
     cursor: pointer;
+    min-width: 250px;
 }
 .main_messageGroup > span:nth-child(1){
     margin-left: 25px;

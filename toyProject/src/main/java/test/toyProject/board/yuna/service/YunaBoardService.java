@@ -1,6 +1,7 @@
 package test.toyProject.board.yuna.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -67,11 +69,15 @@ public class YunaBoardService {
     @Transactional
     public List<YunaBoardDTO> findAll() {
         List<YunaBoardEntity> boardEntityList = boardRepository.findAll();
-        List<YunaBoardDTO> boardDTOList = new ArrayList<>();
+        // 모든 boardEntity를 가져온 후에 boardFileEntityList를 로드
         for (YunaBoardEntity boardEntity : boardEntityList) {
-            boardDTOList.add(YunaBoardDTO.toBoardDTO(boardEntity));
+            Hibernate.initialize(boardEntity.getBoardFileEntityList());
         }
-        return boardDTOList;
+
+        // 모든 boardDTO를 생성하여 반환
+        return boardEntityList.stream()
+                .map(YunaBoardDTO::toBoardDTO)
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -82,11 +88,11 @@ public class YunaBoardService {
     @Transactional
     public YunaBoardDTO findById(Long id) {
         Optional<YunaBoardEntity> optionalBoardEntity = boardRepository.findById(id);
-        if (optionalBoardEntity.isPresent()) {
+        if(optionalBoardEntity.isPresent()){
             YunaBoardEntity boardEntity = optionalBoardEntity.get();
             YunaBoardDTO boardDTO = YunaBoardDTO.toBoardDTO(boardEntity);
             return boardDTO;
-        } else {
+        }else{
             return null;
         }
     }

@@ -6,80 +6,87 @@
     <title>게시물 상세페이지</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/css/community/boardDetail.css">
+    <link rel="stylesheet" href="/css/main/header.css">
+    <link rel="stylesheet" href="/css/main/navBar.css">
 </head>
 <body>
-<div class="detail_box">
-    <div class="detail_box2">
-        <div class="detail_box3">
-            <div class="detail_topGroup">
-                <div class="detail_writerGroup">
-                    <span><img th:src="${profileImgUrl}" alt="" class="detail_profileImg"></span>
-                    <span>작성자 : &nbsp;</span>
-                    <span th:text="${board.boardWriter}"></span>
+<main th:insert="~{/main/header.html :: header}"></main>
+<div class="navBarBody">
+    <main th:insert="~{/main/navBar.html :: navBar}"></main>
+    <div class="detail_box">
+        <div class="detail_box2">
+            <div class="detail_box3">
+                <div class="detail_topGroup">
+                    <div class="detail_writerGroup">
+                        <span><img th:src="@{/img/사람5.png}" alt="" class="detail_profileImg"></span>
+                        <span>작성자 : &nbsp;</span>
+                        <span th:text="${board.boardWriter}" class="boardWriter"></span>
+                    </div>
+                    <div class="detail_createDate">
+                        <span th:text="${board.boardCreatedTime}"></span>
+                    </div>
                 </div>
-                <div class="detail_createDate">
-                    <span th:text="${board.boardCreatedTime}"></span>
-                </div>
-            </div>
-            <div class="detail_contentGroup">
-                <div class="detail_title">
-                    <span>제목 : </span>
-                    <span th:text="${board.boardTitle}"></span>
-                </div>
-                <hr>
-                <div class="detail_content">
-                    <span th:text="${board.boardContents}"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="detail_footGroup">
-        <!--    <div class="list_like">-->
-        <span class="likeButton" th:data-postid="${board.id}" onclick="likePost(this)">♡</span>
-        <!--    </div>-->
-        <button onclick="listReq()">게시물 목록</button>
-        <button onclick="deleteReq()">게시물 삭제</button>
-        <button onclick="updateReq()">게시물 수정</button>
-    </div>
-
-
-    <!-- 댓글 -->
-    <div class="detail_commentGroup">
-        <div class="detail_commentInputGroup">
-            <div>
-                <span th:text="${loggedInUser}" class="loggedInUser"></span>
-                <span>님 게시글 댓글</span>
-            </div>
-            <hr>
-            <div class="detail_commentInput">
-                <div>
-                    <img src="" alt="" class="detail_profileImg2">
-                    <textarea name="" id="commentContents" cols="50" rows="4" placeholder="댓글 입력"></textarea>
-                </div>
-                <div>
-                    <button id="detail_commentBtn" onclick="commentWrite()">댓글 등록</button>
-                </div>
-            </div>
-        </div>
-        <div class="detail_commentContentGroup">
-            <div class="detail_commentContentGroup2" th:each="comment: ${commentList}" id="comment-list">
-                <div class="detail_commentProfile">
-                    <img src="" alt="" class="detail_profileImg3">
-                    <span th:text="${comment.commentWriter}"></span>
-                </div>
-                <div class="detail_commentContent">
-                    <span th:text="${comment.commentContents}"></span>
-                    <div>
-                        <a href="">대댓글</a>
-                        <a href="">메시지</a>
-                        <a href="">신고</a>
+                <div class="detail_contentGroup">
+                    <div class="detail_title">
+                        <span>제목 : </span>
+                        <span th:text="${board.boardTitle}"></span>
                     </div>
                     <hr>
+                    <div class="detail_content">
+                        <span th:text="${board.boardContents}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="detail_footGroup">
+            <!--    <div class="list_like">-->
+            <span class="likeButton" th:data-postid="${board.id}" onclick="likePost(this)">🤍</span>
+            <!--    </div>-->
+            <button onclick="listReq()">게시물 목록</button>
+            <button onclick="deleteReq()">게시물 삭제</button>
+            <button onclick="updateReq()">게시물 수정</button>
+        </div>
+
+
+        <!-- 댓글 -->
+        <div class="detail_commentGroup">
+            <div class="detail_commentInputGroup">
+                <div>
+                    <span th:text="${loggedInUser}" class="loggedInUser"></span>
+                    <span>님 게시글 댓글</span>
+                </div>
+                <hr>
+                <div class="detail_commentInput">
+                    <div>
+                        <img th:src="@{/img/사람5.png}" alt="" class="detail_profileImg2">
+                        <textarea name="" id="commentContents" cols="50" rows="4" placeholder="댓글 입력"></textarea>
+                    </div>
+                    <div>
+                        <button id="detail_commentBtn" onclick="commentWrite()">댓글 등록</button>
+                    </div>
+                </div>
+            </div>
+            <div class="detail_commentContentGroup">
+                <div class="detail_commentContentGroup2" th:each="comment: ${commentList}" id="comment-list">
+                    <div class="detail_commentProfile">
+                        <img src="" alt="" class="detail_profileImg3">
+                        <span th:text="${comment.commentWriter}"></span>
+                    </div>
+                    <div class="detail_commentContent">
+                        <span th:text="${comment.commentContents}"></span>
+                        <div>
+                            <a href="">대댓글</a>
+                            <a href="">메시지</a>
+                            <a href="">신고</a>
+                        </div>
+                        <hr>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 </body>
 
 
@@ -111,7 +118,7 @@
                 // 새로운 댓글에 대한 HTML 문자열 생성
                 newCommentHTML += "<div class='detail_commentContentGroup2' id='comment-list'>";
                 newCommentHTML += "<div class='detail_commentProfile'>";
-                newCommentHTML += "<img src='' alt='' class='detail_profileImg3'>";
+                newCommentHTML += "<img th:src='@{/img/사람5.png}' alt='' class='detail_profileImg3'>";
                 newCommentHTML += "<span>" + res.commentDTOList[0].commentWriter + "</span>";
                 newCommentHTML += "</div>";
                 newCommentHTML += "<div class='detail_commentContent'>";
@@ -132,7 +139,7 @@
                 document.getElementById('commentContents').value = '';
             },
 
-            error  : function (err) {
+            error: function (err) {
                 console.log("요청실패", err);
             }
         });
@@ -144,14 +151,34 @@
     }
     const updateReq = () => {
         console.log("수정 요청");
-        const id = [[${board.id}]];
-        location.href = "/board/seoyun/update/" + id;
+        const loggedInUser = document.getElementsByClassName("loggedInUser")[0].textContent;
+        const boardWriter = document.getElementsByClassName("boardWriter")[0].textContent;
+
+        console.log("boardWriter:"+boardWriter,"loggedInUser:"+loggedInUser );
+        // 작성자와 로그인한 사용자가 다른 경우
+        if (boardWriter !== loggedInUser) {
+            alert("작성자만 수정할 수 있습니다."); // 에러 메시지 표시
+        } else if(boardWriter === loggedInUser){
+            const id = [[${board.id}]];
+            location.href = "/board/seoyun/update/" + id;
+        }
     }
+
     const deleteReq = () => {
         console.log("삭제 요청");
-        const id = [[${board.id}]];
-        location.href = "/board/seoyun/delete/" + id;
+        const loggedInUser = document.getElementsByClassName("loggedInUser")[0].textContent;
+        const boardWriter = document.getElementsByClassName("boardWriter")[0].textContent;
+
+        console.log("boardWriter:"+boardWriter,"loggedInUser:"+loggedInUser );
+        // 작성자와 로그인한 사용자가 다른 경우
+        if (boardWriter !== loggedInUser) {
+            alert("작성자만 삭제할 수 있습니다."); // 에러 메시지 표시
+        } else if(boardWriter === loggedInUser){
+            const id = [[${board.id}]];
+            location.href = "/board/seoyun/delete/" + id;
+        }
     }
+
 
     // 좋아요를 처리하는 함수
     function likePost(element) {
@@ -170,7 +197,7 @@
                 success: function (res) {
                     console.log("좋아요 취소 성공:", res);
                     // 버튼 텍스트를 ♡로 변경
-                    element.textContent = '♡';
+                    element.textContent = '🤍';
                 },
                 error  : function (err) {
                     console.error("좋아요 취소 실패:", err);
@@ -211,7 +238,7 @@
                     if (isLiked) {
                         likeButton.text('❤️'); // 이미 좋아요한 경우
                     } else {
-                        likeButton.text('♡'); // 좋아요하지 않은 경우
+                        likeButton.text('🤍'); // 좋아요하지 않은 경우
                     }
                 },
                 error  : function (err) {
@@ -219,6 +246,12 @@
                 }
             });
         });
+
+        $("#header").load("/../header.html", function () {
+        });
+        $("#navBar").load("/../navBar.html", function () {
+        });
+
     });
 </script>
 </html>

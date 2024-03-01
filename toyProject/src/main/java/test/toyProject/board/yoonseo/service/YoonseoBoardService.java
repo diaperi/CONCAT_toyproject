@@ -14,6 +14,7 @@ import test.toyProject.board.yoonseo.entity.YoonseoBoardEntity;
 import test.toyProject.board.yoonseo.entity.YoonseoBoardFileEntity;
 import test.toyProject.board.yoonseo.repository.YoonseoBoardRepository;
 import test.toyProject.board.yoonseo.repository.YoonseoBoardFileRepository;
+import test.toyProject.like.service.LikeService;
 
 import java.io.IOException;
 import java.io.File;
@@ -26,6 +27,7 @@ import java.util.Optional;
 public class YoonseoBoardService {
     private final YoonseoBoardRepository boardRepository;
     private final YoonseoBoardFileRepository boardFileRepository;
+    private final LikeService likeService;
 
     public void save(YoonseoBoardDTO boardDTO) throws IOException {
         if (boardDTO.getBoardFile().isEmpty()) { //첨부파일이 비어있는 경우
@@ -87,13 +89,25 @@ public class YoonseoBoardService {
         return findById(boardDTO.getId());
     }
 
+    @Transactional
     public void delete(Long id) {
-        boardRepository.deleteById(id);
+        try {
+            // 해당 게시글에 대한 좋아요 정보를 삭제하거나 업데이트
+            likeService.deleteByYoonseoBoardId(id);
+
+            // 게시글을 삭제
+            boardRepository.deleteById(id);
+        } catch (Exception e) {
+            // 예외 처리
+            throw new RuntimeException("게시글 삭제 중 오류가 발생했습니다.", e);
+        }
     }
+
+
 
     public Page<YoonseoBoardDTO> paging(Pageable pageable) {
         int page = pageable.getPageNumber() - 1; //페이지 위치값은 0부터 시작한다는 것을 잊지말자!
-        int pageLimit = 3;
+        int pageLimit = 10;
         Page<YoonseoBoardEntity> boardEntities = boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
 
 

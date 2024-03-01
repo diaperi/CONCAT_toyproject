@@ -1,91 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-    <style>
-        .sign_btn {
-            background-color: blue;
-            color: white;
-            border-radius: 10px; /* 버튼 모서리를 둥글게 하는 정도 */
-            box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-            padding: 10px 20px; /* 버튼 안쪽 여백 */
-            border: 2px solid rgba(0, 0, 0, 0.1); /* 테두리를 불투명도 10%로 설정 */
-            cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능한 것으로 표시 */
-            transition: all 0.3s ease; /* 부드러운 애니메이션 효과를 위한 transition 속성 */
-            width : 250px;
-        }
-        .sign_box {
-            text-align: center;
-        }
-        .sign_FistName {
-            border-radius: 5px; /* 버튼 모서리를 둥글게 하는 정도 */
-            box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-            padding: 10px 20px; /* 버튼 안쪽 여백 */
-            border: 2px solid rgba(0, 0, 0, 0.1); /* 테두리를 불투명도 10%로 설정 */ 
-            cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능한 것으로 표시 */
-            transition: all 0.3s ease; /* 부드러운 애니메이션 효과를 위한 transition 속성 */
-            width: 225px;
-        }
-        .sign_LastName {
-            border-radius: 5px; /* 버튼 모서리를 둥글게 하는 정도 */
-            box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-            padding: 10px 20px; /* 버튼 안쪽 여백 */
-            border: 2px solid rgba(0, 0, 0, 0.1); /* 테두리를 불투명도 10%로 설정 */
-            cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능한 것으로 표시 */
-            transition: all 0.3s ease; /* 부드러운 애니메이션 효과를 위한 transition 속성 */
-            width: 225px;
-        }
-        .sign_email {
-            border-radius: 5px; /* 버튼 모서리를 둥글게 하는 정도 */
-            box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-            padding: 10px 20px; /* 버튼 안쪽 여백 */
-            border: 2px solid rgba(0, 0, 0, 0.1); /* 테두리를 불투명도 10%로 설정 */
-            cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능한 것으로 표시 */
-            transition: all 0.3s ease; /* 부드러운 애니메이션 효과를 위한 transition 속성 */
-            width: 500px;
-        }
-        .sign_pw {
-            border-radius: 5px; /* 버튼 모서리를 둥글게 하는 정도 */
-            box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-            padding: 10px 20px; /* 버튼 안쪽 여백 */
-            border: 2px solid rgba(0, 0, 0, 0.1); /* 테두리를 불투명도 10%로 설정 */
-            cursor: pointer; /* 커서를 포인터로 변경하여 클릭 가능한 것으로 표시 */
-            transition: all 0.3s ease; /* 부드러운 애니메이션 효과를 위한 transition 속성 */
-            width: 500px;
-        }
-        .sign_nameGroup, .sign_emailGroup {
-            margin-bottom: 20px;
-        }
-        .sign_emailGroup, .sign_pwGroup {
-            margin-bottom: 20px; /* 버튼과 이전 입력 요소 사이의 간격을 20px로 설정 */
-        }
-        .title, .sign_nameGroup {
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/signup.css">
 </head>
+
 <body>
-    <div class="sign_box">
-        <p class="title"><b>무료 계정에 가입하세요.</b></p>
-        <form action="">
-            <div class="sign_nameGroup">
-                <input type="text" placeholder="성" class="sign_FistName">
-                <input type="text" placeholder="이름" class="sign_LastName">
+    <div class="sign_group">
+        <div class="sign_box">
+            <div class="sign_box2">
+                <p>무료 계정에 가입하세요.</p>
+                <form action="">
+                    <div class="sign_nameGroup">
+                        <input type="text" placeholder="성" class="sign_FistName">
+                        <input type="text" placeholder="이름" class="sign_LastName">
+                    </div>
+                    <div class="sign_emailGroup">
+                        <input type="email" placeholder="이메일 주소" class="sign_email">
+                        <div id="check-result"></div>
+                    </div>
+                    <div class="sign_pwGroup">
+                        <input type="password" placeholder="비밀번호 생성" class="sign_pw">
+                    </div>
+                </form>
+                <div class="sign_btnGroup">
+                    <button class="sign_btn" type="submit" id="signup"><b>회원가입</b></button>
+                </div>
             </div>
-            <div class="sign_emailGroup">
-                <input type="email" placeholder="이메일 주소" class="sign_email">
-            </div>
-            <div class="sign_pwGroup">
-                <input type="password" placeholder="비밀번호 생성" class="sign_pw">
-            </div>
-        </form>
-        <button class="sign_btn" type="submit" id="signup"><b>등록하다</b></button>
-        <script>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- <script>
             document.getElementById('signup').addEventListener('click', function() {
                 window.location.href = 'login.html'; // 새로운 페이지로 이동
             });
-        </script>
+        </script> -->
 </body>
+
 </html>

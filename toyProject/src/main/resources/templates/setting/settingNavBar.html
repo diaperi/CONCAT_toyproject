@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="navBarGroup" th:fragment="navBar">
+    <div class="community">
+        <a th:href="@{/setting/settingHome}">
+            <img th:src="@{/img/설정-홈--아이콘.png}" alt="">
+            <span>설정 홈</span>
+        </a>
+    </div>
+    <div class="list">
+        <a th:href="@{/setting/personal}">
+            <img th:src="@{/img/개인정보-아이콘.png}" alt="">
+            <span>개인정보</span>
+        </a>
+    </div>
+    <div class="regist">
+        <a th:href="@{/setting/vocabularyBook}">
+            <img th:src="@{/img/단어저장-아이콘.png}" alt="">
+            <span>단어 저장함</span>
+        </a>
+    </div>
+    <div class="message">
+        <a href="#" onclick="openModal()">
+            <img th:src="@{/img/회원탈퇴-아이콘.png}" alt="">
+            <span>회원탈퇴</span>
+        </a>
+    </div>
+    <div class="logout">
+        <a th:href="@{/user/logout}">
+            <img th:src="@{/img/로그아웃-아이콘.png}" alt="">
+            <span>로그아웃</span>
+        </a>
+    </div>
+</div>
+</body>
+</html>

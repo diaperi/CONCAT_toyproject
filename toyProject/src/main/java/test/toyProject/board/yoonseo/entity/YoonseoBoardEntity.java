@@ -71,7 +71,7 @@ public class YoonseoBoardEntity extends YoonseoBaseEntity {
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setBoardHits(0);
-        boardEntity.setFileAttached(1); // 1: 파일이 존재한다는 뜻
+        boardEntity.setFileAttached(0); // 1: 파일이 존재한다는 뜻
         return boardEntity;
     }
 }

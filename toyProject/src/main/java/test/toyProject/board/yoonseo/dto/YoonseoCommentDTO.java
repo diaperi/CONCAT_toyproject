@@ -22,7 +22,7 @@ public class YoonseoCommentDTO {
         commentDTO.setId(commentEntity.getId());
         commentDTO.setCommentWriter(commentEntity.getCommentWriter());
         commentDTO.setCommentContents(commentEntity.getCommentContents());
-        commentDTO.setCommentCreatedTime(commentEntity.getBoardEntity().getCreatedTime());
+        commentDTO.setCommentCreatedTime(commentEntity.getCreatedTime());
         commentDTO.setBoardId(boardId);
         return commentDTO;
 

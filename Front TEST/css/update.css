@@ -2,16 +2,23 @@
     margin: 0;
     padding: 0;
 }
-
+.boardTitle:focus{
+    outline: none;
+}
+.boardContents:focus{
+    outline: none;
+}
 .saveGroup{
     /* background-color: turquoise; */
     display: flex;
-    justify-content: center;
-    margin-top: 45px;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 80px;
 }
-
 .saveForm{
-    width: 92%;
+    width: 85%;
     /* background-color: yellow; */
     display: flex;
     flex-direction: column;

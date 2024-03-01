@@ -5,25 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/main/signup.css">
 </head>
 <body>
-<div class="sign_box">
-    <span>무료 계정에 가입하세요</span>
-    <form th:action="@{/user/save}" method="post">
-        <div class="sign_nameGroup">
-            <input type="text" placeholder="First name" class="sign_FistName" name="firstName">
-            <input type="text" placeholder="Last name" class="sign_LastName" name="lastName">
+<div class="sign_group">
+    <div class="sign_box">
+        <div class="sign_box2">
+            <p>무료 계정에 가입하세요.</p>
+            <form th:action="@{/user/save}" method="post" id="signupForm">
+                <div class="sign_nameGroup">
+                    <input type="text" placeholder="First name" class="sign_FistName" name="firstName">
+                    <input type="text" placeholder="Last name" class="sign_LastName" name="lastName">
+                </div>
+                <div class="sign_emailGroup">
+                    <input type="email" placeholder="Email address" class="sign_email" name="email" id="email"
+                           onblur="emailCheck()">
+                    <div id="check-result"></div>
+                </div>
+                <div class="sign_pwGroup">
+                    <input type="password" placeholder="Create password" class="sign_pw" name="password">
+                </div>
+            </form>
+            <div class="sign_btnGroup">
+                <button class="sign_btn" type="submit" id="signup" form="signupForm"><b>회원가입</b></button>
+            </div>
         </div>
-        <div class="sign_emailGroup">
-            <input type="email" placeholder="Email address" class="sign_email" name="email" id="email" onblur="emailCheck()">
-            <div id="check-result"></div>
-        </div>
-        <div class="sign_pwGroup">
-            <input type="password" placeholder="Create password" class="sign_pw" name="password">
-        </div>
-        <button class="sign_btn" type="submit">등록하다</button>
-    </form>
+    </div>
 </div>
+
 </body>
 <script th:inline="javascript">
     const emailCheck = () => {
@@ -32,12 +41,12 @@
         console.log("입력값: ", email);
         $.ajax({
             // 요청방식: post, url: "email-check", 데이터: 이메일
-            type: "post",
-            url: "/user/email-check",
-            data: {
+            type   : "post",
+            url    : "/user/email-check",
+            data   : {
                 "email": email
             },
-            success: function(res) {
+            success: function (res) {
                 console.log("요청성공", res);
                 if (res == "ok") {
                     console.log("사용가능한 이메일");
@@ -49,7 +58,7 @@
                     checkResult.innerHTML = "이미 사용중인 이메일";
                 }
             },
-            error: function(err) {
+            error  : function (err) {
                 console.log("에러발생", err);
             }
         });

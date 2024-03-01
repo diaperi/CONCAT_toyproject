@@ -9,7 +9,7 @@ import test.toyProject.board.yoonseo.dto.YoonseoCommentDTO;
 @Getter
 @Setter
 @Table(name="yoonseo_comment_table")
-public class YoonseoCommentEntity {
+public class YoonseoCommentEntity extends YoonseoBaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,6 +20,7 @@ public class YoonseoCommentEntity {
     @Column
     private String commentContents;
 
+    /* Board:Comment = 1:N */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private YoonseoBoardEntity boardEntity;

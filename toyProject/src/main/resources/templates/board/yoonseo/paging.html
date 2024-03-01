@@ -1,69 +1,85 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시물 목록</title>
+    <link rel="stylesheet" href="/css/community/boardList.css">
+    <link rel="stylesheet" href="/css/main/header.css">
+    <link rel="stylesheet" href="/css/main/navBar.css">
 </head>
 <body>
-<select id="nameSelect" onchange="redirectToSelectedPage()">
-    <option value="">선택하세요</option>
-    <option value="/board/hyeeun/paging">혜은</option>
-    <option value="/board/seoyun/boardList">서윤</option>
-    <option value="/board/yoonseo/paging">윤서</option>
-    <option value="/board/yuna/paging">윤아</option>
-</select>
-<button onclick="saveReq()">글 작성</button>
-<!-- yoonseo상태에서 페이지목록버튼을 눌렀을 때 !-->
-<!-- board/pagig으로 넘어가면서 페이징목록이 뜸. 일단 저번 강의처럼 한페이지당 3개의 목록이 나오도록 작성함. -->
-<!-- 페이징 목록에서 특정글을 클릭한 경우 board/id?page=페이지번호 url로 넘어감. url을 보고 게시글의 id와 게시글의 페이징 목록 위치를 알수 있음.-->
-<table>
-    <tr>
-        <th>id</th>
-        <th>title</th>
-        <th>writer</th>
-        <th>date</th>
-        <th>hits</th>
-    </tr>
-    <tr th:each="board: ${boardList}">
-        <td th:text="${board.id}"></td>
-        <td><a th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}" th:text="${board.boardTitle}"></a></td>
-        <td th:text="${board.boardWriter}"></td>
-        <td th:text="*{#temporals.format(board.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-        <td th:text="${board.boardHits}"></td>
-    </tr>
-</table>
-<!-- 첫번째 페이지로 이동 -->
-<!-- /board/paging?page=1 -->
-<a th:href="@{/board/paging(page=1)}">First</a>
-<!-- 이전 링크 활성화 비활성화 -->
-<!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
-<a th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}">prev</a>
+<main th:insert="~{/main/header.html :: header}"></main>
+<div class="navBarBody">
+    <main th:insert="~{/main/navBar.html :: navBar}"></main>
+    <div class="list_group">
+        <div>
+            <div>
+                <select id="nameSelect" onchange="redirectToSelectedPage()">
+                    <option value="">선택하세요</option>
+                    <option value="/board/hyeeun/paging">혜은</option>
+                    <option value="/board/seoyun/boardList">서윤</option>
+                    <option value="/board/yoonseo/paging">윤서</option>
+                    <option value="/board/yuna/paging">윤아</option>
+                </select>
+            </div>
+            <div class="list_count">
+                <span>전체글</span>
+                <span>10</span>
+                <span>/</span>
+                <span id="totalPosts" th:text="${totalCount}"></span>
+            </div>
+            <div class="list_boardGroup" th:each="board : ${boardList}">
+                <div class="list_profileImg">
+                    <img th:src="@{/img/사람5.png}" alt="">
+                </div>
+                <div class="list_titleGroup">
+                    <a th:href="@{|/board/yoonseo/${board.id}|}" th:text="${board.boardTitle}"></a>
+                </div>
+                <div class="list_like">
+                    <span class="likeButton" th:data-postid="${board.id}" onclick="likePost(this)">🤍</span>
+                </div>
+            </div>
+        </div>
+        <div class="pagingGroup">
+            <!-- 첫번째 페이지로 이동 -->
+            <!-- /board/paging?page=1 -->
+            <a th:href="@{/board/yoonseo/paging(page=1)}"><<</a>
+            <!-- 이전 링크 활성화 비활성화 -->
+            <!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
+            <a th:href="${boardList.first} ? '#' : @{/board/yoonseo/paging(page=${boardList.number})}"><</a>
 
+            <!-- 페이지 번호 링크(현재 페이지는 숫자만)
+                for(int page=startPage; page<=endPage; page++)-->
+            <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+                <!-- 현재페이지는 링크 없이 숫자만 -->
+                <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>
+                <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
+                <span th:unless="${page == boardList.number + 1}">
+                    <a th:href="@{/board/yoonseo/paging(page=${page})}" th:text="${page}"></a>
+                </span>
+            </span>
+            <!-- 다음 링크 활성화 비활성화
+                사용자: 2페이지, getNumber: 1, 3페이지-->
+            <a th:href="${boardList.last} ? '#' : @{/board/yoonseo/paging(page=${boardList.number + 2})}">></a>
+            <!-- 마지막 페이지로 이동 -->
+            <a th:href="@{/board/yoonseo/paging(page=${boardList.totalPages})}">>></a>
+        </div>
+    </div>
+</div>
 
-<!-- 페이지 번호 링크(현재 페이지는 숫자만)
-       for(int page=startPage; page<=endPage; page++)-->
-<span th:each="page: ${#numbers.sequence(startPage, endPage)}">
-<!-- 현재페이지는 링크 없이 숫자만 -->
-   <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>
-    <!-- 현재페이지 번호가 아닌 다른 페이지번호에는 링크를 보여줌 -->
-   <span th:unless="${page == boardList.number + 1}">
-       <a th:href="@{/board/paging(page=${page})}" th:text="${page}"></a>
-   </span>
-</span>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+    // AJAX를 사용하여 백엔드 API 호출
+    fetch('/board/yoonseo/listCount')
+        .then(response => response.json())
+        .then(data => {
+            // 전체 게시물 개수를 가져와서 표시
+            document.getElementById('totalPosts').textContent = data.totalCount;
+        })
+        .catch(error => console.error('Error:', error));
 
-
-<!-- 다음 링크 활성화 비활성화
-   사용자: 2페이지, getNumber: 1, 3페이지-->
-<a th:href="${boardList.last} ? '#' : @{/board/paging(page=${boardList.number + 2})}">next</a>
-<!-- 마지막 페이지로 이동 -->
-<a th:href="@{/board/paging(page=${boardList.totalPages})}">Last</a>
-
-
-</body>
-<script>
-    const saveReq = () => {
-        location.href = "/board/save"; //글 작성으로 넘어가는.. 홈으로 가는 버튼도 있으면 좋을 것 같음..
-    }
 
     // 선택된 옵션에 대한 페이지로 이동
     function redirectToSelectedPage() {
@@ -73,5 +89,82 @@
             window.location.href = selectedValue; // 선택된 페이지로 이동
         }
     }
+
+
+    // 좋아요를 처리하는 함수
+    function likePost(element) {
+        let postId = element.getAttribute("data-postid");
+        postId = parseInt(postId);
+
+        // 좋아요 버튼의 현재 텍스트 가져오기
+        const currentText = element.textContent.trim();
+        // ❤️ 버튼일 경우
+        if (currentText === '❤️') {
+            // 좋아요 취소 요청
+            $.ajax({
+                type: "POST",
+                url : `/like/yoonseo/${postId}/cancel`, // postId 변수 사용
+                // data: { loggedInUser: loggedInUser },
+                success: function (res) {
+                    console.log("좋아요 취소 성공:", res);
+                    // 버튼 텍스트를 ♡로 변경
+                    element.textContent = '🤍';
+                },
+                error  : function (err) {
+                    console.error("좋아요 취소 실패:", err);
+                }
+            });
+        } else { // ♡ 버튼일 경우
+            // 좋아요 요청
+            $.ajax({
+                type: "POST",
+                url : `/like/yoonseo/${postId}`, // postId 변수 사용
+                // data: { loggedInUser: loggedInUser },
+                success: function (res) {
+                    console.log("좋아요 성공:", res);
+                    // 버튼 텍스트를 ❤️로 변경
+                    element.textContent = '❤️';
+                },
+                error  : function (err) {
+                    console.error("좋아요 실패:", err);
+                }
+            });
+        }
+    }
+
+
+    // 게시물 목록에서 좋아요 버튼 초기 상태 설정
+    $(document).ready(function () {
+        // 모든 게시물에 대해 순회
+        $('.likeButton').each(function () {
+            var postId = $(this).attr('data-postid'); // 게시물 ID 가져오기
+            var likeButton = $(this); // 좋아요 버튼 가져오기
+
+            // 좋아요 정보를 가져오는 AJAX 요청
+            $.ajax({
+                type   : "GET",
+                url    : `/like/yoonseo/${postId}/isLiked`, // 게시물에 대한 좋아요 여부 확인 API 엔드포인트
+                success: function (isLiked) {
+                    // 가져온 좋아요 정보를 기반으로 버튼 텍스트 설정
+                    if (isLiked) {
+                        likeButton.text('❤️'); // 이미 좋아요한 경우
+                    } else {
+                        likeButton.text('🤍'); // 좋아요하지 않은 경우
+                    }
+                },
+                error  : function (err) {
+                    console.error("좋아요 정보 가져오기 실패:", err);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#header").load("/../header.html", function () {
+        });
+        $("#navBar").load("/../navBar.html", function () {
+        });
+    })
 </script>
+</body>
 </html>
