@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import test.toyProject.board.seoyun.dto.SeoyunBoardDTO;
-import test.toyProject.board.seoyun.dto.SeoyunCommentDTO;
 import test.toyProject.board.yuna.dto.YunaBoardDTO;
 import test.toyProject.board.yuna.dto.YunaCommentDTO;
 import test.toyProject.board.yuna.service.YunaBoardService;
