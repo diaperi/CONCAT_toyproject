@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update</title>
+    <link rel="stylesheet" href="/css/community/update.css">
+    <link rel="stylesheet" href="/css/main/header.css">
+    <link rel="stylesheet" href="/css/main/navBar.css">
+</head>
+<body>
+<main th:insert="~{/main/header.html :: header}"></main>
+<div class="navBarBody">
+    <main th:insert="~{/main/navBar.html :: navBar}"></main>
+    <div class="saveGroup">
+        <form th:action="@{/board/seoyun/update}" method="post" enctype="multipart/form-data" class="saveForm">
+            <div class="saveWrite">
+                <input type="hidden" name="id" th:value="${boardUpdate.id}">
+                <input type="hidden" name="boardWriter" th:value="${loggedInUser.fullName}">
+                <input type="text" name="boardTitle" placeholder="제목입력" th:value="${boardUpdate.boardTitle}"
+                       class="boardTitle"> <br>
+                <textarea name="boardContents" id="" cols="30" rows="10" placeholder="본문입력"
+                          th:text="${boardUpdate.boardContents}" class="boardContents"></textarea> <br>
+                <input type="file" name="boardFile" multiple class="boardFile" style="display: none">
+            </div>
+            <div class="updateBtnGroup">
+                <input type="button" value="게시물 목록" class="updateGoList" onclick="listReq()">
+                <input type="submit" value="게시물 수정" class="saveBtn">
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function () {
+        $("#header").load("/../header.html", function () {
+        });
+        $("#navBar").load("/../navBar.html", function () {
+        });
+    })
+    /*]]>*/
+
+    const listReq = () => {
+        console.log("목록 요청");
+        const page = [[${page}]];
+        location.href = "/board/seoyun/boardList";
+    }
+</script>
+
+</body>
+</html>

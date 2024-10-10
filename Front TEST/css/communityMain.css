@@ -1,0 +1,334 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+.main_topGroup{
+    display: flex;
+    background-color: white;
+    justify-content: center;
+    margin-bottom: 45px;
+    margin-top: 45px;
+}
+
+.main_top{
+    /* background-color: yellowgreen; */
+    width: 95%;
+    height: 300px;
+    border: 1px solid rgb(209, 209, 209);
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main_top>div>img{
+    width: 290px;
+    /* background-color: violet; */
+}
+
+.main_top>div>img:nth-child(2){
+    width: 120px;
+    height: 120px;
+    /* background-color: violet; */
+}
+
+.main_imgGroup{
+    /* background-color: yellow; */
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    /* margin-top: 10px; */
+    align-items: center;
+}
+
+.main_top > div>p:nth-child(1){
+    color: rgb(136, 136, 136);
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-left: 30px;  
+    white-space: nowrap;
+}
+
+.main_top > div>p:nth-child(2){
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 30px;
+    margin-bottom: 50px;  
+    white-space: nowrap;
+}
+
+.main_top > div>p:nth-child(3){
+    color: rgb(136, 136, 136);
+    font-size: 16px;
+    margin-left: 30px;
+    font-weight: bold;
+    margin-bottom: 50px;  
+    white-space: nowrap;
+}
+
+.main_top > div>a{
+    width: 120px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #3485ff;
+    background-color: #00aeff;
+    margin-left: 30px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 7px;
+}
+
+.main_middleGroup{
+    /* background-color: aliceblue; */
+    justify-content: center;
+    display: flex;
+}
+
+.main_middle{
+    display: flex;
+    width: 95%;
+    /* background-color: violet; */
+    justify-content: space-between;
+}
+
+
+
+/* ************************************************** */
+
+.main_commentGroup{
+    background-color: white;
+    border: 1px solid rgb(209, 209, 209);
+    border-radius: 20px;
+    height: 250px;
+    width: 31%;
+    min-width: 250px;
+    color: rgb(168, 168, 168);
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.main_commentGroup > span:nth-child(1){
+    margin-left: 25px;
+    font-size: 15px;
+    margin-top: 25px;
+}
+
+.main_commentGroup > span:nth-child(2){
+    margin-left: 25px;
+    font-size: 20px;
+    margin-top: 10px;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.main_commentGroup > .progressbar{
+    display: inline-block;
+    width: 85%;
+    height: 17px;
+    border-radius: 10px;
+    margin-left: 25px;
+    background-color: rgb(228, 228, 228);
+    margin-bottom: 15px;
+}
+
+.main_commentGroup > .progressbar > .gauge{
+    display: inline-block;
+    width: 90%;
+    height: 17px;
+    background-color: #31ce2c;
+    border-radius: 10px;
+}
+
+.main_commentGroup > div{
+    margin-left: 25px;
+    margin-bottom: 30px;
+}
+
+.main_commentGroup > div > span{
+    font-size: 12px;
+}
+
+
+.main_commentGroup>hr{
+    width: 88%;
+    margin-left: 25px;
+    margin-bottom: 20px;
+    border: 1px solid rgb(209, 209, 209);
+}
+
+.main_date{
+    font-size: 12px;
+    display: flex;
+    /* background-color: #31ce2c; */
+    width: 80%;
+    justify-content: space-between;  white-space: nowrap;
+
+}
+
+.main_date2{
+    color: black;
+}
+
+/* ************************************ */
+
+.main_likeGroup{
+    background-color: white;
+    border: 1px solid rgb(209, 209, 209);
+    border-radius: 20px;
+    height: 250px;
+    width: 31%;
+    color: rgb(168, 168, 168);
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    min-width: 250px;
+}
+.main_likeGroup > span:nth-child(1){
+    margin-left: 25px;
+    font-size: 15px;
+    margin-top: 25px;
+}
+
+.main_likeGroup > span:nth-child(2){
+    margin-left: 25px;
+    font-size: 20px;
+    margin-top: 10px;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.main_likeGroup > .progressbar{
+    display: inline-block;
+    width: 85%;
+    height: 17px;
+    border-radius: 10px;
+    margin-left: 25px;
+    background-color: rgb(228, 228, 228);
+    margin-bottom: 15px;
+}
+
+.main_likeGroup > .progressbar > .gauge{
+    display: inline-block;
+    width: 30%;
+    height: 17px;
+    background-color: #ce2c2c;
+    border-radius: 10px;
+}
+
+.main_likeGroup > div{
+    margin-left: 25px;
+    margin-bottom: 30px;
+}
+
+.main_likeGroup > div > span{
+    font-size: 12px;
+}
+
+
+.main_likeGroup>hr{
+    width: 88%;
+    margin-left: 25px;
+    margin-bottom: 20px;
+    border: 1px solid rgb(209, 209, 209);
+}
+
+.main_date{
+    font-size: 12px;
+    display: flex;
+    /* background-color: #31ce2c; */
+    width: 80%;
+    justify-content: space-between;
+}
+
+.main_date2{
+    color: black;
+}
+
+/* *************************************** */
+
+.main_messageGroup{
+    background-color: white;
+    border: 1px solid rgb(209, 209, 209);
+    border-radius: 20px;
+    height: 250px;
+    width: 31%;
+    color: rgb(168, 168, 168);
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    min-width: 250px;
+}
+.main_messageGroup > span:nth-child(1){
+    margin-left: 25px;
+    font-size: 15px;
+    margin-top: 25px;
+}
+
+.main_messageGroup > span:nth-child(2){
+    margin-left: 25px;
+    font-size: 20px;
+    margin-top: 10px;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.main_messageGroup > .progressbar{
+    display: inline-block;
+    width: 85%;
+    height: 17px;
+    border-radius: 10px;
+    margin-left: 25px;
+    background-color: rgb(228, 228, 228);
+    margin-bottom: 15px;
+}
+
+.main_messageGroup > .progressbar > .gauge{
+    display: inline-block;
+    width: 50%;
+    height: 17px;
+    background-color: #ffb922;
+    border-radius: 10px;
+}
+
+.main_messageGroup > div{
+    margin-left: 25px;
+    margin-bottom: 30px;
+}
+
+.main_messageGroup > div > span{
+    font-size: 12px;
+}
+
+
+.main_messageGroup>hr{
+    width: 88%;
+    margin-left: 25px;
+    margin-bottom: 20px;
+    border: 1px solid rgb(209, 209, 209);
+}
+
+.main_date{
+    font-size: 12px;
+    display: flex;
+    /* background-color: #31ce2c; */
+    width: 80%;
+    justify-content: space-between;
+}
+
+.main_date2{
+    color: black;
+}
+
+
+

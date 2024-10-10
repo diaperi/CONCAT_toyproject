@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>save</title>
+    <link rel="stylesheet" href="/css/save.css">
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="navBarBody">
+        <div id="navBar"></div>
+        <div class="saveGroup">
+            <div>
+                <select id="nameSelect" onchange="redirectToSelectedPage()">
+                    <option value="">선택하세요</option>
+                    <option value="/board/hyeeun/save">혜은</option>
+                    <option value="/board/seoyun/seoyunSave">서윤</option>
+                    <option value="/board/yoonseo/save">윤서</option>
+                    <option value="/board/yuna/save">윤아</option>
+                </select>
+            </div>
+            <form action="" class="saveForm">
+                <div class="saveWrite">
+                    <input type="text" name="boardTitle" placeholder="제목 입력" class="boardTitle"> <br>
+                    <textarea name="boardContents" id="" cols="30" rows="10" placeholder="본문 입력"
+                        class="boardContents"></textarea> <br>
+                </div>
+                <input type="submit" value="게시물 등록" class="saveBtn">
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#header").load("/../html/main/header.html", function () {
+            });
+            $("#navBar").load("/../html/main/navBar.html", function () {
+            });
+        })
+    </script>
+</body>
+
+</html>

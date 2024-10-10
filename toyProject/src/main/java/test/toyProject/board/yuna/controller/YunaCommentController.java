@@ -1,0 +1,63 @@
+package test.toyProject.board.yuna.controller;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import test.toyProject.board.seoyun.dto.SeoyunCommentDTO;
+import test.toyProject.board.yuna.dto.YunaBoardDTO;
+import test.toyProject.board.yuna.dto.YunaCommentDTO;
+import test.toyProject.board.yuna.service.YunaCommentService;
+import test.toyProject.user.dto.UserDTO;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/yuna/comment")
+public class YunaCommentController {
+    private final YunaCommentService commentService;
+
+    // 댓글 작성, 저장
+    @PostMapping("/save")
+    public ResponseEntity save(@ModelAttribute YunaCommentDTO commentDTO, HttpSession session) {
+        UserDTO loggedInUser = (UserDTO) session.getAttribute("loggedInUser");
+        if (loggedInUser != null) {
+            // 로그인한 사용자의 이름을 가져와서 DTO에 설정합니다.
+            commentDTO.setCommentWriter(loggedInUser.getFullName());
+            System.out.println("commentDTO = " + commentDTO);
+            Long saveResult = commentService.save(commentDTO);
+            if (saveResult != null) {
+                List<YunaCommentDTO> commentDTOList = commentService.findAll(commentDTO.getBoardId());
+                // 댓글 목록과 로그인 사용자 정보를 함께 반환
+                Map<String, Object> responseData = new HashMap<>();
+                responseData.put("commentDTOList", commentDTOList);
+                responseData.put("loggedInUser", loggedInUser.getFullName());
+
+                return new ResponseEntity<>(responseData, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("해당 게시글이 존재하지 않습니다.", HttpStatus.NOT_FOUND);
+            }
+        } else {
+            // 로그인한 사용자 정보가 세션에 없는 경우
+            return new ResponseEntity<>("로그인이 필요합니다.", HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+
+    // 댓글 목록
+    @GetMapping("/getByBoardId/{boardId}")
+    public ResponseEntity<List<YunaCommentDTO>> getCommentsByBoardId(@PathVariable Long boardId) {
+        List<YunaCommentDTO> commentDTOList = commentService.findAll(boardId);
+        if (commentDTOList != null) {
+            return new ResponseEntity<>(commentDTOList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+}

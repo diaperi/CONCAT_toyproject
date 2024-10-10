@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>community Main</title>
+    <script src="https://kit.fontawesome.com/a06d7ad725.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/community/communityMain.css">
+    <link rel="stylesheet" href="/css/main/header.css">
+    <link rel="stylesheet" href="/css/main/navBar.css">
+</head>
+<body>
+<main th:insert="~{/main/header.html :: header}"></main>
+<div class="navBarBody">
+    <main th:insert="~{/main/navBar.html :: navBar}"></main>
+    <div class="communityGroup">
+        <div class="main_topGroup">
+            <div class="main_top">
+                <div>
+                    <p>어서오세요</p>
+                    <p>이곳은 커뮤니티 공간입니다.</p>
+                    <p>게시물을 등록하시고 자유롭게 이용해 주시기 바랍니다</p>
+                    <a th:href="@{/board/seoyun/seoyunSave}">게시물 작성</a>
+                </div>
+                <div class="main_imgGroup">
+                    <img th:src="@{/img/커뮤니티-여자.png}" alt="">
+                    <img th:src="@{/img/커뮤니티-남여 사이 이미지.png}" alt="">
+                    <img th:src="@{/img/커뮤니티-남자.png}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="main_middleGroup">
+            <div class="main_middle">
+                <div class="main_commentGroup">
+                    <span>Ongoing Project</span>
+                    <span>댓글</span>
+                    <span class="progressbar">
+                <span class="gauge"></span>
+            </span>
+                    <div>
+                        <span>90</span>
+                        <span>%</span>
+                        <span>Complete</span>
+                    </div>
+                    <hr>
+                    <div class="main_date">
+                        <div>
+                            <span class="main_date2">Start Date : </span>
+                            <span>10 Jan</span>
+                        </div>
+                        <div>
+                            <span class="main_date2">End Date : </span>
+                            <span>29 Jan</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="main_likeGroup">
+                    <span>Ongoing Project</span>
+                    <span>종아요 </span>
+                    <span class="progressbar">
+                <span class="gauge"></span>
+            </span>
+                    <div>
+                        <span>30</span>
+                        <span>%</span>
+                        <span>Complete</span>
+                    </div>
+                    <hr>
+                    <div class="main_date">
+                        <div>
+                            <span class="main_date2">Start Date : </span>
+                            <span>10 Jan</span>
+                        </div>
+                        <div>
+                            <span class="main_date2">End Date : </span>
+                            <span>29 Jan</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="main_messageGroup">
+                    <span>Ongoing Project</span>
+                    <span>메시지 </span>
+                    <span class="progressbar">
+                <span class="gauge"></span>
+            </span>
+                    <div>
+                        <span>50</span>
+                        <span>%</span>
+                        <span>Complete</span>
+                    </div>
+                    <hr>
+                    <div class="main_date">
+                        <div>
+                            <span class="main_date2">Start Date : </span>
+                            <span>10 Jan</span>
+                        </div>
+                        <div>
+                            <span class="main_date2">End Date : </span>
+                            <span>29 Jan</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function () {
+        $("#header").load("/../header.html", function () {
+        });
+        $("#navBar").load("/../navBar.html", function () {
+        });
+    })
+    /*]]>*/
+</script>
+</body>
+</html>

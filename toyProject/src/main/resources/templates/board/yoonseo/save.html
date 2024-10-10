@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>save</title>
+    <link rel="stylesheet" href="/css/community/save.css">
+    <link rel="stylesheet" href="/css/main/header.css">
+    <link rel="stylesheet" href="/css/main/navBar.css">
+</head>
+<body>
+<main th:insert="~{/main/header.html :: header}"></main>
+<div class="navBarBody">
+    <main th:insert="~{/main/navBar.html :: navBar}"></main>
+    <div class="saveGroup">
+        <div>
+            <select id="nameSelect" onchange="redirectToSelectedPage()">
+                <option value="">선택하세요</option>
+                <option value="/board/hyeeun/save">혜은</option>
+                <option value="/board/seoyun/seoyunSave">서윤</option>
+                <option value="/board/yoonseo/save">윤서</option>
+                <option value="/board/yuna/save">윤아</option>
+            </select>
+        </div>
+        <form action="/board/yoonseo/save" method="post" enctype="multipart/form-data" id="saveForm"
+              class="saveForm">
+            <div class="saveWrite">
+                <input type="text" name="boardTitle" placeholder="제목 입력" class="boardTitle"> <br>
+                <textarea name="boardContents" id="" cols="30" rows="10" placeholder="본문 입력"
+                          class="boardContents"></textarea> <br>
+                <input type="file" name="boardFile" multiple class="boardFile" style="display: none">
+            </div>
+            <input type="submit" value="게시물 등록" class="saveBtn">
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+    // 선택된 옵션에 대한 페이지로 이동
+    function redirectToSelectedPage() {
+        var selectBox = document.getElementById("nameSelect");
+        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        if (selectedValue !== "") {
+            window.location.href = selectedValue; // 선택된 페이지로 이동
+        }
+    }
+    $(document).ready(function () {
+        $("#header").load("/../header.html", function () {
+        });
+        $("#navBar").load("/../navBar.html", function () {
+        });
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>settingHome</title>
+    <link rel="stylesheet" href="/css/setting/settingHome.css">
+    <link rel="stylesheet" href="/css/main/header.css">
+    <link rel="stylesheet" href="/css/main/navBar.css">
+    <link rel="stylesheet" href="/css/setting/leave.css">
+</head>
+<body>
+<main th:insert="~{/setting/settingHeader.html :: header}"></main>
+<div class="navBarBody">
+    <main th:insert="~{/setting/settingNavBar.html :: navBar}"></main>
+    <div class="settingHome_content">
+        <div class="settingHome_img1">
+            <img th:src="@{/img/person3.JPG}" alt="">
+        </div>
+        <br>
+        <span class="settingHome_s1">사람 3님, 환영합니다</span><br>
+        <div>
+            <span class="settingHome_s2">정보, 개인 정보 보호 및 보안 설정을 관리하여 나에게 맞는 방식으로 LANGUP을 사용할 수 있습니다.</span>
+            <span class="settingHome_highlight"> <a href="">&nbsp;자세히 알아보기</a></span>
+            <span class="settingHome_i"><i class="fa-solid fa-question"></i></span>
+        </div>
+        <img th:src="@{/img/setting.JPG}" alt="" class="settingHome_img2">
+    </div>
+</div>
+
+<!--*****************-->
+<div id="overlay"></div>
+<div id="myModal" class="modal">
+    <div class="txt-container">
+        <span><h2>회원 탈퇴</h2></span>
+    </div>
+    <div class="txt-content">
+        <span>
+            가입된 회원 정보 모두 삭제됩니다. 작성하신 게시물은 삭제되지 않습니다.<br>
+            탈퇴 후 같은 게정으로 재가입 시 기존에 가지고 있던 학습 내용은 복원되지 않으며,<br>
+            사용 및 다운로드 했던 파일도 사용 불가능합니다.<br>
+            회원 탈퇴를 진행하시겠습니까?
+        </span>
+    </div>
+    <div class="btn-container">
+        <button class="cancel" onclick="closeModal()">취소</button>
+        <button class="leave" onclick="leave()">탈퇴</button>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function () {
+        $("#header").load("/../settingHeader.html", function () {
+        });
+        $("#navBar").load("/../settingNavBar.html", function () {
+        });
+    })
+    /*]]>*/
+
+    function openModal() {
+        document.getElementById('myModal').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('myModal').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    function leave() {
+        alert('회원 탈퇴가 완료되었습니다.');
+        closeModal();
+    }
+</script>
+</body>
+</html>

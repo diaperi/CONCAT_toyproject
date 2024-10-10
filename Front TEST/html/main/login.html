@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+    <div class="log_group">
+        <div class="log_topGroup">
+            <div class="log_langBtn">
+                <div class="log_select">
+                    <select name="" id="">
+                        <option value="Korea">한국어</option>
+                        <option value="Eng">English</option>
+                        <option value="Chn">中國語</option>
+                        <option value="Jap">にほんご</option>
+                    </select>
+                </div>
+                <div class="log_signBtn">
+                    <a href="">로그인</a>
+                </div>
+                <div class="log_regisBtn">
+                    <a href="">회원가입</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="log_mainGroup">
+            <!-- leftGroup -->
+            <div class="log_leftGroup">
+                <div class="log_leftGroup1">
+                    <span>환영합니다</span><br />
+                    <span>[이곳은 로그인 또는 회원가입 화면입니다]</span><br />
+                </div>
+                <div class="log_leftGroup2">
+                    <span>LangUp(랭업)은 언어를 올려 나간다는 의미를 갖고 있는 이름입니다.</span><br />
+                    <span>이 사이트를 이용하는 학습자들은 서로 언어공부를 도와주고,
+                        피드백을 주고받을 수 있는
+                        <br />웹 사이트입니다.</span>
+                </div>
+                <div class="log_leftGroup3">
+                    <a href="">지금 바로 참여하세요!</a>
+                </div>
+                <!-- img -->
+                <div class="log_imageContainer">
+                    <img src="img/로그인_회원가입 부분.png" alt="" style="width: 400px; height: 350px;">
+                </div>
+            </div>
+
+            <!-- rightGroup -->
+            <div class="log_rightGroup">
+                <p class="title">로그인</p>
+                <form action="" id="log_form">
+                    <div class="log_emailInput">
+                        <input type="email" placeholder="이메일 또는 전화번호 입력" class="log_email">
+                    </div>
+                    <div class="log_pwInput">
+                        <input type="password" placeholder="비밀번호" class="log_password">
+                    </div>
+                    <div class="log_forgotPw">
+                        <a href="">비밀번호를 잊으셨나요?</a>
+                    </div>
+                </form>
+                <!-- 로그인, 회원가입 버튼 -->
+                <div class="log_buttonContainer">
+                    <div class="log_loginBtn">
+                        <button type="submit" class="login" form="log_form"><b>로그인</b></button>
+                    </div>
+                    <div class="log_loginBtn">
+                        <button class="sign" id="signupButton"><b>회원가입</b></button>
+                    </div>
+                </div>
+                <!-- SNS 계정으로 가입 원할시 -->
+                <div class="log_sns">
+                    <a href="">
+                        <!-- <button class="google" id="googleButton"> -->
+                        <img src="img/Google.png" alt="">
+                        <!-- </button> -->
+                    </a>
+                    <a href="">
+                        <!-- <button class="twitter" id="twitterButton"> -->
+                        <img src="img/Twitter.png" alt="">
+                        <!-- </button> -->
+                    </a>
+                    <a href="">
+                        <!-- <button class="facebook" id="facebookButton"> -->
+                        <img src="img/Facebook.png" alt="">
+                        <!-- </button> -->
+                    </a>
+                    <a href="">
+                        <!-- <button class="apple" id="appleButton"> -->
+                        <img src="img/Apple.jpg" alt="">
+                        <!-- </button> -->
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- <script>
+            /* signup.html로 이동 */
+            document.getElementById('signupButton').addEventListener('click', function() {
+                window.location.href = 'signup.html'; // 새로운 페이지로 이동
+            });
+
+            /* 각각의 SNS 사이트로 이동 */
+            document.getElementById('googleButton').addEventListener('click', function() {
+                window.location.href = 'https://www.google.com'; // Google로 이동
+            });
+
+            document.getElementById('twitterButton').addEventListener('click', function() {
+                window.location.href = 'https://twitter.com'; // Twitter로 이동
+            });
+
+            document.getElementById('facebookButton').addEventListener('click', function() {
+                window.location.href = 'https://www.facebook.com'; // Facebook으로 이동
+            });
+
+            document.getElementById('appleButton').addEventListener('click', function() {
+                window.location.href = 'https://www.apple.com'; // Apple로 이동
+            });
+        </script> -->
+</body>
+
+</html>

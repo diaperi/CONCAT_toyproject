@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시물 상세페이지</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/community/boardDetail.css">
+    <link rel="stylesheet" href="/css/main/header.css">
+    <link rel="stylesheet" href="/css/main/navBar.css">
+</head>
+<body>
+<main th:insert="~{/main/header.html :: header}"></main>
+<div class="navBarBody">
+    <main th:insert="~{/main/navBar.html :: navBar}"></main>
+    <div class="detail_box">
+        <div class="detail_box2">
+            <div class="detail_box3">
+                <div class="detail_topGroup">
+                    <div class="detail_writerGroup">
+                        <span><img th:src="@{/img/사람5.png}" alt="" class="detail_profileImg"></span>
+                        <span>작성자 : &nbsp;</span>
+                        <span th:text="${board.boardWriter}" class="boardWriter"></span>
+                    </div>
+                    <div class="detail_createDate">
+                        <span th:text="${board.boardCreatedTime}"></span>
+                    </div>
+                </div>
+                <div class="detail_contentGroup">
+                    <div class="detail_title">
+                        <span>제목 : </span>
+                        <span th:text="${board.boardTitle}"></span>
+                    </div>
+                    <hr>
+                    <div class="detail_content">
+                        <span th:text="${board.boardContents}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="detail_footGroup">
+            <!--    <div class="list_like">-->
+            <span class="likeButton" th:data-postid="${board.id}" onclick="likePost(this)">🤍</span>
+            <!--    </div>-->
+            <button onclick="listReq()">게시물 목록</button>
+            <button onclick="deleteReq()">게시물 삭제</button>
+            <button onclick="updateReq()">게시물 수정</button>
+        </div>
+
+
+        <!-- 댓글 -->
+        <div class="detail_commentGroup">
+            <div class="detail_commentInputGroup">
+                <div>
+                    <span th:text="${loggedInUser}" class="loggedInUser"></span>
+                    <span>님 게시글 댓글</span>
+                </div>
+                <hr>
+                <div class="detail_commentInput">
+                    <div>
+                        <img th:src="@{/img/사람5.png}" alt="" class="detail_profileImg2">
+                        <textarea name="" id="commentContents" cols="50" rows="4" placeholder="댓글 입력"></textarea>
+                    </div>
+                    <div>
+                        <button id="detail_commentBtn" onclick="commentWrite()">댓글 등록</button>
+                    </div>
+                </div>
+            </div>
+            <div class="detail_commentContentGroup">
+                <div class="detail_commentContentGroup2" th:each="comment: ${commentList}" id="comment-list">
+                    <div class="detail_commentProfile">
+                        <img src="" alt="" class="detail_profileImg3">
+                        <span th:text="${comment.commentWriter}"></span>
+                    </div>
+                    <div class="detail_commentContent">
+                        <span th:text="${comment.commentContents}"></span>
+                        <div>
+                            <a href="">대댓글</a>
+                            <a href="">메시지</a>
+                            <a href="">신고</a>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+<script th:inline="javascript">
+
+    const commentWrite = () => {
+        const contents = document.getElementById("commentContents").value;
+        // const loggedInUser = /*[[${loggedInUserFullName}]]*/ '';
+        const loggedInUser = document.getElementsByClassName("loggedInUser")[0].textContent;
+
+        console.log("작성자: ", loggedInUser);
+        console.log("내용: ", contents);
+        const id = [[${board.id}]];
+        $.ajax({
+            // 요청방식: post, 요청주소: /comment/save, 요청데이터: 작성자, 작성내용, 게시글번호
+            type   : "post",
+            url    : "/yuna/comment/save",
+            data   : {
+                "commentWriter"  : loggedInUser,
+                "commentContents": contents,
+                "boardId"        : id
+            },
+            success: function (res) {
+                console.log("요청성공", res);
+
+                // 새로운 댓글을 추가할 HTML 문자열 초기화
+                let newCommentHTML = "";
+
+                // 새로운 댓글에 대한 HTML 문자열 생성
+                newCommentHTML += "<div class='detail_commentContentGroup2' id='comment-list'>";
+                newCommentHTML += "<div class='detail_commentProfile'>";
+                newCommentHTML += "<img th:src='@{/img/사람5.png}' alt='' class='detail_profileImg3'>";
+                newCommentHTML += "<span>" + res.commentDTOList[0].commentWriter + "</span>";
+                newCommentHTML += "</div>";
+                newCommentHTML += "<div class='detail_commentContent'>";
+                newCommentHTML += "<span>" + res.commentDTOList[0].commentContents + "</span>";
+                newCommentHTML += "<div>";
+                newCommentHTML += "<a href=''>대댓글</a>";
+                newCommentHTML += "<a href=''>메시지</a>";
+                newCommentHTML += "<a href=''>신고</a>";
+                newCommentHTML += "</div>";
+                newCommentHTML += "<hr>";
+                newCommentHTML += "</div>";
+                newCommentHTML += "</div>";
+
+                // 새로운 댓글을 차례대로 추가
+                $(".detail_commentContentGroup").prepend(newCommentHTML);
+
+                // 입력 폼 초기화
+                document.getElementById('commentContents').value = '';
+            },
+
+            error: function (err) {
+                console.log("요청실패", err);
+            }
+        });
+    }
+    const listReq = () => {
+        console.log("목록 요청");
+        const page = [[${page}]];
+        location.href = "/board/yuna/paging?page=" + page;
+    }
+    const updateReq = () => {
+        console.log("수정 요청");
+        const loggedInUser = document.getElementsByClassName("loggedInUser")[0].textContent;
+        const boardWriter = document.getElementsByClassName("boardWriter")[0].textContent;
+
+        console.log("boardWriter:"+boardWriter,"loggedInUser:"+loggedInUser );
+        // 작성자와 로그인한 사용자가 다른 경우
+        if (boardWriter !== loggedInUser) {
+            alert("작성자만 수정할 수 있습니다."); // 에러 메시지 표시
+        } else if(boardWriter === loggedInUser){
+            const id = [[${board.id}]];
+            location.href = "/board/yuna/update/" + id;
+        }
+    }
+
+    const deleteReq = () => {
+        console.log("삭제 요청");
+        const loggedInUser = document.getElementsByClassName("loggedInUser")[0].textContent;
+        const boardWriter = document.getElementsByClassName("boardWriter")[0].textContent;
+
+        console.log("boardWriter:"+boardWriter,"loggedInUser:"+loggedInUser );
+        // 작성자와 로그인한 사용자가 다른 경우
+        if (boardWriter !== loggedInUser) {
+            alert("작성자만 삭제할 수 있습니다."); // 에러 메시지 표시
+        } else if(boardWriter === loggedInUser){
+            const id = [[${board.id}]];
+            location.href = "/board/yuna/delete/" + id;
+        }
+    }
+
+
+    // 좋아요를 처리하는 함수
+    function likePost(element) {
+        let postId = element.getAttribute("data-postid");
+        postId = parseInt(postId);
+
+        // 좋아요 버튼의 현재 텍스트 가져오기
+        const currentText = element.textContent.trim();
+        // ❤️ 버튼일 경우
+        if (currentText === '❤️') {
+            // 좋아요 취소 요청
+            $.ajax({
+                type: "POST",
+                url : `/like/yuna/${postId}/cancel`, // postId 변수 사용
+                // data: { loggedInUser: loggedInUser },
+                success: function (res) {
+                    console.log("좋아요 취소 성공:", res);
+                    // 버튼 텍스트를 ♡로 변경
+                    element.textContent = '🤍';
+                },
+                error  : function (err) {
+                    console.error("좋아요 취소 실패:", err);
+                }
+            });
+        } else { // ♡ 버튼일 경우
+            // 좋아요 요청
+            $.ajax({
+                type: "POST",
+                url : `/like/yuna/${postId}`, // postId 변수 사용
+                // data: { loggedInUser: loggedInUser },
+                success: function (res) {
+                    console.log("좋아요 성공:", res);
+                    // 버튼 텍스트를 ❤️로 변경
+                    element.textContent = '❤️';
+                },
+                error  : function (err) {
+                    console.error("좋아요 실패:", err);
+                }
+            });
+        }
+    }
+
+
+    // 게시물 목록에서 좋아요 버튼 초기 상태 설정
+    $(document).ready(function () {
+        // 모든 게시물에 대해 순회
+        $('.likeButton').each(function () {
+            var postId = $(this).attr('data-postid'); // 게시물 ID 가져오기
+            var likeButton = $(this); // 좋아요 버튼 가져오기
+
+            // 좋아요 정보를 가져오는 AJAX 요청
+            $.ajax({
+                type   : "GET",
+                url    : `/like/yuna/${postId}/isLiked`, // 게시물에 대한 좋아요 여부 확인 API 엔드포인트
+                success: function (isLiked) {
+                    // 가져온 좋아요 정보를 기반으로 버튼 텍스트 설정
+                    if (isLiked) {
+                        likeButton.text('❤️'); // 이미 좋아요한 경우
+                    } else {
+                        likeButton.text('🤍'); // 좋아요하지 않은 경우
+                    }
+                },
+                error  : function (err) {
+                    console.error("좋아요 정보 가져오기 실패:", err);
+                }
+            });
+        });
+
+        $("#header").load("/../header.html", function () {
+        });
+        $("#navBar").load("/../navBar.html", function () {
+        });
+
+    });
+</script>
+</html>

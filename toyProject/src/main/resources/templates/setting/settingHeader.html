@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="header" class="header">
+    <div class="header_group">
+        <a th:href="@{/main/communityMain}">
+            <div class="header_boardBtn">
+                <img th:src="@{/img/랭업-배경없음로고.png}" alt="로고">
+            </div>
+        </a>
+        <h1 class="text">LANGUP 계정 관리</h1>
+        <div class="header_contain">
+            <div class="header_myPage">
+                <a href="내페이지.html"><img th:src="@{/img/image1.png}" alt=""></a>
+            </div>
+            <div class="header_notification">
+                <a href="공지사항.html"><img th:src="@{/img/image2.png}" alt=""></a>
+            </div>
+            <div class="option">
+                <a th:href="@{/setting/personal}"><img th:src="@{/img/image3.png}" alt=""></a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

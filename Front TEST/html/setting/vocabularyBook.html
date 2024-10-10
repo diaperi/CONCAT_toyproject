@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>vocabularyBook</title>
+    <link rel="stylesheet" href="/css/vocabularyBook.css">
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="navBarBody">
+        <div id="navBar"></div>
+        <div class="vocabularyBook_group">
+            <!-- 검색 부분 -->
+            <div class="menu">
+                <div class="search">
+                    <input type="text" placeholder="단어장" id="searchInput" onkeypress="handleKeyPress(event)" />
+                    <div class="material-icons" onclick="performSearch()">search</div>
+                </div>
+            </div>
+
+            <!-- 단어 부분 -->
+            <div class="word-cards-container">
+                <div class="word-card">
+                    <div class="eng">abandon</div>
+                    <div class="content">
+                        <div class="kor">버리다; 포기하다</div>
+                        <div class="material-symbols-outlined">
+                            <span id="volume"><img src="volume.png"></span>
+                            <span id="remove"><img src="remove.png"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <div class="eng">abhor</div>
+                    <div class="content">
+                        <div class="kor">혐오하다</div>
+                        <div class="material-symbols-outlined">
+                            <span id="volume"><img src="volume.png"></span>
+                            <span id="remove"><img src="remove.png"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <div class="eng">abide by</div>
+                    <div class="content">
+                        <div class="kor">지키다, 준수하다, 따르다</div>
+                        <div class="material-symbols-outlined">
+                            <span id="volume"><img src="volume.png"></span>
+                            <span id="remove"><img src="remove.png"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <div class="eng">abolish</div>
+                    <div class="content">
+                        <div class="kor">폐지하다; 무효로 하다</div>
+                        <div class="material-symbols-outlined">
+                            <span id="volume"><img src="volume.png"></span>
+                            <span id="remove"><img src="remove.png"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <div class="eng">abridge</div>
+                    <div class="content">
+                        <div class="kor">단축하다; 줄이다, 축소하다</div>
+                        <div class="material-symbols-outlined">
+                            <span id="volume"><img src="volume.png"></span>
+                            <span id="remove"><img src="remove.png"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <div class="eng">abstract</div>
+                    <div class="content">
+                        <div class="kor">추상적인; 요약(하다)</div>
+                        <div class="material-symbols-outlined">
+                            <span id="volume"><img src="volume.png"></span>
+                            <span id="remove"><img src="remove.png"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <div class="eng">abuse</div>
+                    <div class="content">
+                        <div class="kor">남용(하다), 학대(하다)</div>
+                        <div class="material-symbols-outlined">
+                            <span id="volume"><img src="volume.png"></span>
+                            <span id="remove"><img src="remove.png"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <div class="eng">accidental</div>
+                    <div class="content">
+                        <div class="kor">우연한; 부수적인</div>
+                        <div class="material-symbols-outlined">
+                            <span id="volume"><img src="volume.png"></span>
+                            <span id="remove"><img src="remove.png"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <div class="eng">acclaim</div>
+                    <div class="content">
+                        <div class="kor">갈채를 보내다, 환호하다</div>
+                        <div class="material-symbols-outlined">
+                            <span id="volume"><img src="volume.png"></span>
+                            <span id="remove"><img src="remove.png"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // 단어 검색 기능
+        function filterCards(searchTerm) {
+            const cards = document.querySelectorAll('.word-card');
+
+            cards.forEach(card => {
+                const engText = card.querySelector('.eng').innerText.toLowerCase();
+                const korText = card.querySelector('.kor').innerText.toLowerCase();
+
+                if (engText.includes(searchTerm.toLowerCase()) || korText.includes(searchTerm.toLowerCase())) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            filterCards(searchTerm);
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        }
+
+
+
+        $(document).ready(function () {
+            $("#header").load("/../html/setting/settingHeader.html", function () {
+            });
+            $("#navBar").load("/../html/setting/settingNavBar.html", function () {
+            });
+        })
+    </script>
+</body>
+
+</html>

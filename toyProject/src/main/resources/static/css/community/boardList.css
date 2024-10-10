@@ -1,0 +1,109 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.list_group>div{
+    width: 95%;
+    /* background-color: violet; */
+}
+
+.list_group{
+    /* background-color: yellowgreen; */
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 60px;
+    padding-right: 60px;
+    width: 100%;
+    align-items: center;
+}
+
+#nameSelect{
+    background-color: rgba(245, 245, 245, 0.356);
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 20px;
+    color:rgb(117, 117, 117);
+    border: 1px solid rgb(192, 192, 192);
+}
+
+.list_count{
+    /* background-color: antiquewhite; */
+    font-size:15px;
+    font-weight: bold;
+    margin-bottom: 45px;
+}
+
+.list_count >span:nth-child(2){
+    font-weight: 1000;
+}
+
+.list_count >span:nth-child(2){
+    color: rgb(43, 47, 255);
+}
+
+.list_count >span:nth-child(3){
+    color: rgb(136, 136, 136);
+}
+
+.list_count >span:nth-child(4){
+    color: rgb(136, 136, 136);
+}
+
+.list_profileImg>img{
+    border: 1px solid;
+    width: 55px;
+    height: 55px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.list_like{
+    font-size: 25px;
+}
+.list_boardGroup{
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* background-color: aqua; */
+}
+.list_titleGroup{
+    background-color: rgb(255, 255, 255);
+    width: 90%;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+    border: 1px solid rgb(209, 209, 209);
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(136, 136, 136);
+    padding-left: 20px;
+    cursor: pointer;
+    box-shadow: 9px 9px 15px rgba(233, 235, 255, 0.705);
+}
+
+.list_like{
+    font-size: 30px;
+    cursor: pointer;
+}
+
+
+
+/* ******************************************* */
+.pagingGroup>a , .pagingGroup>span{
+    cursor: pointer;
+    margin-right: 20px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.pagingGroup{
+    /* background-color: yellowgreen; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}

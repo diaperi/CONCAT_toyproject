@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/css/settingHome.css">
+    <script src="https://kit.fontawesome.com/a06d7ad725.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="navBarBody">
+        <div id="navBar"></div>
+        <div class="settingHome_content">
+            <div class="settingHome_img1">
+                <img src="person3.JPG">
+            </div>
+            <br>
+            <span class="settingHome_s1">사람 3님, 환영합니다</span><br>
+            <div>
+                <span class="settingHome_s2">정보, 개인 정보 보호 및 보안 설정을 관리하여 나에게 맞는 방식으로 LANGUP을 사용할 수 있습니다.</span>
+                <span class="settingHome_highlight"> <a href="">&nbsp;자세히 알아보기</a></span>
+                <span class="settingHome_i"><i class="fa-solid fa-question"></i></span>
+            </div>
+            <img src="/html/setting/setting.JPG" alt="" class="settingHome_img2">
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#header").load("/../html/setting/settingHeader.html", function () {
+            });
+            $("#navBar").load("/../html/setting/settingNavBar.html", function () {
+            });
+        })
+    </script>
+</body>
+
+</html>

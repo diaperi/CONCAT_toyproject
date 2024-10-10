@@ -1,0 +1,49 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+h1.text {
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    position: absolute; /* 절대 위치 지정 */
+    left: 50%; /* 왼쪽 위치를 부모 요소의 50%로 설정 */
+    transform: translateX(-50%); /* 수평으로 -50% 이동하여 정확히 가운데로 위치 */
+    margin: 0; /* 기본 마진 제거 */
+}
+
+/* 헤더 스타일 */
+.header {
+    display: flex;
+    align-items: center;
+    /* padding: 10px; */
+    /* background-color: #ffd1d1; */
+    height: 86px;
+    justify-content: center;
+    box-shadow: 9px 7px 10px rgba(238, 238, 238, 0.801);
+    background-color: white;
+}
+
+.header_group{
+    display: flex;
+    /* background-color: aqua; */
+    width: 95%;
+    /* height: 70px; */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_boardBtn>img{
+    width: 90px;
+    /* background-color: blue; */
+    height: 90px;
+    cursor: pointer;
+}
+
+.header_contain{
+    display: flex;
+    width: 12%;
+    /* background-color: bisque; */
+    justify-content: space-between;
+}

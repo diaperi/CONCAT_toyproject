@@ -1,0 +1,239 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+.log_group{
+    background-color: rgba(236, 235, 255, 0.774);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    height: 100vh;
+}
+
+/* **************************************** */
+.log_topGroup{
+    /* background-color: yellowgreen; */
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.log_langBtn{
+    display: flex;
+    /* background-color: aqua; */
+    align-items: center;
+}
+
+.log_langBtn>div{
+    margin-right: 35px;
+}
+
+.log_select>select{
+    background-color: rgba(18, 100, 172, 0);
+    border: none;
+    width: 75px;
+    height: 30px;
+    font-size: 16px;
+    color: black;
+    cursor: pointer;
+}
+
+.log_signBtn > a{
+    font-size: 16px;
+    color: rgb(47, 0, 255);
+    /* background-color: aqua; */
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.log_signBtn > a:hover{
+    background-color: rgba(255, 255, 255, 0.603);
+    box-shadow: 2px 7px 15px rgba(193, 203, 236, 0.801);
+}
+
+.log_regisBtn > a{
+    font-size: 16px;
+    color: rgb(47, 0, 255);
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.log_regisBtn > a:hover{
+    background-color: rgba(255, 255, 255, 0.603);
+    box-shadow: 2px 7px 15px rgba(193, 203, 236, 0.801);
+}
+/* ******************************************* */
+
+.log_mainGroup{
+    display: flex;
+    /* background-color: yellowgreen; */
+    width: 88%;
+    justify-content: space-between;
+    margin-top: 80px;
+}
+
+.log_leftGroup{
+    margin-left: 30px;
+    white-space: nowrap;
+    
+}
+
+.log_leftGroup1>span:nth-child(1){
+    font-size: 30px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.log_leftGroup1>span:nth-child(3){
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.log_leftGroup2{
+    /* background-color: aliceblue; */
+    margin-top: 30px;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 25px;
+    margin-bottom: 25px;
+}
+
+.log_leftGroup3>a{
+    color: rgb(77, 36, 255);
+    font-weight: bold;
+}
+
+.log_imageContainer{
+    /* background-color: aliceblue; */
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+
+/* ******************************************* */
+.log_rightGroup{
+    /* background-color: wheat; */
+    width: 30%;
+    margin-top: 65px;
+    margin-right: 20px;
+}
+
+.log_rightGroup>p{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.log_rightGroup>form{
+    /* background-color: thistle; */
+    margin-top: 30px;
+}
+
+.log_rightGroup>form>div{
+    margin-bottom: 25px;
+}
+
+.log_email{
+    width: 95%;
+    border: 1px solid rgb(226, 226, 226);
+    height: 50px;
+    border-radius: 8px;
+    box-shadow: 2px 7px 15px rgba(193, 203, 236, 0.801);
+    padding-left: 10px;
+    min-width: 440px;
+}
+
+.log_email::placeholder{
+    color: rgb(138, 138, 138);
+}
+
+.log_email:focus{
+    outline: none;
+}
+
+.log_password{
+    width: 95%;
+    border: 1px solid rgb(226, 226, 226);
+    height: 50px;
+    border-radius: 5px;
+    box-shadow: 2px 7px 15px rgba(193, 203, 236, 0.801);
+    padding-left: 10px;
+    min-width: 440px;
+}
+
+.log_password:focus{
+    outline: none;
+}
+
+.log_password::placeholder{
+    color: rgb(138, 138, 138);
+}
+
+.log_forgotPw{
+    /* background-color: whitesmoke; */
+    display: flex;
+    justify-content: flex-end;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.log_forgotPw>a{
+    color: rgb(126, 126, 126);
+}
+
+
+.log_buttonContainer{
+    display: flex;
+    /* background-color: aquamarine; */
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.log_loginBtn>button{
+    width: 230px;
+    border: none;
+    background-color: rgb(74, 33, 255);
+    color: white;
+    height: 50px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+
+/* ******************************* */
+.log_sns{
+    display: flex;
+    /* background-color: violet; */
+    margin-top: 50px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.log_sns>a>img{
+    width: 30px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 20px;
+    box-shadow: 2px 7px 20px rgba(205, 213, 255, 0.801);
+}
+
+.log_sns>a:nth-child(2)>img{
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
